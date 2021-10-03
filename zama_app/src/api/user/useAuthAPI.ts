@@ -8,9 +8,9 @@ import {TermTypes} from '@/components/Auth/TermsAgree';
 export default function useAuthAPI() {
   const {getHandler, postHandler, deleteHandler, putHandler} = useAPI();
 
-  const emailLoginAPI = async (email: string, password: string) => {
+  const loginByEmailAPI = async (email: string, password: string) => {
     try {
-      const res: any = await postHandler('/auth/email/login', {
+      const res: any = await postHandler('/auth/login/email', {
         email,
         password,
       });
@@ -22,13 +22,12 @@ export default function useAuthAPI() {
     }
   };
 
-  const postKakaoLoginAPI = async (kakaoId: number, terms?: boolean) => {
+  const loginByKakaoAPI = async (kakaoId: number, terms?: boolean) => {
     try {
-      const res: any = await postHandler('/auth/kakao/login', {
+      const res: any = await postHandler('/auth/login/kakao', {
         kakaoId,
         terms,
       });
-      console.log(res);
       return res.data;
     } catch (error: any) {
       const errorMessage = error?.response?.data?.errorMessage;
@@ -37,14 +36,14 @@ export default function useAuthAPI() {
     }
   };
 
-  const emailSignUpLoginAPI = async (
+  const signUpByEmailAPI = async (
     name: string,
     email: string,
     password: string,
     term: TermTypes[],
   ) => {
     try {
-      const res: any = await postHandler('/auth/email/signup', {
+      const res: any = await postHandler('/auth/signup/email', {
         name,
         email,
         password,
@@ -69,7 +68,7 @@ export default function useAuthAPI() {
     }
   };
 
-  const confirmCertNumAPI = async (email: string, certNum: number) => {
+  const checkCertNumAPI = async (email: string, certNum: number) => {
     try {
       const res: any = await getHandler('/auth/email/certnum', {
         email,
@@ -95,7 +94,7 @@ export default function useAuthAPI() {
     }
   };
 
-  const saveSignUpServeyAPI = async (
+  const createSignUpServeyAPI = async (
     userId: number,
     serveyResult: string[],
   ) => {
@@ -113,12 +112,12 @@ export default function useAuthAPI() {
   };
 
   return {
-    emailLoginAPI,
-    postKakaoLoginAPI,
-    emailSignUpLoginAPI,
+    loginByEmailAPI,
+    loginByKakaoAPI,
+    signUpByEmailAPI,
     sendCertNumByEmailAPI,
-    confirmCertNumAPI,
+    checkCertNumAPI,
     getSignUpServeyListAPI,
-    saveSignUpServeyAPI,
+    createSignUpServeyAPI,
   };
 }

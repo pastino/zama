@@ -25,13 +25,13 @@ const EmailLogin = ({navigation: {goBack}}) => {
 
   const dispatch = useDispatch();
 
-  const {emailLoginAPI} = useAuthAPI();
+  const {loginByEmailAPI} = useAuthAPI();
 
   const handleLogin = async () => {
     Keyboard.dismiss();
     try {
       setLoading(true);
-      const result = await emailLoginAPI(email, password);
+      const result = await loginByEmailAPI(email, password);
       if (result.success) {
         dispatch(logIn({user: result.user, token: result.token}));
       } else {

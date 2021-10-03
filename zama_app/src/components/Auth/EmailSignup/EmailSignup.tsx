@@ -39,7 +39,7 @@ const EmailSignup = ({navigation: {goBack, navigate}}) => {
   const {control, register, setValue, watch, handleSubmit, errors} = useForm();
   const {name, email, certNum, password, passwordConfirm} = watch();
 
-  const {emailSignUpLoginAPI} = useAuthAPI();
+  const {signUpByEmailAPI} = useAuthAPI();
   const dispatch = useDispatch();
 
   const handleSignUp = async () => {
@@ -65,7 +65,7 @@ const EmailSignup = ({navigation: {goBack, navigate}}) => {
   const handleConfirmAgreeTerms = async term => {
     setLoading(true);
     try {
-      const result = await emailSignUpLoginAPI(name, email, password, term);
+      const result = await signUpByEmailAPI(name, email, password, term);
       if (result.success) {
         dispatch(logIn({user: result.user, token: result.token}));
         dispatch(setOpenUsePurposeServey({}));

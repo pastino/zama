@@ -44,7 +44,7 @@ const SignupInput: FunctionComponent<Props> = ({
   const [isFinishedLimit, setIsFinishedLimit] = useState(false);
 
   const dispatch = useDispatch();
-  const {sendCertNumByEmailAPI, confirmCertNumAPI} = useAuthAPI();
+  const {sendCertNumByEmailAPI, checkCertNumAPI} = useAuthAPI();
   const secondsTimer: any = useRef();
 
   const setTimer = () => {
@@ -98,7 +98,7 @@ const SignupInput: FunctionComponent<Props> = ({
       return;
     }
     try {
-      const result = await confirmCertNumAPI(email, certNum);
+      const result = await checkCertNumAPI(email, certNum);
       if (result?.success) {
         setSuccessCert(true);
         dispatch(

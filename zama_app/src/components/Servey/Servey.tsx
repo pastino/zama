@@ -16,7 +16,7 @@ import {setCloseUsePurposeServey} from '@/redux/interation/interactionSlice';
 const Servey = ({navigation: {navigate}}) => {
   const [serveyList, setServeyList] = useState<any>([]);
 
-  const {getSignUpServeyListAPI, saveSignUpServeyAPI} = useAuthAPI();
+  const {getSignUpServeyListAPI, createSignUpServeyAPI} = useAuthAPI();
   const {user} = useSelector((state: State) => state.usersReducer);
 
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ const Servey = ({navigation: {navigate}}) => {
   const handleGoHome = async () => {
     const checkedList = serveyList.filter(obj => obj.check);
     if (checkedList.length > 0) {
-      await saveSignUpServeyAPI(
+      await createSignUpServeyAPI(
         Number(user?.id),
         checkedList.map(obj => obj.purpose),
       );

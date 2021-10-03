@@ -35,7 +35,7 @@ const Auth = ({navigation}) => {
   const {RNKakaoLogins} = NativeModules;
 
   const dispatch = useDispatch();
-  const {postKakaoLoginAPI} = useAuthAPI();
+  const {loginByKakaoAPI} = useAuthAPI();
 
   const handleKakaoLogin = async () => {
     setIsLoading(true);
@@ -44,7 +44,7 @@ const Auth = ({navigation}) => {
       const {id}: KakaoProfile = await RNKakaoLogins.getProfile();
       if (!id) throw new Error('아이디가 존재하지 않습니다.');
       setKakaoId(id);
-      const {success, message, token, user} = await postKakaoLoginAPI(id);
+      const {success, message, token, user} = await loginByKakaoAPI(id);
       if (!success) {
         dispatch(onToastMessage({toastMessageText: message}));
       }
@@ -59,11 +59,10 @@ const Auth = ({navigation}) => {
 
   const handleConfirmAgreeTerms = async terms => {
     try {
-      const {success, token, user, message} = await postKakaoLoginAPI(
+      const {success, token, user, message} = await loginByKakaoAPI(
         kakaoId,
         terms,
       );
-      console.log(user);
       if (success) {
         dispatch(logIn({token, user}));
         dispatch(setOpenUsePurposeServey({}));
