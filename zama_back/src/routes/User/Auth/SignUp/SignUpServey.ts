@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { SolutionAnalysis } from "../../../entities/SolutionAnalysis";
+import { SolutionAnalysis } from "../../../../entities/SolutionAnalysis";
 
 const SignUpServey = async (req: Request, res: Response) => {
   try {

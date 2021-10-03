@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { CertEmail } from "../../../entities/CertEmail";
-import { generateSecret, sendSecretMail } from "../../../utils";
+import { CertEmail } from "../../../../entities/CertEmail";
+import { generateSecret, sendSecretMail } from "../../../../utils";
 
 const ConfirmCertNum = async (req: Request, res: Response) => {
   try {

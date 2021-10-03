@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { User } from "../../../entities/User";
-import { generateToken } from "../../../utils";
+import { User } from "../../../../entities/User";
+import { generateToken } from "../../../../utils";
 
-const KakaoLogin = async (req: Request, res: Response) => {
+const LoginByKakao = async (req: Request, res: Response) => {
   try {
     const kakaoId = req.body.id;
     const terms = req.body.terms;
@@ -46,4 +46,4 @@ const KakaoLogin = async (req: Request, res: Response) => {
   }
 };
 
-export default KakaoLogin;
+export default LoginByKakao;

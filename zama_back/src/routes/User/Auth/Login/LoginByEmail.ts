@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { User } from "../../../entities/User";
-import { generateToken } from "../../../utils";
+import { User } from "../../../../entities/User";
+import { generateToken } from "../../../../utils";
 import bcrypt from "bcryptjs";
 
-const EmailLogin = async (req: Request, res: Response) => {
+const LoginByEmail = async (req: Request, res: Response) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
@@ -48,4 +48,4 @@ const EmailLogin = async (req: Request, res: Response) => {
   }
 };
 
-export default EmailLogin;
+export default LoginByEmail;
