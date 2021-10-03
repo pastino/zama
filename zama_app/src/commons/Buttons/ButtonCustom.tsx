@@ -6,13 +6,17 @@ import ButtonComp from './ButtonContainer';
 import styled from 'styled-components/native';
 import {SCREEN_WIDTH} from '@/styles/sizes';
 import * as mixins from '@styles/mixins';
+import {MIDDLE_GRAY} from '@/styles/colors';
 
 interface Props {
   handleClick: () => void;
-  text: string;
+  text: string | any;
   backgroundColor: string;
   iconPath?: any;
   children?: ReactNode;
+  containerStyles?: {};
+  textStyles?: {};
+  disabled?: boolean;
 }
 
 const ButtonCustom: FunctionComponent<Props> = ({
@@ -21,15 +25,19 @@ const ButtonCustom: FunctionComponent<Props> = ({
   iconPath,
   backgroundColor,
   children,
+  containerStyles,
+  textStyles,
+  disabled = false,
 }) => {
   const BUTTON_WIDTH = SCREEN_WIDTH * 0.9;
   const ICON_SIZE = 25;
 
   return (
-    <ButtonComp onPress={handleClick} isCustom={true}>
+    <ButtonComp
+      onPress={() => (!disabled ? handleClick() : null)}
+      isCustom={true}>
       <ButtonContainer
-        style={[mixins.deepShadow]}
-        backgroundColor={backgroundColor}
+        style={[mixins.deepShadow, containerStyles]}
         width={BUTTON_WIDTH}>
         <ButtonIconWrapper width={BUTTON_WIDTH}>
           {children ? (
@@ -38,7 +46,7 @@ const ButtonCustom: FunctionComponent<Props> = ({
             <ImageBasic path={iconPath} width={ICON_SIZE} height={ICON_SIZE} />
           )}
         </ButtonIconWrapper>
-        <ButtonText>{text}</ButtonText>
+        <ButtonText style={textStyles}>{text}</ButtonText>
       </ButtonContainer>
     </ButtonComp>
   );
@@ -46,13 +54,11 @@ const ButtonCustom: FunctionComponent<Props> = ({
 
 interface ButtonContainerProps {
   width: number;
-  backgroundColor: string;
 }
 
 const ButtonContainer = styled.View<ButtonContainerProps>`
   width: ${props => props.width}px;
   height: ${props => props.width * 0.16}px;
-  background-color: ${props => props.backgroundColor};
   border-radius: 10px;
   flex-direction: row;
   align-items: center;

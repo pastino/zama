@@ -4,7 +4,7 @@ import ImageBasic from '../Images/ImageBasic';
 import ButtonComp from './ButtonContainer';
 //styles
 import styled from 'styled-components/native';
-import {SCREEN_WIDTH} from '@/styles/sizes';
+import {LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
 import * as mixins from '@styles/mixins';
 
 interface Props {
@@ -13,6 +13,7 @@ interface Props {
   backgroundColor: string;
   iconPath?: any;
   children?: ReactNode;
+  [key: string]: any;
 }
 
 const LoginButton: FunctionComponent<Props> = ({
@@ -21,14 +22,16 @@ const LoginButton: FunctionComponent<Props> = ({
   iconPath,
   backgroundColor,
   children,
+  style,
+  textStyle,
 }) => {
-  const BUTTON_WIDTH = SCREEN_WIDTH * 0.9;
+  const BUTTON_WIDTH = LOGIN_BUTTON_WIDTH;
   const ICON_SIZE = 25;
 
   return (
-    <ButtonComp onPress={handleClick} isCustom={true}>
+    <ButtonComp onPress={() => handleClick()} isCustom={true}>
       <ButtonContainer
-        style={[mixins.deepShadow]}
+        style={[mixins.deepShadow, style]}
         backgroundColor={backgroundColor}
         width={BUTTON_WIDTH}>
         <ButtonIconWrapper width={BUTTON_WIDTH}>
@@ -38,7 +41,7 @@ const LoginButton: FunctionComponent<Props> = ({
             <ImageBasic path={iconPath} width={ICON_SIZE} height={ICON_SIZE} />
           )}
         </ButtonIconWrapper>
-        <ButtonText>{text}</ButtonText>
+        <ButtonText style={textStyle}>{text}</ButtonText>
       </ButtonContainer>
     </ButtonComp>
   );
@@ -51,9 +54,9 @@ interface ButtonContainerProps {
 
 const ButtonContainer = styled.View<ButtonContainerProps>`
   width: ${props => props.width}px;
-  height: ${props => props.width * 0.16}px;
+  height: ${props => props.width * 0.15}px;
   background-color: ${props => props.backgroundColor};
-  border-radius: 10px;
+  border-radius: ${props => (props.width * 0.15) / 2}px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -70,8 +73,8 @@ const ButtonIconWrapper = styled.View<ButtonIconWrapperProps>`
 `;
 
 const ButtonText = styled.Text`
-  font-weight: 700;
-  font-size: 17px;
+  font-weight: 400;
+  font-size: 15px;
 `;
 
 export default LoginButton;

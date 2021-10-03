@@ -8,7 +8,7 @@ import {
 
 export const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export const HEADER_HEIGHT = Platform.OS === 'ios' && isIphoneX() ? 120 : 70;
+export const HEADER_HEIGHT = 70;
 
 export const SCREEN_HEIGHT =
   Platform.OS === 'ios' && isIphoneX()
@@ -38,3 +38,15 @@ export const TAP_SCREEN_HEIGHT =
   Platform.OS === 'ios' && isIphoneX()
     ? Dimensions.get('window').height - BOTTOM_TAB_HEIGHT
     : Dimensions.get('window').height - BOTTOM_TAB_HEIGHT;
+
+//텍스트 인풋 높이
+export const INPUT_HEIGHT = 48;
+
+// 버튼 높이
+export const BUTTON_HEIGHT = 48;
+
+//로그인 버튼 넓이
+export const LOGIN_BUTTON_WIDTH = SCREEN_WIDTH * 0.8;
+
+//양쪽 사이트 패딩
+export const SIDE_PADDING = 20;

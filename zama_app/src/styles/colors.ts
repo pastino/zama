@@ -1,7 +1,14 @@
+export const PRIMARY = '#222';
 export const WHITE = '#ffffff';
+export const TURQUOISE = '#003756';
 export const PASTEL = '#454eae';
+export const BLUE = '#00abfb';
 export const YELLOW = '#fee600';
-export const RIGTH_GRAY = '#e0e0e0';
-export const MIDDLE_GRAY = '#b3b3b3';
-export const DARK_GRAY = '#686868';
+export const RIGTH_GRAY = '#999999';
+export const MIDDLE_GRAY = '#555555';
+export const DARK_GRAY = '#121212';
+export const DIVIDER_COLOR = '#EAEAEA';
+export const ORANGE = '#fd8e00';
 export const BLUE_GREEN = '#011c35';
+export const RED = '#f72e2e';
+export const FONT = '#222';

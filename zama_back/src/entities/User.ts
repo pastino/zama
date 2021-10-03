@@ -8,12 +8,21 @@ import {
 } from "typeorm";
 import { SleepAudio } from "./SleepAudio";
 
-export type LoginMethod = "KAKAO" | "GOOGLE" | "NAVER" | "APPLE" | "PHONE";
+export type LoginMethod =
+  | "EMAIL"
+  | "KAKAO"
+  | "GOOGLE"
+  | "NAVER"
+  | "APPLE"
+  | "PHONE";
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ nullable: true })
+  name: string;
 
   @Column({ nullable: true })
   phoneNum: string;
@@ -40,17 +49,23 @@ export class User {
   appleId: string;
 
   @Column({ nullable: true })
+  serviceTermAgreement: boolean;
+
+  @Column({ nullable: true })
+  privacyPolicyAgreement: boolean;
+
+  @Column({ nullable: true })
+  marketingAgreement: boolean;
+
+  @Column({ nullable: true })
   avatar: string;
 
   @OneToOne((type) => SleepAudio, (sleepAudio) => sleepAudio.user)
   sleepAudio: SleepAudio;
 
-  @Column({ nullable: true })
-  nickname: string;
-
   @Column({
     type: "enum",
-    enum: ["KAKAO", "GOOGLE", "NAVER", "APPLE", "PHONE"],
+    enum: ["EMAIL", "KAKAO", "GOOGLE", "NAVER", "APPLE", "PHONE"],
   })
   loginMethod: LoginMethod | null | undefined;
 

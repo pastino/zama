@@ -1,21 +1,24 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-//redux
-import {useSelector} from 'react-redux';
-import {State} from '@/redux/rootReducer';
+import {navigationRef} from './RootNavigation';
 import MainStack from './MainStack';
 import AuthStack from './AuthStack';
-import {SafeAreaView} from 'react-native';
+// commons
+import ToastMessage from '@/commons/ToastMessage';
+// redux
+import {useSelector} from 'react-redux';
+import {State} from '@/redux/rootReducer';
 
 const Gate = () => {
   const {token} = useSelector((state: State) => state.usersReducer);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <NavigationContainer>
+    <>
+      <NavigationContainer ref={navigationRef}>
         {token ? <MainStack /> : <AuthStack />}
       </NavigationContainer>
-    </SafeAreaView>
+      <ToastMessage />
+    </>
   );
 };
 

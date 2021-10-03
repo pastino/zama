@@ -1,7 +1,7 @@
 import {PASTEL} from '@/styles/colors';
 import {SCREEN_WIDTH} from '@/styles/sizes';
 import React, {FunctionComponent} from 'react';
-import {Text, Touchable, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 interface Props {

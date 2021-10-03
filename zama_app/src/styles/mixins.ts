@@ -3,12 +3,16 @@ import {Platform} from 'react-native';
 export const shadow = {
   ...Platform.select({
     ios: {
-      shadowColor: '#333',
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.1,
-      shadowRadius: 4,
+      backgroundColor: '#ffffff',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
     },
-    android: {elevation: 1},
+    android: {elevation: 5},
   }),
 };
 

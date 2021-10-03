@@ -2,17 +2,20 @@ import {createSlice} from '@reduxjs/toolkit';
 
 export interface UserState {
   id: number;
-  // loginMethod: string;
+  name: string;
+  loginMethod: string | null;
+  email: string | null;
   kakaoId: string | null;
-  // naverId: string | null;
-  // password: string | null;
-  // phoneNum: string | null;
-  // appleId: string | null;
-  // googleId: string | null;
-  // avatar: string | null;
-  // nickname: string;
-  // updateAt: string;
-  // createAt: string;
+  naverId: string | null;
+  phoneNum: string | null;
+  appleId: string | null;
+  googleId: string | null;
+  avatar: string | null;
+  birth: string | null;
+  joinStatus: number | null;
+  sleepAudio: any;
+  updateAt: string;
+  createAt: string;
 }
 
 export interface MyState {
@@ -23,8 +26,8 @@ export interface MyState {
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    token: null,
-    user: null,
+    token: '',
+    user: {},
   } as MyState,
   reducers: {
     logIn(state, action) {

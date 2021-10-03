@@ -1,81 +1,150 @@
 import React, {useState} from 'react';
-import {NativeModules} from 'react-native';
-//redux
+import {Image, NativeModules} from 'react-native';
+// redux
 import {logIn} from '@/redux/user/userSlice';
 import {useDispatch} from 'react-redux';
-//types
-import {KakaoProfile} from './types';
-//styles
-import {RIGTH_GRAY, YELLOW} from '@/styles/colors';
-import styled from 'styled-components/native';
+// commons
 import LoginButton from '@/commons/Buttons/LoginButton';
+import HorizontalSmallDivider from '@/commons/Divider/HorizontalSmallDivider';
+// types
+import {KakaoProfile} from './types';
+import {
+  onToastMessage,
+  setOpenUsePurposeServey,
+} from '@/redux/interation/interactionSlice';
+// apis
+import useAuthAPI from '@/api/user/useAuthAPI';
+// styles
+import {MIDDLE_GRAY, YELLOW} from '@/styles/colors';
+import {SCREEN_WIDTH} from '@styles/sizes';
+import styled from 'styled-components/native';
 
-const Auth = () => {
+import TermsAgree from './TermsAgree';
+
+const Auth = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [kakaoId, setKakaoId] = useState(0);
+  const [agreeTermModal, setAgreeTermModal] = useState(false);
   const KAKAO_BUTTON_INFO = {
     buttonText: '카카오로 로그인하기',
     kakaoIcon: require('@/assets/images/kakaoLogo.png'),
     backColor: YELLOW,
   };
-  const ANOTHER_LOGIN_TEXT = '다른 방법으로 로그인하기';
 
   const {buttonText, kakaoIcon, backColor} = KAKAO_BUTTON_INFO;
   const {RNKakaoLogins} = NativeModules;
 
   const dispatch = useDispatch();
+  const {postKakaoLoginAPI} = useAuthAPI();
 
   const handleKakaoLogin = async () => {
     setIsLoading(true);
     try {
       await RNKakaoLogins.login();
       const {id}: KakaoProfile = await RNKakaoLogins.getProfile();
-      // if (!id) throw new Error('아이디가 존재하지 않습니다.');
-      // const {token, user} = await postKakaoLogin(id);
-      const token = 'asdlfkjasoidfu90123';
-      const user = {id: 12312, kakaoId: id};
-      dispatch(logIn({token, user}));
+      if (!id) throw new Error('아이디가 존재하지 않습니다.');
+      setKakaoId(id);
+      const {success, message, token, user} = await postKakaoLoginAPI(id);
+      if (!success) {
+        dispatch(onToastMessage({toastMessageText: message}));
+      }
+      if (!user) {
+        setAgreeTermModal(true);
+      }
     } catch (e) {
       setIsLoading(false);
       console.log(e);
     }
   };
 
+  const handleConfirmAgreeTerms = async terms => {
+    try {
+      const {success, token, user, message} = await postKakaoLoginAPI(
+        kakaoId,
+        terms,
+      );
+      console.log(user);
+      if (success) {
+        dispatch(logIn({token, user}));
+        dispatch(setOpenUsePurposeServey({}));
+      } else {
+        dispatch(onToastMessage({toastMessageText: message}));
+      }
+    } catch (e) {
+      console.log();
+    }
+  };
+
   return (
     <ScreenWrapper>
-      <LoginButton
-        handleClick={handleKakaoLogin}
-        text={buttonText}
-        iconPath={kakaoIcon}
-        backgroundColor={backColor}
+      <Logo>
+        <Image
+          source={require('@assets/images/logo/text_zama.png')}
+          resizeMode={'contain'}
+          style={{width: SCREEN_WIDTH}}
+        />
+        <Image
+          source={require('@assets/images/logo/text_kids.png')}
+          resizeMode={'contain'}
+          style={{width: SCREEN_WIDTH, marginTop: 13}}
+        />
+      </Logo>
+      <LoginFooter>
+        <LoginButton
+          handleClick={handleKakaoLogin}
+          text={buttonText}
+          iconPath={kakaoIcon}
+          backgroundColor={backColor}
+          style={{marginBottom: 10}}
+        />
+        <EmailLoginWrapper>
+          <TextTouchable onPress={() => navigation.navigate('EmailLogin')}>
+            <TextInput>이메일로 로그인하기</TextInput>
+          </TextTouchable>
+          <HorizontalSmallDivider color={MIDDLE_GRAY} />
+          <TextTouchable onPress={() => navigation.navigate('EmailSignup')}>
+            <TextInput>이메일로 가입하기</TextInput>
+          </TextTouchable>
+        </EmailLoginWrapper>
+      </LoginFooter>
+      <TermsAgree
+        visible={agreeTermModal}
+        setVisible={setAgreeTermModal}
+        handlePressBtn={handleConfirmAgreeTerms}
       />
-      <TextTouchable onPress={() => setIsModalVisible(!isModalVisible)}>
-        <TextInput>{ANOTHER_LOGIN_TEXT}</TextInput>
-      </TextTouchable>
     </ScreenWrapper>
   );
 };
 
-const ScreenWrapper = styled.View`
+const ScreenWrapper = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
 `;
 
-const SafeAreaWrapper = styled.SafeAreaView`
+const Logo = styled.View`
   flex: 1;
+  height: auto;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-end;
+  margin-bottom: 10px;
+`;
+
+const LoginFooter = styled.View`
+  margin-bottom: 60px;
+`;
+
+const EmailLoginWrapper = styled.View`
+  margin-top: 7px;
+  justify-content: center;
+  flex-direction: row;
 `;
 
 const TextTouchable = styled.TouchableNativeFeedback``;
 
 const TextInput = styled.Text`
-  margin: 20px 0px 30px 0;
-  color: ${RIGTH_GRAY};
-  text-decoration: underline ${RIGTH_GRAY};
+  color: ${MIDDLE_GRAY};
 `;
 
 export default Auth;
