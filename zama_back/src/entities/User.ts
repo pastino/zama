@@ -2,9 +2,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
+  OneToMany,
 } from "typeorm";
 import { SleepAudio } from "./SleepAudio";
 
@@ -60,14 +61,19 @@ export class User {
   @Column({ nullable: true })
   avatar: string;
 
-  @OneToOne((type) => SleepAudio, (sleepAudio) => sleepAudio.user)
-  sleepAudio: SleepAudio;
-
   @Column({
     type: "enum",
     enum: ["EMAIL", "KAKAO", "GOOGLE", "NAVER", "APPLE", "PHONE"],
   })
   loginMethod: LoginMethod | null | undefined;
+
+  @OneToMany((type) => SleepAudio, (sleepAudios) => sleepAudios.creator)
+  makedAudios: SleepAudio[];
+
+  @ManyToMany((type) => SleepAudio, (sleepAudios) => sleepAudios.id, {
+    cascade: true,
+  })
+  sleepAudios: SleepAudio[];
 
   @CreateDateColumn()
   createAt: Date;

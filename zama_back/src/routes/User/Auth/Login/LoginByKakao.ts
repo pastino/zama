@@ -5,7 +5,7 @@ import { generateToken } from "../../../../utils";
 
 const LoginByKakao = async (req: Request, res: Response) => {
   try {
-    const kakaoId = req.body.id;
+    const kakaoId = req.body.kakaoId;
     const terms = req.body.terms;
 
     const userRepository = getRepository(User);
@@ -25,8 +25,9 @@ const LoginByKakao = async (req: Request, res: Response) => {
 
     const createUser = await userRepository.save({
       name: "테스트",
-      email: "test@naver.com",
+      email: "joon5006@naver.com",
       loginMethod: "KAKAO",
+      kakaoId,
       serviceTermAgreement: terms.filter(
         (obj: any) => obj.title === "서비스 이용약관"
       ).check,

@@ -44,3 +44,9 @@ export const sendSecretMail = (secret: number, adress: string) => {
   };
   return sendMail(email);
 };
+
+export const audioClassifier = (data: any) => {
+  console.log(data);
+
+  return data;
+};

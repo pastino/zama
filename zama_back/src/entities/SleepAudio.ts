@@ -4,10 +4,16 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
-  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  JoinTable,
 } from "typeorm";
+import { Category } from "./Category";
+import { Division, DivisionEnum } from "./Types";
 import { User } from "./User";
+
+// export const DivisionEnum = ["Song", "Story", "ASMR"];
+// export type category =
 
 @Entity()
 export class SleepAudio {
@@ -20,8 +26,15 @@ export class SleepAudio {
   @Column()
   time: number;
 
-  @Column()
-  category: string;
+  @Column({
+    type: "enum",
+    enum: DivisionEnum,
+  })
+  division: Division | null | undefined;
+
+  @ManyToMany(() => Category, (category) => category.sleepAudios)
+  @JoinTable()
+  categories: Category[];
 
   @Column()
   thumbnail: string;
@@ -32,9 +45,13 @@ export class SleepAudio {
   @Column("boolean", { default: true })
   recoFlag: boolean = true;
 
-  @OneToOne((type) => User)
-  @JoinColumn()
-  user: User;
+  @ManyToOne((type) => User, (user) => user.sleepAudios)
+  creator: User;
+
+  @ManyToMany((type) => User, (users) => users.id, {
+    cascade: true,
+  })
+  users: User[];
 
   @CreateDateColumn()
   createAt: Date;

@@ -13,7 +13,7 @@ import Users from "./routes/User/Users";
 import CreateSleepAudio from "./routes/SleepAudio/CreateSleepAudio";
 import LoginByKakao from "./routes/User/Auth/Login/LoginByKakao";
 import SendCertNumByEmail from "./routes/User/Auth/SignUp/SendCertNumByEmail";
-import GetRecoSleepAudio from "./routes/SleepAudio/GetRecoSleepAudio";
+import GetHomeAudio from "./routes/SleepAudio/GetHomeAudio";
 import GetWhiteNoise from "./routes/WhiteNoise/GetWhiteNoise";
 import ConfirmCertNum from "./routes/User/Auth/SignUp/ConfirmCertNum";
 import SignUpServey from "./routes/User/Auth/SignUp/SignUpServey";
@@ -47,7 +47,7 @@ app.get("/auth/servey", GetSignUpServeyList);
 app.post("/auth/login/email", LoginByEmail);
 
 //sleep
-app.get("/sleep/reco", GetRecoSleepAudio);
+app.get("/home/contents", GetHomeAudio);
 app.post("/sleep", uploadMiddleware, CreateSleepAudio);
 
 //whiteNoise
