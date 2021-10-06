@@ -5,10 +5,12 @@ import usersReducer, {MyState} from './user/userSlice';
 import interactionReducer, {
   InteractionState,
 } from './interation/interactionSlice';
+import audioReducer, {HomeContentsState} from './audio/audioSlice';
 
 export interface State {
   usersReducer: MyState;
   interactionReducer: InteractionState;
+  audioReducer: HomeContentsState;
 }
 
 const persistConfig = {
@@ -20,6 +22,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   usersReducer,
+  audioReducer,
   interactionReducer,
 });
 

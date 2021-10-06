@@ -45,12 +45,17 @@ const Auth = ({navigation}) => {
       if (!id) throw new Error('아이디가 존재하지 않습니다.');
       setKakaoId(id);
       const {success, message, token, user} = await loginByKakaoAPI(id);
+      console.log(success, message, token, user);
       if (!success) {
         dispatch(onToastMessage({toastMessageText: message}));
       }
       if (!user) {
         setAgreeTermModal(true);
       }
+      if (success && user) {
+        dispatch(logIn({token, user}));
+      }
+      dispatch(logIn({token, user}));
     } catch (e) {
       setIsLoading(false);
       console.log(e);

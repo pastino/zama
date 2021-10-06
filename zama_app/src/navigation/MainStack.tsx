@@ -4,24 +4,45 @@ import {Text, View} from 'react-native';
 import TabNavigation from './TabNavigation';
 import {createStackNavigator} from '@react-navigation/stack';
 import {navigate} from './RootNavigation';
+// components
+import Servey from '@/components/Servey';
+// apis
+import useContentAPI from '@/api/content/useContentAPI';
+// redux
+import {useDispatch, useSelector} from 'react-redux';
+import {State} from '@/redux/rootReducer';
+import {setHomeContents} from '@/redux/audio/audioSlice';
 // styles
 import {WHITE} from '@/styles/colors';
-import Servey from '@/components/Servey';
-import {useSelector} from 'react-redux';
-import {State} from '@/redux/rootReducer';
 
 const MainStack = () => {
-  const [loading, setLoading] = useState(true);
   const [networkError, setNetworkError] = useState<boolean | null>(null);
+
+  const {openUsePurposeServey} = useSelector(
+    (state: State) => state.interactionReducer,
+  );
+  const {getHomeContentsAPI} = useContentAPI();
+
+  const MainStack = createStackNavigator();
+  const dispatch = useDispatch();
 
   const preLoading = async () => {
     try {
-      setLoading(false);
+      const {success, recoAudios, totalAudios} = await getHomeContentsAPI();
+      if (success) {
+        dispatch(setHomeContents({recoAudios, totalAudios}));
+      }
     } catch (e) {
       console.log(e);
       setNetworkError(true);
     }
   };
+
+  useEffect(() => {
+    if (openUsePurposeServey) {
+      navigate('Servey', null);
+    }
+  }, [openUsePurposeServey]);
 
   useEffect(() => {
     preLoading();
@@ -32,18 +53,6 @@ const MainStack = () => {
       backgroundColor: WHITE,
     },
   };
-
-  const MainStack = createStackNavigator();
-
-  const {openUsePurposeServey} = useSelector(
-    (state: State) => state.interactionReducer,
-  );
-
-  useEffect(() => {
-    if (openUsePurposeServey) {
-      navigate('Servey', null);
-    }
-  }, [openUsePurposeServey]);
 
   if (networkError) {
     return (
