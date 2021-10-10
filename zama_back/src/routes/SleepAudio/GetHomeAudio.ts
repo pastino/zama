@@ -3,7 +3,6 @@ import { getRepository, In } from "typeorm";
 import { Category } from "../../entities/Category";
 import { SleepAudio } from "../../entities/SleepAudio";
 import { DivisionEnum } from "../../entities/Types";
-import { audioClassifier } from "../../utils";
 
 const GetHomeAudio = async (req: Request, res: Response) => {
   try {
@@ -47,7 +46,7 @@ const GetHomeAudio = async (req: Request, res: Response) => {
         divisionData: classifiedAudioData,
       });
     }
-    console.log(classifiedData);
+
     return res.status(200).send({
       success: true,
       recoAudios: recoData,

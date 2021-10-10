@@ -15,7 +15,19 @@ export default function useContentAPI() {
     }
   };
 
+  const getHomeContentsSubCateAPI = async () => {
+    try {
+      const res: any = await getHandler('/home/contents/v2');
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      console.log(errorMessage);
+      throw error;
+    }
+  };
+
   return {
     getHomeContentsAPI,
+    getHomeContentsSubCateAPI,
   };
 }

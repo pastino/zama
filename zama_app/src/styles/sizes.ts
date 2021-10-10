@@ -39,14 +39,19 @@ export const TAP_SCREEN_HEIGHT =
     ? Dimensions.get('window').height - BOTTOM_TAB_HEIGHT
     : Dimensions.get('window').height - BOTTOM_TAB_HEIGHT;
 
-//텍스트 인풋 높이
+// 텍스트 인풋 높이
 export const INPUT_HEIGHT = 48;
 
 // 버튼 높이
 export const BUTTON_HEIGHT = 48;
 
-//로그인 버튼 넓이
+// 로그인 버튼 넓이
 export const LOGIN_BUTTON_WIDTH = SCREEN_WIDTH * 0.8;
 
-//양쪽 사이트 패딩
+// 양쪽 사이트 패딩
 export const SIDE_PADDING = 20;
+
+// Horizon 오디오 카드 넓이
+export const HORIZON_AUDIO_CARD_WIDTH = SCREEN_WIDTH * 0.35;
+// Vertical 2Line 오디오 카드 넓이
+export const VERTI_AUDIO_CARD_WIDTH = SCREEN_WIDTH * 0.45;

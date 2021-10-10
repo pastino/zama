@@ -14,6 +14,7 @@ import CreateSleepAudio from "./routes/SleepAudio/CreateSleepAudio";
 import LoginByKakao from "./routes/User/Auth/Login/LoginByKakao";
 import SendCertNumByEmail from "./routes/User/Auth/SignUp/SendCertNumByEmail";
 import GetHomeAudio from "./routes/SleepAudio/GetHomeAudio";
+import GetHomeAudioSubCate from "./routes/SleepAudio/GetHomeAudioSubCate";
 import GetWhiteNoise from "./routes/WhiteNoise/GetWhiteNoise";
 import ConfirmCertNum from "./routes/User/Auth/SignUp/ConfirmCertNum";
 import SignUpServey from "./routes/User/Auth/SignUp/SignUpServey";
@@ -48,6 +49,8 @@ app.post("/auth/login/email", LoginByEmail);
 
 //sleep
 app.get("/home/contents", GetHomeAudio);
+app.get("/home/contents/v2", GetHomeAudioSubCate);
+
 app.post("/sleep", uploadMiddleware, CreateSleepAudio);
 
 //whiteNoise

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {createRef, useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 // navigation
 import TabNavigation from './TabNavigation';
@@ -21,16 +21,22 @@ const MainStack = () => {
   const {openUsePurposeServey} = useSelector(
     (state: State) => state.interactionReducer,
   );
-  const {getHomeContentsAPI} = useContentAPI();
+  const {getHomeContentsAPI, getHomeContentsSubCateAPI} = useContentAPI();
 
   const MainStack = createStackNavigator();
   const dispatch = useDispatch();
 
   const preLoading = async () => {
     try {
-      const {success, recoAudios, totalAudios} = await getHomeContentsAPI();
+      const {success, recoAudios, totalAudios} =
+        await getHomeContentsSubCateAPI();
       if (success) {
-        dispatch(setHomeContents({recoAudios, totalAudios}));
+        dispatch(
+          setHomeContents({
+            recoAudios,
+            totalAudios,
+          }),
+        );
       }
     } catch (e) {
       console.log(e);
