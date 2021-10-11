@@ -1,11 +1,12 @@
 import React, {FunctionComponent} from 'react';
-import {Image, View} from 'react-native';
+import {Image, TouchableWithoutFeedback, View} from 'react-native';
 // redux
 import {RecoAudiosState} from '@/redux/audio/audioSlice';
 // styles
 import {HORIZON_AUDIO_CARD_WIDTH, VERTI_AUDIO_CARD_WIDTH} from '@/styles/sizes';
 import styled from 'styled-components/native';
 import {MIDDLE_GRAY} from '@/styles/colors';
+import usePlayerHandle from '@/hooks/usePlayerHandle';
 
 type Size = 'big' | 'middle' | 'small';
 interface Props {
@@ -16,20 +17,32 @@ interface Props {
 const AudioCard: FunctionComponent<Props> = ({data, size}) => {
   const appliedSize =
     size === 'big' ? VERTI_AUDIO_CARD_WIDTH : HORIZON_AUDIO_CARD_WIDTH;
-  console.log(size);
+
+  const {id, title, time, thumbnail, file} = data;
+  console.log(data);
+
+  const {handleClickContent} = usePlayerHandle();
+
   return (
-    <View>
-      <Image
-        source={{uri: data.thumbnail}}
-        style={{
-          width: appliedSize,
-          height: appliedSize,
-          borderRadius: 10,
-        }}
-      />
-      <Title>{data.title}</Title>
-      <Creator>{data.creator.name}</Creator>
-    </View>
+    <TouchableWithoutFeedback
+      onPress={() =>
+        handleClickContent([
+          {id, title, duration: time, artwork: thumbnail, url: file},
+        ])
+      }>
+      <View>
+        <Image
+          source={{uri: data.thumbnail}}
+          style={{
+            width: appliedSize,
+            height: appliedSize,
+            borderRadius: 10,
+          }}
+        />
+        <Title>{data.title}</Title>
+        <Creator>{data.creator.name}</Creator>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

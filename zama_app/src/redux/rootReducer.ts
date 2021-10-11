@@ -6,11 +6,13 @@ import interactionReducer, {
   InteractionState,
 } from './interation/interactionSlice';
 import audioReducer, {HomeContentsState} from './audio/audioSlice';
+import playerReducer, {PlayerState} from './player/playerReducer';
 
 export interface State {
   usersReducer: MyState;
   interactionReducer: InteractionState;
   audioReducer: HomeContentsState;
+  playerReducer: PlayerState;
 }
 
 const persistConfig = {
@@ -24,6 +26,7 @@ const rootReducer = combineReducers({
   usersReducer,
   audioReducer,
   interactionReducer,
+  playerReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

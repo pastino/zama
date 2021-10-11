@@ -2,6 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 // commons
 import AudioCard from '@/commons/Cards/AudioCard';
+// styles
 import {SCREEN_WIDTH} from '@/styles/sizes';
 
 const TabView = ({data}) => {
