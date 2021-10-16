@@ -23,7 +23,7 @@ const GetHomeAudio = async (req: Request, res: Response) => {
         });
       classifiedData.push({ division, data: audio });
     }
-    console.log(classifiedData);
+
     return res.status(200).send({
       success: true,
       recoAudios: recoData,

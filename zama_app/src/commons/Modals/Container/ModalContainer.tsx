@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+
 import Modal from 'react-native-modal';
 
 interface Props {
@@ -18,30 +18,28 @@ const ModalContainer = ({
   backdropOpacity = 0.6,
 }: Props) => {
   return (
-    <SafeAreaView>
-      <Modal
-        isVisible={isVisible}
-        animationIn="bounceInUp"
-        animationOut="bounceOutDown"
-        backdropOpacity={backdropOpacity}
-        onBackdropPress={close}
-        backdropTransitionInTiming={300}
-        backdropTransitionOutTiming={300}
-        animationInTiming={300}
-        animationOutTiming={300}
-        hideModalContentWhileAnimating
-        onBackButtonPress={close}
-        useNativeDriver
-        style={[
-          {
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          style,
-        ]}>
-        {children}
-      </Modal>
-    </SafeAreaView>
+    <Modal
+      isVisible={isVisible}
+      animationIn="bounceInUp"
+      animationOut="bounceOutDown"
+      backdropOpacity={backdropOpacity}
+      onBackdropPress={close}
+      backdropTransitionInTiming={300}
+      backdropTransitionOutTiming={300}
+      animationInTiming={300}
+      animationOutTiming={300}
+      hideModalContentWhileAnimating
+      onBackButtonPress={close}
+      useNativeDriver
+      style={[
+        {
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        style,
+      ]}>
+      {children}
+    </Modal>
   );
 };
 

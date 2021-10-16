@@ -1,5 +1,4 @@
 import React, {FunctionComponent} from 'react';
-import {Text} from 'react-native';
 import PreviousBtn from '@assets/svg/previous_btn.svg';
 // styles
 import {HEADER_HEIGHT} from '@/styles/sizes';
@@ -9,7 +8,7 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 interface Props {
   previousBtn?: boolean;
   goBack?: () => void;
-  title: string;
+  title?: string;
 }
 
 const HeaderBasic: FunctionComponent<Props> = ({
@@ -26,12 +25,12 @@ const HeaderBasic: FunctionComponent<Props> = ({
           </PreviousBtnWrapper>
         </TouchableWithoutFeedback>
       )}
-      <Title>{title}</Title>
+      {title && <Title>{title}</Title>}
     </Container>
   );
 };
 
-const Container = styled.SafeAreaView`
+const Container = styled.View`
   height: ${HEADER_HEIGHT}px;
   flex-direction: row;
   align-items: center;

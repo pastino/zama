@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">zama_app</string>
+    <string name="kakao_app_key">34fa00a163b2b3e392bd4aea9b38c062</string>
 </resources>

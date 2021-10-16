@@ -7,6 +7,7 @@ export interface PlayList {
   artist?: string;
   artwork: string;
   duration: number;
+  division: string;
 }
 
 export interface PlayerState {
@@ -44,7 +45,6 @@ const playerSlice = createSlice({
       state.playingNum = action.payload.playingNum;
     },
     setPlayList(state, action) {
-      console.log(action.payload.playList);
       state.playList = action.payload.playList;
     },
     setModalVisible(state, action) {

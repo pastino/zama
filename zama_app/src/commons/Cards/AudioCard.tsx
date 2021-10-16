@@ -1,5 +1,7 @@
 import React, {FunctionComponent} from 'react';
-import {Image, TouchableWithoutFeedback, View} from 'react-native';
+import {TouchableWithoutFeedback, View} from 'react-native';
+// libs
+import FastImage from 'react-native-fast-image';
 // redux
 import {RecoAudiosState} from '@/redux/audio/audioSlice';
 // styles
@@ -18,8 +20,7 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
   const appliedSize =
     size === 'big' ? VERTI_AUDIO_CARD_WIDTH : HORIZON_AUDIO_CARD_WIDTH;
 
-  const {id, title, time, thumbnail, file} = data;
-  console.log(data);
+  const {id, title, time, thumbnail, file, division, creator} = data;
 
   const {handleClickContent} = usePlayerHandle();
 
@@ -27,17 +28,26 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
     <TouchableWithoutFeedback
       onPress={() =>
         handleClickContent([
-          {id, title, duration: time, artwork: thumbnail, url: file},
+          {
+            id,
+            title,
+            duration: time,
+            artwork: thumbnail,
+            url: file,
+            division,
+            artist: 'test',
+          },
         ])
       }>
       <View>
-        <Image
+        <FastImage
           source={{uri: data.thumbnail}}
           style={{
             width: appliedSize,
             height: appliedSize,
             borderRadius: 10,
           }}
+          resizeMode={'cover'}
         />
         <Title>{data.title}</Title>
         <Creator>{data.creator.name}</Creator>

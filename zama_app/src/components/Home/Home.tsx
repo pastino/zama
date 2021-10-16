@@ -14,22 +14,30 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 // components
 import TodayRecoAudio from './TodayRecoAudio.tsx';
+import TabView from './TabView';
 // commons
 import VerticalDivider from '@/commons/Divider/VerticalDivider';
+import {IoniconsIcons} from '@/commons/Icons/RnIcons';
 // redux
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
+import {logOut} from '@/redux/user/userSlice';
 // styles
 import {SCREEN_WIDTH} from '@/styles/sizes';
-import {DIVIDER_BORDER_COLOR, DIVIDER_COLOR, TURQUOISE} from '@/styles/colors';
-import TabView from './TabView';
+import {
+  DIVIDER_BORDER_COLOR,
+  DIVIDER_COLOR,
+  TURQUOISE,
+  WHITE,
+} from '@/styles/colors';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const ref = useRef<any>(null);
-
+  const dispatch = useDispatch();
   const onItemPress = useCallback(itemIndex => {
     ref?.current?.scrollToOffset({
       offset: itemIndex * SCREEN_WIDTH,
@@ -152,7 +160,11 @@ const Home = () => {
         source={require('@/assets/images/sample_image.png')}
         style={{width: SCREEN_WIDTH, position: 'absolute', top: 0}}
       />
-
+      <View style={{zIndex: 100, position: 'absolute', right: 30, top: 20}}>
+        <TouchableWithoutFeedback onPress={() => dispatch(logOut())}>
+          <IoniconsIcons name={'reorder-three'} size={37} color={WHITE} />
+        </TouchableWithoutFeedback>
+      </View>
       <ScrollView stickyHeaderIndices={[2]}>
         <View
           style={{

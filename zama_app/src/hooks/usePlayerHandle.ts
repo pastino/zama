@@ -1,4 +1,4 @@
-import {ToastAndroid} from 'react-native';
+import {Platform, ToastAndroid} from 'react-native';
 import {useEffect, useRef} from 'react';
 //libs
 import TrackPlayer from 'react-native-track-player';
@@ -25,6 +25,7 @@ export default function usePlayerHandle() {
 
   const handleClickContent = (playList: PlayList[]) => {
     dispatch(setPlayList({playList}));
+    handleModal();
   };
 
   const handleModal = () => {
@@ -135,7 +136,96 @@ export default function usePlayerHandle() {
     continuePlayRef.current = continuePlay;
   }, [continuePlay]);
 
+  const handleSetupPlayer = async () => {
+    await TrackPlayer.setupPlayer({});
+    if (Platform.OS === 'android') {
+      await TrackPlayer.updateOptions({
+        stopWithApp: true,
+        capabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+          TrackPlayer.CAPABILITY_SEEK_TO,
+        ],
+        compactCapabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          TrackPlayer.CAPABILITY_SEEK_TO,
+        ],
+        notificationCapabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+          TrackPlayer.CAPABILITY_SEEK_TO,
+        ],
+        // icon: require('@assets/images/logo_text.png'),
+      });
+      await TrackPlayer.addEventListener('remote-play', () => {
+        handlePlay();
+      });
+      await TrackPlayer.addEventListener('remote-pause', () => {
+        handlePause();
+      });
+      await TrackPlayer.addEventListener('remote-next', () => {
+        handleRemoteNextEvent();
+      });
+      await TrackPlayer.addEventListener('remote-previous', () => {
+        handleRemotePreveEvent();
+      });
+      // await TrackPlayer.addEventListener('remote-seek', (seek) => {
+      //   onSeek(seek.position);
+      // });
+    } else {
+      await TrackPlayer.updateOptions({
+        stopWithApp: true,
+        capabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+        ],
+        compactCapabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+        ],
+        notificationCapabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+        ],
+        // icon: require('@assets/images/logo_text.png'),
+      });
+      await TrackPlayer.addEventListener('remote-play', () => {
+        handlePlay();
+      });
+      await TrackPlayer.addEventListener('remote-pause', () => {
+        handlePause();
+      });
+      await TrackPlayer.addEventListener('remote-next', () => {
+        handleRemoteNextEvent();
+      });
+      await TrackPlayer.addEventListener('remote-previous', () => {
+        handleRemotePreveEvent();
+      });
+    }
+  };
+
+  const handleInitSetAudio = async playList => {
+    await TrackPlayer.reset();
+    await TrackPlayer.add(playList);
+    handlePlay();
+  };
+
   return {
+    handleSetupPlayer,
+    handleInitSetAudio,
     handleClickContent,
     handleModal,
     handlePlay,

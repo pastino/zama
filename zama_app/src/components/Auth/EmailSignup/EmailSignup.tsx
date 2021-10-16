@@ -19,7 +19,7 @@ import {useForm} from 'react-hook-form';
 import LoginButton from '@/commons/Buttons/LoginButton';
 import styled from 'styled-components/native';
 import {TURQUOISE, WHITE} from '@/styles/colors';
-import {LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
+import {LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
 import TermsAgree from '../TermsAgree';
 
 interface termTypes {
@@ -120,60 +120,6 @@ const EmailSignup = ({navigation: {goBack, navigate}}) => {
         setVisible={setAgreeTermModal}
         handlePressBtn={handleConfirmAgreeTerms}
       />
-      {/* <BottomModalContainer
-        isVisible={agreeTermModal}
-        close={() => setAgreeTermModal(false)}>
-        <BottomModalCard
-          buttonText="약관동의"
-          buttonDisabled={requirementCheckedStates.includes(false)}
-          onPress={handleConfirmAgreeTerms}
-          close={() => setAgreeTermModal(false)}>
-          <CheckBoxButton
-            title={'모든 약관에 동의합니다'}
-            check={allAgree}
-            handleCheck={handleAllCheck}
-          />
-          <View style={{marginTop: 12, marginBottom: 12}}>
-            <VerticalDivider width={SCREEN_WIDTH * 0.9} />
-          </View>
-          {term?.map((obj, index) => (
-            <View
-              key={obj.title}
-              style={{
-                marginTop: index !== 0 ? 7 : 0,
-                marginBottom: index === term.length - 1 ? 10 : 0,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <CheckBoxButton
-                  index={index}
-                  {...obj}
-                  handleCheck={handleCheck}
-                />
-                {obj.requirement ? (
-                  <Text style={{color: RED, fontSize: 12}}>&nbsp;(필수)</Text>
-                ) : (
-                  <Text style={{fontSize: 12}}>&nbsp;(선택)</Text>
-                )}
-              </View>
-              {obj.content && (
-                <View style={{}}>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      color: TURQUOISE,
-                      textDecorationLine: 'underline',
-                    }}>
-                    보러가기
-                  </Text>
-                </View>
-              )}
-            </View>
-          ))}
-        </BottomModalCard>
-      </BottomModalContainer> */}
     </Container>
   );
 };
