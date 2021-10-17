@@ -22,7 +22,7 @@ import GetSignUpServeyList from "./routes/User/Auth/SignUp/GetSignUpServeyList";
 import LoginByEmail from "./routes/User/Auth/Login/LoginByEmail";
 
 const app = express();
-const PORT = 5000;
+const PORT = 5002;
 
 app.use(morgan("dev"));
 app.use(express.json());

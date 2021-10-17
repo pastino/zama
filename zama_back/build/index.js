@@ -26,7 +26,7 @@ var SignUpServey_1 = __importDefault(require("./routes/User/Auth/SignUp/SignUpSe
 var GetSignUpServeyList_1 = __importDefault(require("./routes/User/Auth/SignUp/GetSignUpServeyList"));
 var LoginByEmail_1 = __importDefault(require("./routes/User/Auth/Login/LoginByEmail"));
 var app = express_1.default();
-var PORT = 5000;
+var PORT = 5002;
 app.use(morgan_1.default("dev"));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
