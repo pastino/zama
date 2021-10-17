@@ -14,7 +14,7 @@ import {transformTimes} from '@/utils/tools';
 import {useDispatch} from 'react-redux';
 import {onToastMessage} from '@/redux/interation/interactionSlice';
 // styles
-import {MIDDLE_GRAY, RIGTH_GRAY, TURQUOISE} from '@/styles/colors';
+import {MIDDLE_GRAY, RIGTH_GRAY, BLUE_GREEN} from '@/styles/colors';
 import {INPUT_HEIGHT, LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
 
 interface Props {
@@ -64,7 +64,6 @@ const SignupInput: FunctionComponent<Props> = ({
   const sendCertNumByEmail = async (email: string) => {
     try {
       clearInterval(secondsTimer.current);
-
       if (!email) {
         dispatch(
           onToastMessage({
@@ -73,12 +72,12 @@ const SignupInput: FunctionComponent<Props> = ({
         );
         return;
       }
-      await sendCertNumByEmailAPI(email);
       dispatch(
         onToastMessage({
           toastMessageText: `${email}로 인증번호가 전송되었습니다.`,
         }),
       );
+      await sendCertNumByEmailAPI(email);
       setSuccessSendCertNum(true);
       setIsFinishedLimit(false);
       setTimer();
@@ -139,7 +138,7 @@ const SignupInput: FunctionComponent<Props> = ({
                 borderRadius: LOGIN_BUTTON_WIDTH / 2,
                 textAling: 'center',
                 borderWidth: 1,
-                borderColor: TURQUOISE,
+                borderColor: BLUE_GREEN,
               }}
               labelTextStyle={{
                 fontSize: 15,
@@ -154,7 +153,7 @@ const SignupInput: FunctionComponent<Props> = ({
           rules={validator.name}
           defaultValue={''}
         />
-        <View style={{marginTop: 20}} />
+        <View style={{marginVertical: 10}} />
         <Controller
           control={control}
           render={({onChange, value}) => (
@@ -174,7 +173,7 @@ const SignupInput: FunctionComponent<Props> = ({
                   borderRadius: LOGIN_BUTTON_WIDTH / 2,
                   textAling: 'center',
                   borderWidth: 1,
-                  borderColor: TURQUOISE,
+                  borderColor: BLUE_GREEN,
                 }}
                 labelTextStyle={{
                   fontSize: 15,
@@ -200,7 +199,7 @@ const SignupInput: FunctionComponent<Props> = ({
                     containerStyles={{
                       width: SCREEN_WIDTH / 4,
                       height: INPUT_HEIGHT,
-                      backgroundColor: successCert ? MIDDLE_GRAY : TURQUOISE,
+                      backgroundColor: successCert ? MIDDLE_GRAY : BLUE_GREEN,
                     }}
                     textStyles={{color: 'white', fontSize: 12}}
                   />
@@ -214,7 +213,7 @@ const SignupInput: FunctionComponent<Props> = ({
         />
         {successSendCertNum && !successCert && (
           <>
-            <View style={{marginTop: 10}} />
+            <View style={{marginVertical: 10}} />
             <Controller
               control={control}
               render={({onChange, value}) => (
@@ -233,7 +232,7 @@ const SignupInput: FunctionComponent<Props> = ({
                       borderRadius: LOGIN_BUTTON_WIDTH / 2,
                       textAling: 'center',
                       borderWidth: 1,
-                      borderColor: TURQUOISE,
+                      borderColor: BLUE_GREEN,
                     }}
                     labelTextStyle={{
                       fontSize: 15,
@@ -265,7 +264,7 @@ const SignupInput: FunctionComponent<Props> = ({
                         containerStyles={{
                           width: SCREEN_WIDTH / 4,
                           height: INPUT_HEIGHT,
-                          backgroundColor: TURQUOISE,
+                          backgroundColor: BLUE_GREEN,
                         }}
                         textStyles={{color: 'white', fontSize: 12}}
                       />
@@ -280,7 +279,7 @@ const SignupInput: FunctionComponent<Props> = ({
           </>
         )}
 
-        <View style={{marginTop: 20}} />
+        <View style={{marginVertical: 10}} />
         <Controller
           control={control}
           render={({onChange, value}) => (
@@ -299,7 +298,7 @@ const SignupInput: FunctionComponent<Props> = ({
                 borderRadius: LOGIN_BUTTON_WIDTH / 2,
                 textAling: 'center',
                 borderWidth: 1,
-                borderColor: TURQUOISE,
+                borderColor: BLUE_GREEN,
               }}
               labelTextStyle={{
                 fontSize: 15,
@@ -314,7 +313,7 @@ const SignupInput: FunctionComponent<Props> = ({
           rules={validator.password}
           defaultValue={''}
         />
-        <View style={{marginTop: 20}} />
+        <View style={{marginVertical: 10}} />
         <Controller
           control={control}
           render={({onChange, value}) => (
@@ -333,7 +332,7 @@ const SignupInput: FunctionComponent<Props> = ({
                 borderRadius: LOGIN_BUTTON_WIDTH / 2,
                 textAling: 'center',
                 borderWidth: 1,
-                borderColor: TURQUOISE,
+                borderColor: BLUE_GREEN,
               }}
               labelTextStyle={{
                 fontSize: 15,
@@ -348,7 +347,7 @@ const SignupInput: FunctionComponent<Props> = ({
           rules={validator.password}
           defaultValue={''}
         />
-        <View style={{marginTop: 20}} />
+        <View style={{marginVertical: 10}} />
       </View>
     </View>
   );

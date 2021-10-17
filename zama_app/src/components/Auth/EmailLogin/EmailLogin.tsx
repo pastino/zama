@@ -1,23 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {Keyboard, View} from 'react-native';
+import {Keyboard, Text, View} from 'react-native';
 import {useForm} from 'react-hook-form';
 //commons
 import HeaderBasic from '@/commons/Header/HeaderBasic';
 import KeyboardAvoidingView from '@/commons/KeyboardAvoidingView';
-import LoginButton from '@/commons/Buttons/LoginButton';
 import LoginInput from './LoginInput';
+import Button from '@/commons/Buttons/Button';
 // apis
 import useAuthAPI from '@/api/user/useAuthAPI';
-// styles
-import styled from 'styled-components/native';
-import {TURQUOISE, WHITE} from '@/styles/colors';
-import {LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
+// redux
 import {useDispatch} from 'react-redux';
 import {logIn} from '@/redux/user/userSlice';
 import {onToastMessage} from '@/redux/interation/interactionSlice';
+// styles
+import styled from 'styled-components/native';
+import {BLUE_GREEN, WHITE} from '@/styles/colors';
+import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
+import {isIphoneX} from 'react-native-iphone-x-helper';
 
 const EmailLogin = ({navigation: {goBack}}) => {
-  const {control, register, setValue, watch, handleSubmit, errors} = useForm();
+  const {control, watch, handleSubmit, errors} = useForm();
   const {email, password} = watch();
 
   const [focusName, setFocusName] = useState('');
@@ -57,22 +59,26 @@ const EmailLogin = ({navigation: {goBack}}) => {
         title={'이메일로 로그인'}
         goBack={goBack}
       />
-
       <KeyboardAvoidingView
         style={{
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
           backgroundColor: WHITE,
+          flex: 1,
         }}
         bottomComponent={
-          <View style={{alignItems: 'center'}}>
-            <LoginButton
-              handleClick={handleSubmit(handleLogin)}
-              text={'로그인'}
-              backgroundColor={TURQUOISE}
-              style={{borderRadius: LOGIN_BUTTON_WIDTH / 2, marginBottom: 20}}
-              textStyle={{color: 'white', fontWeight: '700'}}
-            />
+          <View
+            style={{
+              alignItems: 'center',
+              marginBottom: !isIphoneX() ? 30 : 0,
+            }}>
+            <Button
+              onPress={handleSubmit(handleLogin)}
+              style={{
+                width: LOGIN_BUTTON_WIDTH,
+                height: BUTTON_HEIGHT,
+                backgroundColor: BLUE_GREEN,
+              }}>
+              로그인
+            </Button>
           </View>
         }>
         <LoginInput
@@ -88,6 +94,7 @@ const EmailLogin = ({navigation: {goBack}}) => {
 
 const Container = styled.SafeAreaView`
   flex: 1;
+  flex-grow: 1;
 `;
 
 export default EmailLogin;

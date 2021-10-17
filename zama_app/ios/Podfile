@@ -12,6 +12,7 @@ target 'zama_app' do
     :hermes_enabled => false
   )
   
+
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'zama_appTests' do

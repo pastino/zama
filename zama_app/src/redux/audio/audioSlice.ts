@@ -32,11 +32,26 @@ export interface HomeContentsState {
   totalAudios: any;
 }
 
+const initBlankData = [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}];
+
 const userSlice = createSlice({
   name: 'interaction',
   initialState: {
-    recoAudios: [],
-    totalAudios: [],
+    recoAudios: initBlankData,
+    totalAudios: [
+      {
+        division: 'Song',
+        data: initBlankData,
+      },
+      {
+        division: 'Story',
+        data: initBlankData,
+      },
+      {
+        division: 'ASMR',
+        data: initBlankData,
+      },
+    ],
   } as HomeContentsState,
   reducers: {
     setHomeContents(state, action) {

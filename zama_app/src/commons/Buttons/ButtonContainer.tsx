@@ -1,8 +1,9 @@
-import {PASTEL} from '@/styles/colors';
-import {SCREEN_WIDTH} from '@/styles/sizes';
 import React, {FunctionComponent} from 'react';
 import {Text, View} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import TouchableOpacity from '@/commons/TouchableOpacity';
+// styles
+import {PASTEL} from '@/styles/colors';
+import {SCREEN_WIDTH} from '@/styles/sizes';
 
 interface Props {
   children?: any;
@@ -22,7 +23,7 @@ const ButtonContainer: FunctionComponent<Props> = ({
   onPress,
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
       {isCustom ? (
         children
       ) : (
@@ -41,7 +42,7 @@ const ButtonContainer: FunctionComponent<Props> = ({
           <Text style={[textStyles]}>{text}</Text>
         </View>
       )}
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 

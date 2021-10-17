@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 // navigation
 import TabNavigation from './TabNavigation';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -66,22 +66,21 @@ const MainStack = () => {
 
   if (networkError) {
     return (
-      <View style={{flex: 1}}>
-        <Text>에러!</Text>
-      </View>
+      <SafeAreaView style={{flex: 1}}>
+        <View>
+          <Text>에러!</Text>
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
     <View style={{flex: 1, overflow: 'hidden'}}>
-      <MainStack.Navigator
-        initialRouteName="Home"
-        mode="modal"
-        headerMode="none">
+      <MainStack.Navigator initialRouteName="Main" headerMode="none">
         <MainStack.Screen
           name="Tab"
           component={TabNavigation}
-          options={basicOptions}
+          options={{cardStyle: {backgroundColor: WHITE}}}
         />
         <MainStack.Screen
           name="Servey"

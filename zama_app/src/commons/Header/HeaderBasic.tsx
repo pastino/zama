@@ -1,9 +1,11 @@
 import React, {FunctionComponent} from 'react';
+// commons
+import TouchableOpacity from '@/commons/TouchableOpacity';
+// assets
 import PreviousBtn from '@assets/svg/previous_btn.svg';
 // styles
 import {HEADER_HEIGHT} from '@/styles/sizes';
 import styled from 'styled-components/native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 interface Props {
   previousBtn?: boolean;
@@ -19,11 +21,11 @@ const HeaderBasic: FunctionComponent<Props> = ({
   return (
     <Container>
       {previousBtn && (
-        <TouchableWithoutFeedback onPress={goBack}>
+        <TouchableOpacity onPress={goBack}>
           <PreviousBtnWrapper>
             <PreviousBtn width={22} />
           </PreviousBtnWrapper>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       )}
       {title && <Title>{title}</Title>}
     </Container>

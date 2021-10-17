@@ -1,10 +1,11 @@
-import {PRIMARY, RIGTH_GRAY} from '@/styles/colors';
 import React, {FunctionComponent} from 'react';
 import {Text, View} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+// commons
+import TouchableOpacity from '@/commons/TouchableOpacity';
 // styles
-import {SCREEN_WIDTH, SIDE_PADDING} from '@/styles/sizes';
+import {SCREEN_WIDTH} from '@/styles/sizes';
 import * as mixins from '@/styles/mixins';
+import {PRIMARY, RIGTH_GRAY} from '@/styles/colors';
 import {IoniconsIcons} from '../Icons/RnIcons';
 
 interface Props {
@@ -21,7 +22,7 @@ const NoCheckedSelectBtn: FunctionComponent<Props> = ({
   handleCheck,
 }) => {
   return (
-    <TouchableWithoutFeedback
+    <TouchableOpacity
       onPress={() =>
         index || index === 0 ? handleCheck(index, !check) : handleCheck()
       }
@@ -59,7 +60,7 @@ const NoCheckedSelectBtn: FunctionComponent<Props> = ({
           </View>
         )}
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 

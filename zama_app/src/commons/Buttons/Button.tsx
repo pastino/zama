@@ -6,7 +6,6 @@ import Loading from '../Lotties/Loading';
 // styles
 import * as colors from '@/styles/colors';
 import * as sizes from '@/styles//sizes';
-import * as mixins from '@/styles//mixins';
 import {typography} from '@/styles/typography';
 
 interface Props {
@@ -45,7 +44,7 @@ function Button({
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor:
-            styleDisabled || disabled ? colors.RIGTH_GRAY : colors.TURQUOISE,
+            styleDisabled || disabled ? colors.RIGTH_GRAY : colors.BLUE_GREEN,
           height: sizes.BUTTON_HEIGHT,
           paddingHorizontal: 15,
           borderRadius: 50,

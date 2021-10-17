@@ -8,7 +8,7 @@ import {
 
 export const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export const HEADER_HEIGHT = Platform.OS === 'ios' && isIphoneX() ? 120 : 70;
+export const HEADER_HEIGHT = 70;
 
 export const SCREEN_HEIGHT =
   Platform.OS === 'ios' && isIphoneX()
@@ -22,7 +22,7 @@ export const FULL_SCREEN_HEIGHT = Dimensions.get('window').height;
 export const ABSOLUTE_TOP_ZERO =
   Platform.OS === 'ios'
     ? isIphoneX()
-      ? getStatusBarHeightForX() + 18
+      ? getStatusBarHeightForX()
       : getStatusBarHeight()
     : 0;
 

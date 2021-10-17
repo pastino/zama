@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Keyboard, View} from 'react-native';
+import {Keyboard, Text, View} from 'react-native';
+// components
 import SignupInput from './SignupInput';
+import TermsAgree from '../TermsAgree';
 // commons
 import HeaderBasic from '@/commons/Header/HeaderBasic';
 import KeyboardAvoidingView from '@/commons/KeyboardAvoidingView';
+import Button from '@/commons/Buttons/Button';
 // redux
 import {useDispatch} from 'react-redux';
 import {
@@ -16,13 +19,12 @@ import useAuthAPI from '@/api/user/useAuthAPI';
 // libs
 import {useForm} from 'react-hook-form';
 // styles
-import LoginButton from '@/commons/Buttons/LoginButton';
 import styled from 'styled-components/native';
-import {TURQUOISE, WHITE} from '@/styles/colors';
-import {LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
-import TermsAgree from '../TermsAgree';
+import {BLUE_GREEN, WHITE} from '@/styles/colors';
+import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
+import {isIphoneX} from 'react-native-iphone-x-helper';
 
-interface termTypes {
+interface TermTypes {
   title: string;
   requirement: boolean;
   check: boolean;
@@ -88,21 +90,21 @@ const EmailSignup = ({navigation: {goBack, navigate}}) => {
       <HeaderBasic previousBtn={true} title={'회원가입'} goBack={goBack} />
       <KeyboardAvoidingView
         style={{
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
           backgroundColor: WHITE,
         }}
         bottomComponent={
-          <View style={{alignItems: 'center'}}>
-            <LoginButton
-              handleClick={handleSubmit(handleSignUp)}
-              text={'회원가입'}
-              backgroundColor={TURQUOISE}
+          <View
+            style={{alignItems: 'center', marginBottom: !isIphoneX() ? 30 : 0}}>
+            <Button
+              onPress={handleSubmit(handleSignUp)}
               style={{
-                borderRadius: LOGIN_BUTTON_WIDTH / 2,
+                width: LOGIN_BUTTON_WIDTH,
+                height: BUTTON_HEIGHT,
+                backgroundColor: BLUE_GREEN,
               }}
-              textStyle={{color: 'white', fontWeight: '700'}}
-            />
+              textStyle={{color: WHITE}}>
+              <Text>회원가입</Text>
+            </Button>
           </View>
         }>
         <SignupInput

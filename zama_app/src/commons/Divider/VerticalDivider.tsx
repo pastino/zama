@@ -8,7 +8,7 @@ const VerticalDivider = ({width}) => {
     <View
       style={{
         width,
-        height: 7,
+        height: 1,
         backgroundColor: DIVIDER_COLOR,
         borderTopColor: DIVIDER_BORDER_COLOR,
         borderTopWidth: 0.5,

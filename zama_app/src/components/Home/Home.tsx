@@ -6,31 +6,26 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {
-  Text,
-  View,
-  Animated,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {Text, View, Animated, ScrollView, Image, Platform} from 'react-native';
 // components
 import TodayRecoAudio from './TodayRecoAudio.tsx';
 import TabView from './TabView';
 // commons
 import VerticalDivider from '@/commons/Divider/VerticalDivider';
 import {IoniconsIcons} from '@/commons/Icons/RnIcons';
+import TouchableOpacity from '@/commons/TouchableOpacity';
 // redux
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
 import {logOut} from '@/redux/user/userSlice';
+// libs
+import {isIphoneX} from 'react-native-iphone-x-helper';
 // styles
-import {SCREEN_WIDTH} from '@/styles/sizes';
+import {ABSOLUTE_TOP_ZERO, SCREEN_WIDTH} from '@/styles/sizes';
 import {
   DIVIDER_BORDER_COLOR,
   DIVIDER_COLOR,
-  TURQUOISE,
+  BLUE_GREEN,
   WHITE,
 } from '@/styles/colors';
 
@@ -69,10 +64,10 @@ const Home = ({navigation}) => {
       <Animated.View
         style={{
           position: 'absolute',
-          height: 2,
+          height: 1.5,
           width: indicatorWidth,
           left: 0,
-          backgroundColor: TURQUOISE,
+          backgroundColor: BLUE_GREEN,
           bottom: -2,
           transform: [
             {
@@ -110,7 +105,7 @@ const Home = ({navigation}) => {
         data?.[i].ref.current.measureLayout(
           containerRef.current,
           (x, y, width, height) => {
-            m.push({x, y, width, height});
+            m.push({x: x - 15, y, width: width + 30, height});
             if (i === 2) {
               setMeasures(m);
             }
@@ -129,12 +124,12 @@ const Home = ({navigation}) => {
         style={{
           width: SCREEN_WIDTH,
           flexDirection: 'row',
-          height: 77,
+          height: Platform.OS === 'ios' && isIphoneX() ? 67 : 57,
           backgroundColor: 'white',
           alignItems: 'flex-end',
-          paddingBottom: 10,
+          paddingBottom: 5,
           justifyContent: 'space-evenly',
-          borderBottomWidth: 2,
+          borderBottomWidth: 1.5,
           borderBottomColor: DIVIDER_BORDER_COLOR,
         }}>
         {data.map((item, index) => {
@@ -160,10 +155,16 @@ const Home = ({navigation}) => {
         source={require('@/assets/images/sample_image.png')}
         style={{width: SCREEN_WIDTH, position: 'absolute', top: 0}}
       />
-      <View style={{zIndex: 100, position: 'absolute', right: 30, top: 20}}>
-        <TouchableWithoutFeedback onPress={() => dispatch(logOut())}>
+      <View
+        style={{
+          zIndex: 100,
+          position: 'absolute',
+          right: 30,
+          top: ABSOLUTE_TOP_ZERO + 15,
+        }}>
+        <TouchableOpacity onPress={() => dispatch(logOut())}>
           <IoniconsIcons name={'reorder-three'} size={37} color={WHITE} />
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </View>
       <ScrollView stickyHeaderIndices={[2]}>
         <View

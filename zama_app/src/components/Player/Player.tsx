@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {SafeAreaView, TouchableWithoutFeedback, View, Text} from 'react-native';
+import {SafeAreaView, View, Text} from 'react-native';
 // components
 import BottomProgressBar from './BottomProgressBar';
 // commons
 import ModalContainer from '@/commons/Modals/Container/ModalContainer';
 import PreviousWhiteBtn from '@assets/svg/previous_white_btn.svg';
 import Tag from '@/commons/Tag';
+import TouchableOpacity from '@/commons/TouchableOpacity';
 // hooks
 import usePlayerHandle from '@/hooks/usePlayerHandle';
 // libs
@@ -110,7 +111,7 @@ const Player = () => {
                 paddingHorizontal: 20,
                 paddingBottom: 70,
               }}>
-              <TouchableWithoutFeedback onPress={handleModal}>
+              <TouchableOpacity onPress={handleModal}>
                 <View
                   style={{
                     width: 40,
@@ -120,7 +121,7 @@ const Player = () => {
                   }}>
                   <PreviousWhiteBtn />
                 </View>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
               <View
                 style={{
                   flex: 1,

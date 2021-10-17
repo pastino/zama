@@ -5,10 +5,7 @@ import * as colors from '@/styles/colors';
 import * as sizes from '@/styles//sizes';
 import {typography} from '@/styles//typography';
 import {IoniconsIcons} from '@/commons/Icons/RnIcons';
-import ButtonCustom from '../Buttons/ButtonCustom';
-import LoginButton from '../Buttons/LoginButton';
 import Button from '../Buttons/Button';
-// import Button from '../buttons/Button';
 
 interface Props {
   close?: any;
@@ -138,7 +135,7 @@ const BottomModalCard = ({
                 flex: 1,
                 marginRight: 10,
                 backgroundColor: colors.WHITE,
-                borderColor: colors.TURQUOISE,
+                borderColor: colors.BLUE_GREEN,
                 borderWidth: 1,
               }}
               textStyle={{color: colors.FONT}}

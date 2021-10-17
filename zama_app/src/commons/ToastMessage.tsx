@@ -62,7 +62,7 @@ const ToastMessage = () => {
     }
   }, [toastMessage]);
 
-  return (
+  return toastMessage ? (
     <View style={{width: SCREEN_WIDTH, alignItems: 'center'}}>
       <Animated.View style={animatedStyle}>
         <Text style={{color: 'white', fontSize: 14, lineHeight: 22}}>
@@ -70,7 +70,7 @@ const ToastMessage = () => {
         </Text>
       </Animated.View>
     </View>
-  );
+  ) : null;
 };
 
 export default ToastMessage;

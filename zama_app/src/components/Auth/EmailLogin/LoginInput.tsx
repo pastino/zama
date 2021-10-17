@@ -1,14 +1,14 @@
 import React, {FunctionComponent, useState} from 'react';
 import {Text, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 // commons
+import TouchableOpacity from '@/commons/TouchableOpacity';
 import Input from '@/commons/Input/Input';
 // libs
 import {Controller} from 'react-hook-form';
 // utils
 import validator from '@/utils/validator';
 // styles
-import {MIDDLE_GRAY, TURQUOISE} from '@/styles/colors';
+import {MIDDLE_GRAY, BLUE_GREEN} from '@/styles/colors';
 import {LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
 
 interface Props {
@@ -25,10 +25,14 @@ const LoginInput: FunctionComponent<Props> = ({
   setFocusName,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  console.log(errors);
+
   return (
     <View
-      style={{justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
+      style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+      }}>
       <View style={{width: LOGIN_BUTTON_WIDTH}}>
         <Controller
           control={control}
@@ -45,16 +49,15 @@ const LoginInput: FunctionComponent<Props> = ({
               style={{
                 width: LOGIN_BUTTON_WIDTH,
                 borderRadius: LOGIN_BUTTON_WIDTH / 2,
-                textAling: 'center',
                 borderWidth: 2,
-                borderColor: TURQUOISE,
+                borderColor: BLUE_GREEN,
               }}
               labelTextStyle={{
                 fontSize: 15,
                 fontWeight: '700',
                 marginBottom: 10,
               }}
-              inputStyle={{textAlign: 'center'}}
+              inputStyle={{paddingLeft: 30}}
               errorTextStyle={{marginLeft: 10}}
             />
           )}
@@ -79,9 +82,8 @@ const LoginInput: FunctionComponent<Props> = ({
               style={{
                 width: LOGIN_BUTTON_WIDTH,
                 borderRadius: LOGIN_BUTTON_WIDTH / 2,
-                textAling: 'center',
                 borderWidth: 2,
-                borderColor: TURQUOISE,
+                borderColor: BLUE_GREEN,
               }}
               labelTextStyle={{
                 fontSize: 15,
@@ -95,7 +97,7 @@ const LoginInput: FunctionComponent<Props> = ({
                   {/* <Icon iconName={showPassword ? 'eye' : 'eye-off'} /> */}
                 </TouchableOpacity>
               }
-              inputStyle={{textAlign: 'center'}}
+              inputStyle={{paddingLeft: 30}}
               errorTextStyle={{marginLeft: 10}}
             />
           )}

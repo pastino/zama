@@ -1,7 +1,8 @@
-import {RIGTH_GRAY} from '@/styles/colors';
 import React, {FunctionComponent} from 'react';
 import {Text, View} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import TouchableOpacity from '@/commons/TouchableOpacity';
+// styles
+import {RIGTH_GRAY} from '@/styles/colors';
 import {IoniconsIcons} from '../Icons/RnIcons';
 
 interface Props {
@@ -18,20 +19,20 @@ const CheckBoxButton: FunctionComponent<Props> = ({
   handleCheck,
 }) => {
   return (
-    <TouchableWithoutFeedback
+    <TouchableOpacity
       onPress={() =>
         index || index === 0 ? handleCheck(index, !check) : handleCheck()
-      }
-      style={{flexDirection: 'row', alignItems: 'center'}}>
-      <View>
+      }>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <IoniconsIcons
           name={'checkbox'}
           size={25}
           color={check ? 'black' : RIGTH_GRAY}
         />
+
+        <Text style={{paddingLeft: 10, fontSize: 14}}>{title}</Text>
       </View>
-      <Text style={{paddingLeft: 10, fontSize: 14}}>{title}</Text>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 

@@ -8,6 +8,7 @@ import EmailSignup from '@/components/Auth/EmailSignup';
 import Servey from '@/components/Servey';
 //styles
 import {WHITE} from '@styles/colors';
+import {SafeAreaView, View} from 'react-native';
 
 const AuthStack = () => {
   const AuthStack = createStackNavigator();

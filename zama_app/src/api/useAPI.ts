@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default function useAPI() {
-  const API_URL = 'http://9225-221-141-228-118.ngrok.io';
+  const API_URL = 'http://e060-221-141-228-118.ngrok.io';
 
   async function getHandler(
     url: string,

@@ -64,7 +64,7 @@ function Input({
               autoCapitalize="none"
               underlineColorAndroid="transparent"
               autoCorrect={false}
-              placeholderTextColor={colors.DARK_GRAY}
+              placeholderTextColor={colors.RIGTH_GRAY}
               selectionColor={colors.ORANGE}
               onFocus={() => setIsFocus(true)}
               onBlur={() => setIsFocus(false)}

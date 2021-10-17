@@ -6,7 +6,7 @@ import NoCheckedSelectBtn from '@/commons/Buttons/NoCheckedSelectBtn';
 import styled from 'styled-components/native';
 import useAuthAPI from '@/api/user/useAuthAPI';
 import {Text, View} from 'react-native';
-import {MIDDLE_GRAY, TURQUOISE, WHITE} from '@/styles/colors';
+import {MIDDLE_GRAY, BLUE_GREEN, WHITE} from '@/styles/colors';
 import Button from '@/commons/Buttons/Button';
 import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
 import {State} from '@/redux/rootReducer';
@@ -149,7 +149,7 @@ const Servey = ({navigation: {navigate}}) => {
           style={{
             width: LOGIN_BUTTON_WIDTH,
             height: BUTTON_HEIGHT,
-            backgroundColor: TURQUOISE,
+            backgroundColor: BLUE_GREEN,
           }}
           textStyle={{color: WHITE}}
           loadingBlack>
