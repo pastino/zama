@@ -5,6 +5,7 @@ import Image from 'react-native-fast-image';
 import {checkUrlForm} from '@/utils/tools';
 //styles
 import styled from 'styled-components/native';
+import {TRANSPARENT_DARK} from '@/styles/colors';
 
 interface Props {
   path: any;
@@ -45,7 +46,7 @@ const CorverdFilterView = styled.View<SizeProps>`
   position: absolute;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${TRANSPARENT_DARK};
   border-radius: 10px;
 `;
 

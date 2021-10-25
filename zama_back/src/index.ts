@@ -20,6 +20,7 @@ import ConfirmCertNum from "./routes/User/Auth/SignUp/ConfirmCertNum";
 import SignUpServey from "./routes/User/Auth/SignUp/SignUpServey";
 import GetSignUpServeyList from "./routes/User/Auth/SignUp/GetSignUpServeyList";
 import LoginByEmail from "./routes/User/Auth/Login/LoginByEmail";
+import SleepBasket from "./routes/SleepAudio/SleepBasket";
 
 const app = express();
 const PORT = 5002;
@@ -50,8 +51,8 @@ app.post("/auth/login/email", LoginByEmail);
 //sleep
 app.get("/home/contents", GetHomeAudio);
 app.get("/home/contents/v2", GetHomeAudioSubCate);
-
 app.post("/sleep", uploadMiddleware, CreateSleepAudio);
+app.post("/sleep/basket", SleepBasket);
 
 //whiteNoise
 app.get("/whiteNoise", GetWhiteNoise);

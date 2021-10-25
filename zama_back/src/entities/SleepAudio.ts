@@ -7,13 +7,11 @@ import {
   ManyToMany,
   ManyToOne,
   JoinTable,
+  AfterLoad,
 } from "typeorm";
 import { Category } from "./Category";
 import { Division, DivisionEnum } from "./Types";
 import { User } from "./User";
-
-// export const DivisionEnum = ["Song", "Story", "ASMR"];
-// export type category =
 
 @Entity()
 export class SleepAudio {
@@ -42,16 +40,18 @@ export class SleepAudio {
   @Column()
   file: string;
 
-  @Column("boolean", { default: true })
-  recoFlag: boolean = true;
+  @Column({ default: true })
+  recoFlag: boolean;
 
-  @ManyToOne((type) => User, (user) => user.sleepAudios)
+  @ManyToOne(() => User, (user) => user.makedAudios)
   creator: User;
 
-  @ManyToMany((type) => User, (users) => users.id, {
-    cascade: true,
-  })
-  users: User[];
+  @ManyToMany(() => User, (user) => user.inBasketAudios)
+  @JoinTable()
+  inBasketUsers: User[];
+
+  @Column({ nullable: true, default: null })
+  history: string;
 
   @CreateDateColumn()
   createAt: Date;

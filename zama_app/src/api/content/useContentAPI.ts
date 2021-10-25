@@ -26,8 +26,20 @@ export default function useContentAPI() {
     }
   };
 
+  const inBasketAudio = async (audioId: number) => {
+    try {
+      const res: any = await postHandler('/sleep/basket', {audioId});
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      console.log(errorMessage);
+      throw error;
+    }
+  };
+
   return {
     getHomeContentsAPI,
     getHomeContentsSubCateAPI,
+    inBasketAudio,
   };
 }

@@ -1,6 +1,7 @@
 import React, {
   createRef,
   forwardRef,
+  Fragment,
   useCallback,
   useEffect,
   useRef,
@@ -29,7 +30,7 @@ import {
   WHITE,
 } from '@/styles/colors';
 
-const Home = ({navigation}) => {
+const Home = ({}) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const ref = useRef<any>(null);
   const dispatch = useDispatch();
@@ -134,12 +135,14 @@ const Home = ({navigation}) => {
         }}>
         {data.map((item, index) => {
           return (
-            <Tab
-              key={item.division}
-              item={item}
-              ref={item.ref}
-              onItemPress={() => onItemPress(index)}
-            />
+            <Fragment key={index}>
+              <Tab
+                key={item.division}
+                item={item}
+                ref={item.ref}
+                onItemPress={() => onItemPress(index)}
+              />
+            </Fragment>
           );
         })}
         {measures.length > 0 && (

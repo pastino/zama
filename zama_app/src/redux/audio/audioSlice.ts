@@ -9,6 +9,7 @@ export interface AudioState {
   division: string;
   thumbnail: string;
   file: string;
+  isLike: boolean;
   createAt: Date;
   updateAt: Date;
 }

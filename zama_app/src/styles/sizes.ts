@@ -30,7 +30,7 @@ export const ABSOLUTE_BOTTOM_ZERO =
   Platform.OS === 'ios' && isIphoneX() ? getBottomSpace() : 0;
 
 // 네비게이션 탭바 높이
-export const BOTTOM_TAB_HEIGHT = Platform.OS === 'ios' && isIphoneX() ? 80 : 60;
+export const BOTTOM_TAB_HEIGHT = Platform.OS === 'ios' && isIphoneX() ? 60 : 60;
 export const BOTTOM_TAB_PADDING_BOTTOM =
   Platform.OS === 'ios' && isIphoneX() ? 25 : 10;
 

@@ -1,7 +1,11 @@
+import {State} from '@/redux/rootReducer';
 import axios from 'axios';
+import {useSelector} from 'react-redux';
 
 export default function useAPI() {
-  const API_URL = 'http://e060-221-141-228-118.ngrok.io';
+  const API_URL = 'http://afff-2001-e60-8756-b929-dd28-dfca-9349-d885.ngrok.io';
+
+  const {token} = useSelector((state: State) => state.usersReducer);
 
   async function getHandler(
     url: string,
@@ -14,7 +18,11 @@ export default function useAPI() {
         method: 'get',
         url: `${API_URL}${url}`,
         params,
-        headers: {'Content-Type': 'application/json', ...headers},
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          ...headers,
+        },
         ...axiosParams,
       });
       return res;
@@ -29,7 +37,11 @@ export default function useAPI() {
         method: 'delete',
         url: `${API_URL}${url}`,
         data: data ? data : {},
-        headers: {'Content-Type': 'application/json', ...headers},
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          ...headers,
+        },
       });
       return res;
     } catch (error) {
@@ -43,7 +55,11 @@ export default function useAPI() {
         method: 'post',
         url: `${API_URL}${url}`,
         data,
-        headers: {'Content-Type': 'application/json', ...headers},
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          ...headers,
+        },
       });
       return res;
     } catch (error) {
@@ -57,7 +73,11 @@ export default function useAPI() {
         method: 'put',
         url: `${API_URL}${url}`,
         data,
-        headers: {'Content-Type': 'application/json', ...headers},
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          ...headers,
+        },
       });
       return res;
     } catch (error) {
@@ -71,7 +91,11 @@ export default function useAPI() {
         method: 'patch',
         url: `${API_URL}${url}`,
         data,
-        headers: {'Content-Type': 'application/json', ...headers},
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          ...headers,
+        },
       });
       return res;
     } catch (error) {

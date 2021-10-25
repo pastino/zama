@@ -10,18 +10,20 @@ import {RecoAudiosState} from '@/redux/audio/audioSlice';
 // hooks
 import usePlayerHandle from '@/hooks/usePlayerHandle';
 // styles
-import {HORIZON_AUDIO_CARD_WIDTH, VERTI_AUDIO_CARD_WIDTH} from '@/styles/sizes';
+import {
+  HORIZON_AUDIO_CARD_WIDTH,
+  SCREEN_WIDTH,
+  VERTI_AUDIO_CARD_WIDTH,
+} from '@/styles/sizes';
 import styled from 'styled-components/native';
 import {
   DIVIDER_BORDER_COLOR,
   MIDDLE_GRAY,
-  RIGTH_GRAY,
   TRANSPARENT_DARK,
   WHITE,
 } from '@/styles/colors';
 import useContentAPI from '@/api/content/useContentAPI';
 import useSleepBasket from '@/hooks/useSleepBasket';
-import LoadingImage from './LoadingImage';
 
 type Size = 'big' | 'middle' | 'small';
 interface Props {
@@ -30,16 +32,15 @@ interface Props {
 }
 
 const AudioCard: FunctionComponent<Props> = ({data, size}) => {
-  const appliedSize =
-    size === 'big' ? VERTI_AUDIO_CARD_WIDTH : HORIZON_AUDIO_CARD_WIDTH;
-
+  const appliedSize = SCREEN_WIDTH * 0.9;
+  const imageHeight = appliedSize * 0.5;
   if (!data?.title) {
     return (
       <View style={{flexDirection: 'column'}}>
         <View
           style={{
             width: appliedSize,
-            height: appliedSize,
+            height: imageHeight,
             borderRadius: 10,
             backgroundColor: DIVIDER_BORDER_COLOR,
           }}
@@ -53,7 +54,6 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
             backgroundColor: DIVIDER_BORDER_COLOR,
           }}
         />
-
         <View
           style={{
             width: appliedSize,
@@ -99,17 +99,15 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
       }>
       <View>
         {!onLoadEnd && (
-          <LoadingImage
+          <View
             style={{
               position: 'absolute',
               width: appliedSize,
-              height: appliedSize,
+              height: imageHeight,
               borderRadius: 10,
               backgroundColor: DIVIDER_BORDER_COLOR,
               zIndex: 1,
             }}
-            loadingIconSize={30}
-            loadingIconColor={RIGTH_GRAY}
           />
         )}
         <View style={{position: 'relative'}}>
@@ -117,7 +115,7 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
             source={{uri: data.thumbnail}}
             style={{
               width: appliedSize,
-              height: appliedSize,
+              height: imageHeight,
               borderRadius: 10,
             }}
             onLoad={() => setOnLoadEnd(true)}

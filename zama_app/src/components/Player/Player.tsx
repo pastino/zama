@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {View, Text} from 'react-native';
 // components
-import BottomProgressBar from './BottomProgressBar';
+import Controller from './FullScreen/Controller';
 // commons
 import ModalContainer from '@/commons/Modals/Container/ModalContainer';
 import PreviousWhiteBtn from '@assets/svg/previous_white_btn.svg';
@@ -12,6 +12,7 @@ import usePlayerHandle from '@/hooks/usePlayerHandle';
 // libs
 import FastImage from 'react-native-fast-image';
 import TrackPlayer from 'react-native-track-player';
+import {isIphoneX} from 'react-native-iphone-x-helper';
 // tools
 import {transformTimes} from '@/utils/tools';
 // redux
@@ -25,10 +26,18 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
 } from '@/styles/sizes';
-import {WHITE} from '@/styles/colors';
+import {TRANSPARENT_DARK, WHITE} from '@/styles/colors';
+import BottomMiniPlayer from './BottomScreen/BottomMiniPlayer';
+
+export interface TimeData {
+  position: number;
+  duration: number;
+  positionString: string;
+  durationString: string;
+}
 
 const Player = () => {
-  const initData = {
+  const initData: TimeData = {
     position: 0,
     duration: 0,
     positionString: '00:00',
@@ -39,8 +48,13 @@ const Player = () => {
   const {modalVisible, playList, continuePlay, playing, playingNum} =
     useSelector((state: State) => state.playerReducer);
 
-  const {handleModal, handleSetupPlayer, handleInitSetAudio} =
-    usePlayerHandle();
+  const {
+    handleModal,
+    handleSetupPlayer,
+    handlePlay,
+    handlePause,
+    handleInitSetAudio,
+  } = usePlayerHandle();
 
   const {id, title, duration, artwork, url, artist, division} =
     playList[playingNum];
@@ -66,29 +80,39 @@ const Player = () => {
     await TrackPlayer.seekTo(seek);
     intervalRef.current = setInterval(() => getInformations(), 500);
   };
+
   const onSlidingStart = async (e: any) => {
     clearInterval(intervalRef.current);
   };
 
   useEffect(() => {
     handleSetupPlayer();
-
     handleInitSetAudio(playList);
-    intervalRef.current = setInterval(() => getInformations(), 500);
+    intervalRef.current = setInterval(() => getInformations(), 1000);
+    return () => {
+      clearInterval(intervalRef.current);
+      setData({
+        position: 0,
+        duration: 0,
+        positionString: '00:00',
+        durationString: '00:00',
+      });
+    };
   }, []);
 
   return (
     <>
-      {/* {!modalVisible ? (
-    <AudioPlayerInactive
-      handleModal={handleModal}
-      title={title}
-      thumbnail={thumbnail}
-      playing={playing}
-      startHandle={handlePlay}
-      pauseHandle={handlePause}
-    />
-  ) : null} */}
+      {!modalVisible ? (
+        <BottomMiniPlayer
+          handleModal={handleModal}
+          title={title}
+          thumbnail={artwork}
+          playing={playing}
+          artist={artist}
+          handlePause={handlePause}
+          handlePlay={handlePlay}
+        />
+      ) : null}
       <ModalContainer isVisible={modalVisible} close={handleModal}>
         <Container
           style={{
@@ -103,13 +127,15 @@ const Player = () => {
               height: SCREEN_HEIGHT + HEADER_HEIGHT,
             }}
           />
-          <SafeAreaView style={{flex: 1}}>
+          <View
+            style={{
+              flex: 1,
+            }}>
             <View
               style={{
-                flex: 1,
-                marginTop: 20,
-                paddingHorizontal: 20,
-                paddingBottom: 70,
+                height: isIphoneX() ? 90 : 50,
+                justifyContent: 'flex-end',
+                backgroundColor: TRANSPARENT_DARK,
               }}>
               <TouchableOpacity onPress={handleModal}>
                 <View
@@ -118,17 +144,28 @@ const Player = () => {
                     height: 30,
                     alignItems: 'center',
                     justifyContent: 'center',
+                    marginBottom: 10,
+                    marginLeft: 10,
                   }}>
                   <PreviousWhiteBtn />
                 </View>
               </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, justifyContent: 'flex-end'}}>
               <View
                 style={{
-                  flex: 1,
-                  justifyContent: 'flex-end',
+                  flex: 0.45,
+                  justifyContent: 'center',
                   flexDirection: 'column',
+                  backgroundColor: TRANSPARENT_DARK,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
                 }}>
-                <View style={{alignItems: 'center', flexDirection: 'column'}}>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                  }}>
                   <Tag title={division} />
                   <Text
                     style={{
@@ -143,18 +180,19 @@ const Player = () => {
                     by {artist}
                   </Text>
                 </View>
-                <View style={{marginTop: 30}}>
-                  <BottomProgressBar
+                <View style={{}}>
+                  <Controller
                     value={data.position}
                     maximumValue={duration}
                     onValueChange={handleOnValueChange}
                     onSlidingStart={onSlidingStart}
                     onSlidingComplete={onSeek}
+                    timeData={data}
                   />
                 </View>
               </View>
             </View>
-          </SafeAreaView>
+          </View>
         </Container>
       </ModalContainer>
     </>

@@ -70,10 +70,11 @@ export class User {
   @OneToMany((type) => SleepAudio, (sleepAudios) => sleepAudios.creator)
   makedAudios: SleepAudio[];
 
-  @ManyToMany((type) => SleepAudio, (sleepAudios) => sleepAudios.id, {
-    cascade: true,
-  })
-  sleepAudios: SleepAudio[];
+  @ManyToMany(
+    () => SleepAudio,
+    (sleepAudio: SleepAudio) => sleepAudio.inBasketUsers
+  )
+  inBasketAudios: SleepAudio[];
 
   @CreateDateColumn()
   createAt: Date;

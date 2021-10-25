@@ -76,6 +76,7 @@ const MainStack = () => {
 
   return (
     <View style={{flex: 1, overflow: 'hidden'}}>
+      {playList.length > 0 && <Player />}
       <MainStack.Navigator initialRouteName="Main" headerMode="none">
         <MainStack.Screen
           name="Tab"
@@ -88,7 +89,6 @@ const MainStack = () => {
           options={basicOptions}
         />
       </MainStack.Navigator>
-      {playList.length > 0 && <Player />}
     </View>
   );
 };
