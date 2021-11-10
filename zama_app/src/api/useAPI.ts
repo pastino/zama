@@ -3,7 +3,7 @@ import axios from 'axios';
 import {useSelector} from 'react-redux';
 
 export default function useAPI() {
-  const API_URL = 'http://afff-2001-e60-8756-b929-dd28-dfca-9349-d885.ngrok.io';
+  const API_URL = 'http://672f-221-141-228-118.ngrok.io';
 
   const {token} = useSelector((state: State) => state.usersReducer);
 

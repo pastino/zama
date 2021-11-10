@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 //navigation
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 //componenets
@@ -6,6 +6,11 @@ import Home from 'components/Home';
 import SleepBasket from '@/components/SleepBasket';
 import BottomTabButton from './BottomTabButton';
 import {View} from 'react-native';
+
+export const bottomTabInfo = [
+  {name: 'Home', component: Home},
+  {name: 'SleepBasket', component: SleepBasket},
+];
 
 export default function TabNavigation() {
   const Tab = createBottomTabNavigator();
@@ -15,10 +20,13 @@ export default function TabNavigation() {
       <Tab.Navigator
         lazy={false}
         backBehavior="initialRoute"
-        initialRouteName="자마픽"
+        initialRouteName="Home"
         tabBar={props => <BottomTabButton {...props} />}>
-        <Tab.Screen name="자마픽" component={Home} />
-        <Tab.Screen name="잠바구니" component={SleepBasket} />
+        {bottomTabInfo.map(({name, component}) => (
+          <Fragment key={name}>
+            <Tab.Screen name={name} component={component} />
+          </Fragment>
+        ))}
       </Tab.Navigator>
     </View>
   );

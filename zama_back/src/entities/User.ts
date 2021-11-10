@@ -4,9 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToMany,
   OneToMany,
 } from "typeorm";
+import { AudioBasketMapping } from "./AudioBasketMapping";
 import { SleepAudio } from "./SleepAudio";
 
 export type LoginMethod =
@@ -67,12 +67,12 @@ export class User {
   })
   loginMethod: LoginMethod | null | undefined;
 
-  @OneToMany((type) => SleepAudio, (sleepAudios) => sleepAudios.creator)
+  @OneToMany(() => SleepAudio, (sleepAudios) => sleepAudios.creator)
   makedAudios: SleepAudio[];
 
-  @ManyToMany(
-    () => SleepAudio,
-    (sleepAudio: SleepAudio) => sleepAudio.inBasketUsers
+  @OneToMany(
+    () => AudioBasketMapping,
+    (audioBasketMappings) => audioBasketMappings.audio
   )
   inBasketAudios: SleepAudio[];
 

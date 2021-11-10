@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import { AudioBasketMapping } from "../../entities/AudioBasketMapping";
 import { SleepAudio } from "../../entities/SleepAudio";
 import { DivisionEnum } from "../../entities/Types";
 
@@ -8,55 +9,31 @@ const GetHomeAudioSubCate = async (req: Request, res: Response) => {
 
   try {
     const sleepAudioRepository = getRepository(SleepAudio);
+    const basketMappingRepository = getRepository(AudioBasketMapping);
 
     const recoData: SleepAudio[] | [] | undefined = await sleepAudioRepository
       .createQueryBuilder("sleepAudio")
       .innerJoinAndSelect("sleepAudio.creator", "creator")
-      .leftJoinAndSelect(
-        "sleepAudio.inBasketUsers",
-        "user",
-        "user.id = :userId",
-        {
-          userId: user.id,
-        }
-      )
       .where({ recoFlag: true })
       .getMany();
 
-    const temporaryRecoData = () => {
-      const copiedData: any = recoData.slice();
-      for (let i = 0; i < copiedData.length; i++) {
-        if (copiedData[i].inBasketUsers.length > 0) {
-          copiedData[i].isLike = true;
-        } else {
-          copiedData[i].isLike = false;
-        }
-        delete copiedData[i].inBasketUsers;
-      }
-      return copiedData;
-    };
+    const myBasketAudio: AudioBasketMapping[] | [] =
+      await basketMappingRepository.find({
+        where: { user },
+        relations: ["audio"],
+      });
 
-    // .loadRelationCountAndMap(
-    //   "sleepAudio.inBasketUsers",
-    //   "sleepAudio.inBasketUsers"
-    // )
-    // .innerJoin("sleepAudio.inBasketUsers", "user", "user.id = :userId", {
-    //   userId: user.id,
-    // })
-
-    // console.log(recoData);
     const classifiedData = [];
 
     const temporaryClassifiedData = (audio: any) => {
       const copiedData: any = audio.slice();
 
       for (let i = 0; i < copiedData.length; i++) {
-        if (copiedData[i].inBasketUsers.length > 0) {
+        if (myBasketAudio.find((item) => item.audio.id === copiedData[i].id)) {
           copiedData[i].isLike = true;
         } else {
           copiedData[i].isLike = false;
         }
-        delete copiedData[i].inBasketUsers;
       }
       return copiedData;
     };
@@ -66,14 +43,6 @@ const GetHomeAudioSubCate = async (req: Request, res: Response) => {
       const audio: SleepAudio[] | [] | undefined = await sleepAudioRepository
         .createQueryBuilder("sleepAudio")
         .innerJoinAndSelect("sleepAudio.creator", "creator")
-        .leftJoinAndSelect(
-          "sleepAudio.inBasketUsers",
-          "user",
-          "user.id = :userId",
-          {
-            userId: user.id,
-          }
-        )
         .where({ division })
         .getMany();
 
@@ -82,11 +51,9 @@ const GetHomeAudioSubCate = async (req: Request, res: Response) => {
       classifiedData.push({ division, data: audioData });
     }
 
-    // console.log(classifiedData);
-
     return res.status(200).send({
       success: true,
-      recoAudios: temporaryRecoData(),
+      recoAudios: recoData,
       totalAudios: classifiedData,
     });
   } catch (e: any) {

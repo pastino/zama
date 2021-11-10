@@ -1,4 +1,7 @@
 import React, {FunctionComponent} from 'react';
+import {Text, View} from 'react-native';
+//libs
+import {isIphoneX} from 'react-native-iphone-x-helper';
 // commons
 import TouchableOpacity from '@/commons/TouchableOpacity';
 // assets
@@ -6,46 +9,67 @@ import PreviousBtn from '@assets/svg/previous_btn.svg';
 // styles
 import {HEADER_HEIGHT} from '@/styles/sizes';
 import styled from 'styled-components/native';
+import * as mixins from '@/styles/mixins';
+import {BRIGHT_GRAY, DARK_GRAY, MIDDLE_GRAY, RIGTH_GRAY} from '@/styles/colors';
+import {IoniconsIcons} from '../Icons/RnIcons';
 
 interface Props {
   previousBtn?: boolean;
   goBack?: () => void;
   title?: string;
+  style?: {};
+  textStyle?: any;
 }
 
 const HeaderBasic: FunctionComponent<Props> = ({
   previousBtn = false,
   goBack,
   title,
+  style,
+  textStyle,
 }) => {
+  console.log(textStyle?.color);
   return (
-    <Container>
-      {previousBtn && (
-        <TouchableOpacity onPress={goBack}>
-          <PreviousBtnWrapper>
-            <PreviousBtn width={22} />
-          </PreviousBtnWrapper>
-        </TouchableOpacity>
-      )}
-      {title && <Title>{title}</Title>}
-    </Container>
+    <View
+      style={[
+        {
+          height: HEADER_HEIGHT,
+          flexDirection: 'row',
+          alignItems: isIphoneX() ? 'flex-end' : 'center',
+          paddingBottom: isIphoneX() ? 15 : 0,
+          borderBottomWidth: 0.5,
+          borderBottomColor: MIDDLE_GRAY,
+        },
+        style,
+      ]}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        {previousBtn && (
+          <TouchableOpacity onPress={goBack}>
+            <PreviousBtnWrapper>
+              <IoniconsIcons
+                name={'chevron-back'}
+                size={26}
+                color={textStyle?.color || 'black'}
+              />
+            </PreviousBtnWrapper>
+          </TouchableOpacity>
+        )}
+        {title && (
+          <Text
+            style={[
+              {marginLeft: 10, fontWeight: '500', fontSize: 17},
+              textStyle,
+            ]}>
+            {title}
+          </Text>
+        )}
+      </View>
+    </View>
   );
 };
 
-const Container = styled.View`
-  height: ${HEADER_HEIGHT}px;
-  flex-direction: row;
-  align-items: center;
-`;
-
 const PreviousBtnWrapper = styled.View`
   margin-left: 20px;
-`;
-
-const Title = styled.Text`
-  margin-left: 20px;
-  font-weight: 500;
-  font-size: 17px;
 `;
 
 export default HeaderBasic;

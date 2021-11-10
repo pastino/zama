@@ -9,7 +9,7 @@ const TodayRecoAudio = ({data}) => {
   const handleRenderItem = ({item, index}) => {
     return (
       <CardContainer index={index} isLastCard={index + 1 === data.length}>
-        <AudioCard data={item} size={'middle'} />
+        <AudioCard data={item} />
       </CardContainer>
     );
   };

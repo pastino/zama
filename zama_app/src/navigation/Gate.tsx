@@ -6,15 +6,25 @@ import AuthStack from './AuthStack';
 // commons
 import ToastMessage from '@/commons/ToastMessage';
 // redux
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
+import {setCurrentRoute} from '@/redux/interation/interactionSlice';
 
 const Gate = () => {
+  const dispatch = useDispatch();
   const {token} = useSelector((state: State) => state.usersReducer);
 
   return (
     <>
-      <NavigationContainer ref={navigationRef}>
+      <NavigationContainer
+        ref={navigationRef}
+        onStateChange={() =>
+          dispatch(
+            setCurrentRoute({
+              currentRoute: navigationRef?.current?.getCurrentRoute()?.name,
+            }),
+          )
+        }>
         {token ? <MainStack /> : <AuthStack />}
       </NavigationContainer>
       <ToastMessage />

@@ -1,45 +1,53 @@
 import React, {FunctionComponent, useState} from 'react';
-import {TouchableWithoutFeedback, View} from 'react-native';
+import {Text, TouchableWithoutFeedback, View} from 'react-native';
 // commons
 import TouchableOpacity from '@/commons/TouchableOpacity';
 import {IoniconsIcons} from '../Icons/RnIcons';
+import LoadingImage from './LoadingImage';
+// apis
+import useContentAPI from '@/api/content/useContentAPI';
 // libs
 import FastImage from 'react-native-fast-image';
 // redux
 import {RecoAudiosState} from '@/redux/audio/audioSlice';
 // hooks
 import usePlayerHandle from '@/hooks/usePlayerHandle';
+import useSleepBasket from '@/hooks/useSleepBasket';
+// tools
+import {transformTimes} from '@/utils/tools';
 // styles
-import {HORIZON_AUDIO_CARD_WIDTH, VERTI_AUDIO_CARD_WIDTH} from '@/styles/sizes';
-import styled from 'styled-components/native';
+import {SCREEN_WIDTH} from '@/styles/sizes';
 import {
+  BRIGHT_GRAY,
   DIVIDER_BORDER_COLOR,
-  MIDDLE_GRAY,
+  PURPLE,
   RIGTH_GRAY,
   TRANSPARENT_DARK,
   WHITE,
 } from '@/styles/colors';
-import useContentAPI from '@/api/content/useContentAPI';
-import useSleepBasket from '@/hooks/useSleepBasket';
-import LoadingImage from './LoadingImage';
+import * as mixins from '@/styles/mixins';
 
-type Size = 'big' | 'middle' | 'small';
 interface Props {
   data: RecoAudiosState;
-  size: Size;
+  isGenderVoiceBtn?: boolean;
+  isBasketBtn?: boolean;
 }
 
-const AudioCard: FunctionComponent<Props> = ({data, size}) => {
-  const appliedSize =
-    size === 'big' ? VERTI_AUDIO_CARD_WIDTH : HORIZON_AUDIO_CARD_WIDTH;
-
+const AudioCard: FunctionComponent<Props> = ({
+  data,
+  isGenderVoiceBtn = true,
+  isBasketBtn = true,
+}) => {
+  const appliedSize = SCREEN_WIDTH * 0.9;
+  const height = appliedSize * 0.6;
+  const RODIUS = 10;
   if (!data?.title) {
     return (
       <View style={{flexDirection: 'column'}}>
         <View
           style={{
             width: appliedSize,
-            height: appliedSize,
+            height,
             borderRadius: 10,
             backgroundColor: DIVIDER_BORDER_COLOR,
           }}
@@ -67,7 +75,9 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
     );
   }
 
-  const {id, title, time, thumbnail, file, division, creator} = data;
+  const [voiceGender, setVoiceGender] = useState('여');
+  const {id, title, time, time2, thumbnail, file1, file2, division, creator} =
+    data;
   const [onLoadEnd, setOnLoadEnd] = useState(false);
   const {handleClickContent} = usePlayerHandle();
   const {inBasketAudio} = useContentAPI();
@@ -87,24 +97,32 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
       onPress={() =>
         handleClickContent([
           {
-            id,
+            id: 0,
             title,
-            duration: time,
+            duration: voiceGender === '여' ? time : time2,
             artwork: thumbnail,
-            url: file,
+            url: voiceGender === '여' ? file1 : file2,
             division,
             artist: 'test',
           },
         ])
       }>
-      <View>
+      <View
+        style={[
+          {
+            width: SCREEN_WIDTH * 0.95,
+            flexDirection: 'row',
+            paddingVertical: 10,
+            justifyContent: 'center',
+          },
+        ]}>
         {!onLoadEnd && (
           <LoadingImage
             style={{
               position: 'absolute',
               width: appliedSize,
-              height: appliedSize,
-              borderRadius: 10,
+              height,
+              borderRadius: RODIUS,
               backgroundColor: DIVIDER_BORDER_COLOR,
               zIndex: 1,
             }}
@@ -117,50 +135,120 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
             source={{uri: data.thumbnail}}
             style={{
               width: appliedSize,
-              height: appliedSize,
-              borderRadius: 10,
+              height,
+              borderRadius: RODIUS,
             }}
             onLoad={() => setOnLoadEnd(true)}
             resizeMode={'cover'}
           />
-          <TouchableWithoutFeedback onPress={handleInBasketAudio}>
-            <View
-              style={{
-                position: 'absolute',
-                width: 30,
-                height: 30,
-                borderRadius: 15,
-                backgroundColor: TRANSPARENT_DARK,
-                justifyContent: 'center',
-                alignItems: 'center',
-                left: 13,
-                bottom: 13,
-              }}>
-              <IoniconsIcons
-                name={data.isLike ? 'bookmark' : 'bookmark-outline'}
-                size={20}
-                color={WHITE}
-              />
+          {isBasketBtn && (
+            <TouchableWithoutFeedback onPress={() => handleInBasketAudio()}>
+              <View
+                style={{
+                  position: 'absolute',
+                  width: 30,
+                  height: 30,
+                  borderRadius: 15,
+                  backgroundColor: TRANSPARENT_DARK,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  right: 13,
+                  top: 13,
+                }}>
+                <IoniconsIcons
+                  name={data?.isLike ? 'bookmark' : 'bookmark-outline'}
+                  size={20}
+                  color={WHITE}
+                />
+              </View>
+            </TouchableWithoutFeedback>
+          )}
+
+          {isGenderVoiceBtn && (
+            <View style={{position: 'absolute', left: 13, top: 13}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                }}>
+                <TouchableWithoutFeedback onPress={() => setVoiceGender('여')}>
+                  <View
+                    style={[
+                      mixins.shadow,
+                      {
+                        width: 40,
+                        height: 25,
+                        borderRadius: 5,
+                        backgroundColor:
+                          voiceGender === '여' ? PURPLE : TRANSPARENT_DARK,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      },
+                    ]}>
+                    <Text
+                      style={{color: 'white', fontWeight: '700', fontSize: 12}}>
+                      여
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => setVoiceGender('남')}>
+                  <View
+                    style={[
+                      mixins.shadow,
+                      {
+                        width: 40,
+                        height: 25,
+                        borderRadius: 5,
+                        marginLeft: 5,
+                        backgroundColor:
+                          voiceGender === '남' ? PURPLE : TRANSPARENT_DARK,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      },
+                    ]}>
+                    <Text
+                      style={{color: 'white', fontWeight: '700', fontSize: 12}}>
+                      남
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
+              </View>
             </View>
-          </TouchableWithoutFeedback>
+          )}
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: appliedSize,
+              paddingHorizontal: 10,
+              paddingVertical: 15,
+              position: 'absolute',
+              bottom: 0,
+              borderBottomLeftRadius: RODIUS,
+              borderBottomRightRadius: RODIUS,
+              backgroundColor: TRANSPARENT_DARK,
+            }}>
+            <Text
+              style={{
+                fontWeight: '600',
+                fontSize: 17,
+                color: 'white',
+              }}>
+              {data.title}
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                color: BRIGHT_GRAY,
+              }}>
+              {transformTimes(data.time)}
+            </Text>
+          </View>
         </View>
-        <Title>{data.title}</Title>
-        <Creator>{data.creator.name}</Creator>
       </View>
     </TouchableOpacity>
   );
 };
-
-const Title = styled.Text`
-  margin-top: 10px;
-  font-weight: 600;
-  font-size: 15px;
-`;
-
-const Creator = styled.Text`
-  margin-top: 3px;
-  color: ${MIDDLE_GRAY};
-  font-size: 14px;
-`;
 
 export default AudioCard;

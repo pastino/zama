@@ -35,7 +35,8 @@ const FullScreenController: FunctionComponent<Props> = ({
 }) => {
   const {modalVisible, playList, continuePlay, playing, playingNum} =
     useSelector((state: State) => state.playerReducer);
-  const {handlePlay, handlePause} = usePlayerHandle();
+  const {handlePlay, handlePause, handleNextEvent, handlePrevEvent} =
+    usePlayerHandle();
 
   return (
     <View
@@ -69,7 +70,9 @@ const FullScreenController: FunctionComponent<Props> = ({
             justifyContent: 'space-between',
             width: SCREEN_WIDTH * 0.6,
           }}>
-          <IoniconsIcons name={'play-back'} color={WHITE} size={40} />
+          <TouchableOpacity onPress={handlePrevEvent}>
+            <IoniconsIcons name={'play-back'} color={WHITE} size={40} />
+          </TouchableOpacity>
           {playing ? (
             <TouchableOpacity onPress={handlePause}>
               <IoniconsIcons name={'pause'} color={WHITE} size={40} />
@@ -79,7 +82,9 @@ const FullScreenController: FunctionComponent<Props> = ({
               <IoniconsIcons name={'play'} color={WHITE} size={40} />
             </TouchableOpacity>
           )}
-          <IoniconsIcons name={'play-forward'} color={WHITE} size={40} />
+          <TouchableOpacity onPress={handleNextEvent}>
+            <IoniconsIcons name={'play-forward'} color={WHITE} size={40} />
+          </TouchableOpacity>
         </View>
       </View>
     </View>

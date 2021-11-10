@@ -5,6 +5,7 @@ export interface UserState {
   name: string;
   loginMethod: string | null;
   email: string | null;
+  password?: string;
   kakaoId: string | null;
   naverId: string | null;
   phoneNum: string | null;
@@ -14,6 +15,9 @@ export interface UserState {
   birth: string | null;
   joinStatus: number | null;
   sleepAudio: any;
+  serviceTermAgreement: boolean | null;
+  privacyPolicyAgreement: boolean | null;
+  marketingAgreement: boolean | null;
   updateAt: string;
   createAt: string;
 }

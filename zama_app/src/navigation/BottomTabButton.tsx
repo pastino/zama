@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text} from 'react-native';
 // common
 import TouchableOpacity from '@/commons/TouchableOpacity';
 import {IoniconsIcons} from '@/commons/Icons/RnIcons';
@@ -13,7 +13,7 @@ const HomeIcon = ({isFocused}) => {
     <View style={{alignItems: 'center'}}>
       <IoniconsIcons
         name={'home'}
-        color={isFocused ? colors.BLUE_GREEN : colors.RIGTH_GRAY}
+        color={isFocused ? colors.DARK_PURPLE : colors.RIGTH_GRAY}
         size={25}
       />
       <Text
@@ -21,7 +21,7 @@ const HomeIcon = ({isFocused}) => {
           typography.f10,
           isFocused ? typography.bold : typography.normal,
           {
-            color: isFocused ? colors.BLUE_GREEN : colors.RIGTH_GRAY,
+            color: isFocused ? colors.DARK_PURPLE : colors.RIGTH_GRAY,
           },
         ]}>
         홈
@@ -35,14 +35,14 @@ const SleepBasket = ({isFocused}) => {
     <View style={{alignItems: 'center'}}>
       <IoniconsIcons
         name={'basket'}
-        color={isFocused ? colors.BLUE_GREEN : colors.RIGTH_GRAY}
+        color={isFocused ? colors.DARK_PURPLE : colors.RIGTH_GRAY}
         size={25}
       />
       <Text
         style={[
           typography.f10,
           isFocused ? typography.bold : typography.normal,
-          {color: isFocused ? colors.BLUE_GREEN : colors.RIGTH_GRAY},
+          {color: isFocused ? colors.DARK_PURPLE : colors.RIGTH_GRAY},
         ]}>
         잠바구니
       </Text>
@@ -60,8 +60,8 @@ function BottomTabIcon({
   const icon = useMemo(
     () => (
       <View style={{paddingBottom: isIphoneX() ? 10 : 0}}>
-        {routeName === '자마픽' ? <HomeIcon isFocused={isFocused} /> : null}
-        {routeName === '잠바구니' ? (
+        {routeName === 'Home' ? <HomeIcon isFocused={isFocused} /> : null}
+        {routeName === 'SleepBasket' ? (
           <SleepBasket isFocused={isFocused} />
         ) : null}
       </View>

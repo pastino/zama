@@ -6,12 +6,15 @@ export interface AudioState {
   recoFlag: boolean;
   title: string;
   time: number;
+  time2: number;
   division: string;
   thumbnail: string;
-  file: string;
+  file1: string;
+  file2: string;
   isLike: boolean;
   createAt: Date;
   updateAt: Date;
+  history?: any;
 }
 
 export interface RecoAudiosState extends AudioState {
@@ -31,6 +34,7 @@ export interface TotalAudiosState {
 export interface HomeContentsState {
   recoAudios: any;
   totalAudios: any;
+  basketAudios: AudioState[];
 }
 
 const initBlankData = [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}];
@@ -53,14 +57,18 @@ const userSlice = createSlice({
         data: initBlankData,
       },
     ],
+    basketAudios: [],
   } as HomeContentsState,
   reducers: {
     setHomeContents(state, action) {
       state.recoAudios = action.payload.recoAudios;
       state.totalAudios = action.payload.totalAudios;
     },
+    setBasketAudios(state, action) {
+      state.basketAudios = action.payload.basketAudios;
+    },
   },
 });
 
-export const {setHomeContents} = userSlice.actions;
+export const {setHomeContents, setBasketAudios} = userSlice.actions;
 export default userSlice.reducer;

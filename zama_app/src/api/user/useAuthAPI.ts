@@ -1,6 +1,3 @@
-import {Platform} from 'react-native';
-import moment from 'moment';
-
 // apis
 import useAPI from '../useAPI';
 import {TermTypes} from '@/components/Auth/TermsAgree';

@@ -1,23 +1,30 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import { AudioBasketMapping } from "../../entities/AudioBasketMapping";
 import { SleepAudio } from "../../entities/SleepAudio";
 
 const SleepBasket = async (req: Request, res: Response) => {
   const user: any = req.user;
 
   const { body }: any = req;
-  const audioId = body.audioId;
+  const audioId: number = body.audioId;
 
   try {
-    const repository = getRepository(SleepAudio);
-    const audio: any = await repository.findOne({
-      where: { id: audioId },
-      relations: ["inBasketUsers"],
+    const audioRepository = getRepository(SleepAudio);
+    const basketRepository = getRepository(AudioBasketMapping);
+
+    const mappingData: any = await basketRepository.findOne({
+      where: { user: { id: user.id }, audio: { id: audioId } },
     });
 
-    audio.inBasketUsers.push({ id: user.id });
-
-    repository.save(audio);
+    if (mappingData) {
+      await basketRepository.delete({ id: mappingData.id });
+    } else {
+      const audio: any = await audioRepository.findOne({
+        where: { id: audioId },
+      });
+      await basketRepository.save({ user, audio });
+    }
 
     return res.status(200).send({ success: true });
   } catch (e: any) {

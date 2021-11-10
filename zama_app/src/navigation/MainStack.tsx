@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
 // navigation
 import TabNavigation from './TabNavigation';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {navigate} from './RootNavigation';
 // components
 import Servey from '@/components/Servey';
@@ -15,6 +15,8 @@ import {State} from '@/redux/rootReducer';
 import {setHomeContents} from '@/redux/audio/audioSlice';
 // styles
 import {WHITE} from '@/styles/colors';
+import {PURPLE_COLOR} from '@/components/Home/gradientColorArr';
+import AudioView from '@/components/Home/AudioView';
 
 const MainStack = () => {
   const [networkError, setNetworkError] = useState<boolean | null>(null);
@@ -25,23 +27,14 @@ const MainStack = () => {
 
   const {playList} = useSelector((state: State) => state.playerReducer);
 
-  const {getHomeContentsSubCateAPI} = useContentAPI();
+  const {getHomeContentsSubCateAPI, getSleepBasketAudio} = useContentAPI();
 
   const MainStack = createStackNavigator();
-  const dispatch = useDispatch();
 
   const preLoading = async () => {
     try {
-      const {success, recoAudios, totalAudios} =
-        await getHomeContentsSubCateAPI();
-      if (success) {
-        dispatch(
-          setHomeContents({
-            recoAudios,
-            totalAudios,
-          }),
-        );
-      }
+      await getHomeContentsSubCateAPI();
+      await getSleepBasketAudio();
     } catch (e) {
       console.log(e);
       setNetworkError(true);
@@ -58,12 +51,6 @@ const MainStack = () => {
     preLoading();
   }, []);
 
-  const basicOptions = {
-    cardStyle: {
-      backgroundColor: WHITE,
-    },
-  };
-
   if (networkError) {
     return (
       <SafeAreaView style={{flex: 1}}>
@@ -74,14 +61,29 @@ const MainStack = () => {
     );
   }
 
+  const basicOptions = {
+    cardStyle: {
+      backgroundColor: WHITE,
+    },
+    ...TransitionPresets.SlideFromRightIOS,
+  };
+
   return (
     <View style={{flex: 1, overflow: 'hidden'}}>
       {playList.length > 0 && <Player />}
-      <MainStack.Navigator initialRouteName="Main" headerMode="none">
+      <MainStack.Navigator
+        initialRouteName="Main"
+        headerMode="none"
+        mode="modal">
         <MainStack.Screen
           name="Tab"
           component={TabNavigation}
-          options={{cardStyle: {backgroundColor: WHITE}}}
+          options={{cardStyle: {backgroundColor: PURPLE_COLOR(1)}}}
+        />
+        <MainStack.Screen
+          name="AudioView"
+          component={AudioView}
+          options={basicOptions}
         />
         <MainStack.Screen
           name="Servey"

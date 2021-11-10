@@ -1,230 +1,205 @@
-import React, {
-  createRef,
-  forwardRef,
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import {Text, View, Animated, ScrollView, Image, Platform} from 'react-native';
-// components
-import TodayRecoAudio from './TodayRecoAudio.tsx';
-import TabView from './TabView';
+import React, {useState} from 'react';
+import {View, Image, TouchableWithoutFeedback, Text} from 'react-native';
 // commons
-import VerticalDivider from '@/commons/Divider/VerticalDivider';
 import {IoniconsIcons} from '@/commons/Icons/RnIcons';
-import TouchableOpacity from '@/commons/TouchableOpacity';
-// redux
-import {useDispatch, useSelector} from 'react-redux';
-import {State} from '@/redux/rootReducer';
-import {logOut} from '@/redux/user/userSlice';
+import Tag from '@/commons/Tag';
+import {gradientColorArr, PURPLE_COLOR} from './gradientColorArr';
 // libs
-import {isIphoneX} from 'react-native-iphone-x-helper';
+import SplashScreen from 'react-native-splash-screen';
+import LinearGradient from 'react-native-linear-gradient';
+import FastImage from 'react-native-fast-image';
+// redux
+import {useSelector} from 'react-redux';
+import {State} from '@/redux/rootReducer';
+// hooks
+import usePlayerHandle from '@/hooks/usePlayerHandle';
+// utils
+import {transformTimes} from '@/utils/tools';
 // styles
-import {ABSOLUTE_TOP_ZERO, SCREEN_WIDTH} from '@/styles/sizes';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
 import {
-  DIVIDER_BORDER_COLOR,
-  DIVIDER_COLOR,
-  BLUE_GREEN,
-  WHITE,
+  MIDDLE_PURPLE,
+  BRIGHT_GRAY,
+  TRANSPARENT_DARK,
+  DARK_GRAY,
 } from '@/styles/colors';
 
-const Home = ({}) => {
-  const scrollX = React.useRef(new Animated.Value(0)).current;
-  const ref = useRef<any>(null);
-  const dispatch = useDispatch();
-  const onItemPress = useCallback(itemIndex => {
-    ref?.current?.scrollToOffset({
-      offset: itemIndex * SCREEN_WIDTH,
-    });
-  }, []);
+const Home = ({navigation: {navigate}}) => {
+  const {recoAudios} = useSelector((state: State) => state.audioReducer);
 
-  const {recoAudios, totalAudios} = useSelector(
-    (state: State) => state.audioReducer,
+  const {playList, modalVisible} = useSelector(
+    (state: State) => state.playerReducer,
   );
 
-  const addedRefData = totalAudios.map(audio => ({
-    ...audio,
-    ref: createRef(),
-  }));
+  const isUpScreen = playList.length > 0 && !modalVisible;
 
-  const Indicator = ({measures, scrollX}) => {
-    const inputRange = addedRefData.map((_, i) => i * SCREEN_WIDTH);
-    const indicatorWidth = scrollX.interpolate({
-      inputRange,
-      outputRange: measures.map(measure => measure.width),
-    });
+  const [voiceGender, setVoiceGender] = useState('여');
 
-    const translateX = scrollX.interpolate({
-      inputRange,
-      outputRange: measures.map(measure => measure.x),
-    });
+  const {handleClickContent} = usePlayerHandle();
 
-    return (
-      <Animated.View
-        style={{
-          position: 'absolute',
-          height: 1.5,
-          width: indicatorWidth,
-          left: 0,
-          backgroundColor: BLUE_GREEN,
-          bottom: -2,
-          transform: [
-            {
-              translateX,
-            },
-          ],
-        }}
-      />
-    );
+  const handleClickRecoAudio = () => {
+    handleClickContent([
+      {
+        id: 0,
+        title: recoAudios[0].title,
+        duration:
+          voiceGender === '여' ? recoAudios[0].time : recoAudios[0].time2,
+        artwork: recoAudios[0].thumbnail,
+        url: voiceGender === '여' ? recoAudios[0].file1 : recoAudios[0].file2,
+        division: recoAudios[0].division,
+        artist: 'zama',
+      },
+    ]);
   };
 
-  const Tab = forwardRef(({item, onItemPress}: any, ref: any) => {
+  const handleHideSplashScreen = () => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000);
+  };
+
+  const CategryButton = ({category, iconName, onPress}) => {
     return (
-      <TouchableOpacity onPress={onItemPress}>
-        <View ref={ref}>
-          <Text>
-            {item.division === 'Song'
-              ? '노래'
-              : item.division === 'Story'
-              ? '이야기'
-              : 'ASMR'}
+      <TouchableWithoutFeedback onPress={onPress}>
+        <View
+          style={{
+            backgroundColor: MIDDLE_PURPLE,
+            width: 60,
+            height: 60,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 15,
+          }}>
+          <IoniconsIcons name={iconName} color={'white'} size={24} />
+          <Text
+            style={{
+              color: 'white',
+              fontWeight: '700',
+              fontSize: 12,
+              marginTop: 5,
+            }}>
+            {category}
           </Text>
         </View>
-      </TouchableOpacity>
-    );
-  });
-
-  const Tabs = ({data, scrollX, onItemPress}) => {
-    const [measures, setMeasures] = useState([]);
-    const containerRef = useRef<any>();
-
-    const initLayout = async () => {
-      let m: any = [];
-      for (let i = 0; i < data.length; i++) {
-        data?.[i].ref.current.measureLayout(
-          containerRef.current,
-          (x, y, width, height) => {
-            m.push({x: x - 15, y, width: width + 30, height});
-            if (i === 2) {
-              setMeasures(m);
-            }
-          },
-        );
-      }
-    };
-
-    useEffect(() => {
-      initLayout();
-    }, []);
-
-    return (
-      <View
-        ref={containerRef}
-        style={{
-          width: SCREEN_WIDTH,
-          flexDirection: 'row',
-          height: Platform.OS === 'ios' && isIphoneX() ? 67 : 57,
-          backgroundColor: 'white',
-          alignItems: 'flex-end',
-          paddingBottom: 5,
-          justifyContent: 'space-evenly',
-          borderBottomWidth: 1.5,
-          borderBottomColor: DIVIDER_BORDER_COLOR,
-        }}>
-        {data.map((item, index) => {
-          return (
-            <Fragment key={index}>
-              <Tab
-                key={item.division}
-                item={item}
-                ref={item.ref}
-                onItemPress={() => onItemPress(index)}
-              />
-            </Fragment>
-          );
-        })}
-        {measures.length > 0 && (
-          <Indicator measures={measures} scrollX={scrollX} />
-        )}
-      </View>
+      </TouchableWithoutFeedback>
     );
   };
 
   return (
-    <View style={{flex: 1}}>
-      <Image
-        source={require('@/assets/images/sample_image.png')}
-        style={{width: SCREEN_WIDTH, position: 'absolute', top: 0}}
-      />
-      <View
-        style={{
-          zIndex: 100,
-          position: 'absolute',
-          right: 30,
-          top: ABSOLUTE_TOP_ZERO + 15,
-        }}>
-        <TouchableOpacity onPress={() => dispatch(logOut())}>
-          <IoniconsIcons name={'reorder-three'} size={37} color={WHITE} />
-        </TouchableOpacity>
-      </View>
-      <ScrollView stickyHeaderIndices={[2]}>
-        <View
+    <View style={{flex: 1, backgroundColor: 'rgba(206, 210, 239, 1)'}}>
+      <View style={{position: 'relative'}}>
+        <FastImage
+          source={{uri: recoAudios[0].thumbnail}}
+          onLoadEnd={handleHideSplashScreen}
           style={{
-            marginTop: 300,
-            paddingBottom: 10,
-            backgroundColor: 'white',
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-          }}>
-          <View
-            style={{width: SCREEN_WIDTH, alignItems: 'center', marginTop: 10}}>
-            <View
-              style={{
-                width: 30,
-                height: 3,
-                borderRadius: 1.5,
-                backgroundColor: DIVIDER_COLOR,
-              }}
-            />
-          </View>
-          <TodayRecoAudio data={recoAudios} />
-        </View>
-        <VerticalDivider width={SCREEN_WIDTH} />
-        <Tabs scrollX={scrollX} data={addedRefData} onItemPress={onItemPress} />
-        <Animated.FlatList
-          ref={ref}
-          data={addedRefData}
-          keyExtractor={item => item.division}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          bounces={false}
-          onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {x: scrollX}}}],
-            {useNativeDriver: false},
-          )}
-          renderItem={({item: {division, data}}: any) => {
-            return (
-              <View
-                style={{
-                  flex: 1,
-                  width: SCREEN_WIDTH,
-                  backgroundColor: 'white',
-                }}>
-                {division === 'Song' ? (
-                  <TabView data={data} />
-                ) : division === 'Story' ? (
-                  <TabView data={data} />
-                ) : (
-                  <TabView data={data} />
-                )}
-              </View>
-            );
+            width: SCREEN_WIDTH,
+            height: SCREEN_HEIGHT - 100,
+            position: 'absolute',
+            top: 0,
           }}
         />
-      </ScrollView>
+        <View
+          style={{
+            width: SCREEN_WIDTH,
+            height: SCREEN_HEIGHT - 100,
+            position: 'absolute',
+            top: 0,
+            backgroundColor: TRANSPARENT_DARK,
+          }}
+        />
+      </View>
+      <View style={{flex: 1}}>
+        <TouchableWithoutFeedback onPress={handleClickRecoAudio}>
+          <LinearGradient
+            colors={gradientColorArr}
+            style={{
+              flex: isUpScreen ? SCREEN_HEIGHT * 0.74 : SCREEN_HEIGHT * 0.8,
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            }}>
+            <View style={{marginTop: 160, alignItems: 'center'}}>
+              <Tag
+                title={recoAudios[0].division}
+                style={{fontSize: 10, width: 70, marginBottom: 15}}
+              />
+              <Text
+                style={{
+                  color: 'white',
+                  fontWeight: '700',
+                  fontSize: 22,
+                }}>
+                {recoAudios[0].title}
+              </Text>
+              <Text
+                style={{
+                  color: BRIGHT_GRAY,
+                  fontWeight: '700',
+                  fontSize: 15,
+                  marginTop: 5,
+                }}>
+                {recoAudios[0]?.creator?.name}
+              </Text>
+            </View>
+            <View
+              style={{
+                marginTop: 30,
+                alignItems: 'center',
+              }}>
+              <IoniconsIcons name={'play-outline'} color={'white'} size={30} />
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color: BRIGHT_GRAY,
+                  fontSize: 12,
+                  marginTop: 7,
+                }}>
+                {recoAudios[0]?.time && transformTimes(recoAudios[0]?.time)}
+              </Text>
+            </View>
+          </LinearGradient>
+        </TouchableWithoutFeedback>
+        <View
+          style={{
+            paddingTop: 15,
+            paddingHorizontal: 20,
+            backgroundColor: PURPLE_COLOR(1),
+          }}>
+          <Text style={{fontWeight: '700', fontSize: 17, color: DARK_GRAY}}>
+            꿈나라로 떠나볼까요?
+          </Text>
+        </View>
+        <View
+          style={{
+            backgroundColor: PURPLE_COLOR(1),
+            flex: isUpScreen ? SCREEN_HEIGHT * 0.21 : SCREEN_HEIGHT * 0.15,
+          }}>
+          <View style={{marginTop: 20}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingHorizontal: 50,
+              }}>
+              <CategryButton
+                category={'스토리'}
+                iconName={'book-outline'}
+                onPress={() => navigate('AudioView', {division: 'Story'})}
+              />
+              <CategryButton
+                category={'음악'}
+                iconName={'musical-note'}
+                onPress={() => navigate('AudioView', {division: 'Song'})}
+              />
+              <CategryButton
+                category={'ASMR'}
+                iconName={'moon-outline'}
+                onPress={() => navigate('AudioView', {division: 'ASMR'})}
+              />
+            </View>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };

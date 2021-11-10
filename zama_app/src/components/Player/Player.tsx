@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {View, Text} from 'react-native';
 // components
 import Controller from './FullScreen/Controller';
+import BottomMiniPlayer from './BottomScreen/BottomMiniPlayer';
 // commons
 import ModalContainer from '@/commons/Modals/Container/ModalContainer';
 import PreviousWhiteBtn from '@assets/svg/previous_white_btn.svg';
@@ -27,7 +28,6 @@ import {
   SCREEN_WIDTH,
 } from '@/styles/sizes';
 import {TRANSPARENT_DARK, WHITE} from '@/styles/colors';
-import BottomMiniPlayer from './BottomScreen/BottomMiniPlayer';
 
 export interface TimeData {
   position: number;
@@ -54,19 +54,51 @@ const Player = () => {
     handlePlay,
     handlePause,
     handleInitSetAudio,
+    handleSetPlayingNum,
   } = usePlayerHandle();
 
   const {id, title, duration, artwork, url, artist, division} =
     playList[playingNum];
 
   const intervalRef = useRef<any>(null);
+  const playingNumRef = useRef(0);
 
   const getInformations = async () => {
     const position = await TrackPlayer.getPosition();
     const duration = await TrackPlayer.getDuration();
-    const positionString = transformTimes(position);
-    const durationString = transformTimes(duration);
-    setData({position, duration, positionString, durationString});
+    const currentTrack = await TrackPlayer.getCurrentTrack();
+
+    const durationString = transformTimes(Math.round(duration));
+    const currentPosition = Number(position);
+
+    const currentPositionString = transformTimes(currentPosition);
+    setData({
+      position: currentPosition,
+      duration,
+      positionString: currentPositionString,
+      durationString,
+    });
+
+    if (
+      currentTrack &&
+      Number(currentTrack) > 0 &&
+      Number(currentTrack) !== playingNumRef.current
+    ) {
+      handleSetPlayingNum(Number(currentTrack));
+    }
+
+    // if (
+    //   Number(duration) > 0 &&
+    //   Math.round(Number(duration)) === Math.round(position)
+    // ) {
+    //   handlePause();
+    //   setData({
+    //     position: currentPosition + 1,
+    //     duration,
+    //     positionString: transformTimes(currentPosition + 1),
+    //     durationString,
+    //   });
+    // }
   };
 
   const handleOnValueChange = (position: number) => {
@@ -98,7 +130,7 @@ const Player = () => {
         durationString: '00:00',
       });
     };
-  }, []);
+  }, [playList]);
 
   return (
     <>
@@ -130,12 +162,12 @@ const Player = () => {
           <View
             style={{
               flex: 1,
+              backgroundColor: TRANSPARENT_DARK,
             }}>
             <View
               style={{
                 height: isIphoneX() ? 90 : 50,
                 justifyContent: 'flex-end',
-                backgroundColor: TRANSPARENT_DARK,
               }}>
               <TouchableOpacity onPress={handleModal}>
                 <View
@@ -157,7 +189,7 @@ const Player = () => {
                   flex: 0.45,
                   justifyContent: 'center',
                   flexDirection: 'column',
-                  backgroundColor: TRANSPARENT_DARK,
+
                   borderTopLeftRadius: 10,
                   borderTopRightRadius: 10,
                 }}>
@@ -180,16 +212,14 @@ const Player = () => {
                     by {artist}
                   </Text>
                 </View>
-                <View style={{}}>
-                  <Controller
-                    value={data.position}
-                    maximumValue={duration}
-                    onValueChange={handleOnValueChange}
-                    onSlidingStart={onSlidingStart}
-                    onSlidingComplete={onSeek}
-                    timeData={data}
-                  />
-                </View>
+                <Controller
+                  value={data.position}
+                  maximumValue={duration}
+                  onValueChange={handleOnValueChange}
+                  onSlidingStart={onSlidingStart}
+                  onSlidingComplete={onSeek}
+                  timeData={data}
+                />
               </View>
             </View>
           </View>

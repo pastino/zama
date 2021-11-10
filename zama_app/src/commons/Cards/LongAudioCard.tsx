@@ -5,16 +5,10 @@ import TouchableOpacity from '@/commons/TouchableOpacity';
 import {IoniconsIcons} from '../Icons/RnIcons';
 // libs
 import FastImage from 'react-native-fast-image';
-// redux
-import {RecoAudiosState} from '@/redux/audio/audioSlice';
 // hooks
 import usePlayerHandle from '@/hooks/usePlayerHandle';
 // styles
-import {
-  HORIZON_AUDIO_CARD_WIDTH,
-  SCREEN_WIDTH,
-  VERTI_AUDIO_CARD_WIDTH,
-} from '@/styles/sizes';
+import {SCREEN_WIDTH} from '@/styles/sizes';
 import styled from 'styled-components/native';
 import {
   DIVIDER_BORDER_COLOR,
@@ -26,8 +20,9 @@ import useContentAPI from '@/api/content/useContentAPI';
 import useSleepBasket from '@/hooks/useSleepBasket';
 
 type Size = 'big' | 'middle' | 'small';
+
 interface Props {
-  data: RecoAudiosState;
+  data: any;
   size: Size;
 }
 
@@ -67,7 +62,7 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
     );
   }
 
-  const {id, title, time, thumbnail, file, division, creator} = data;
+  const {id, title, time, thumbnail, file1, file2, division, creator} = data;
   const [onLoadEnd, setOnLoadEnd] = useState(false);
   const {handleClickContent} = usePlayerHandle();
   const {inBasketAudio} = useContentAPI();
@@ -87,11 +82,11 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
       onPress={() =>
         handleClickContent([
           {
-            id,
+            id: 0,
             title,
             duration: time,
             artwork: thumbnail,
-            url: file,
+            url: file1,
             division,
             artist: 'test',
           },
@@ -134,11 +129,7 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
                 left: 13,
                 bottom: 13,
               }}>
-              <IoniconsIcons
-                name={data.isLike ? 'bookmark' : 'bookmark-outline'}
-                size={20}
-                color={WHITE}
-              />
+              <IoniconsIcons name={'bookmark'} size={20} color={WHITE} />
             </View>
           </TouchableWithoutFeedback>
         </View>

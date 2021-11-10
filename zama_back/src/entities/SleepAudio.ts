@@ -7,8 +7,9 @@ import {
   ManyToMany,
   ManyToOne,
   JoinTable,
-  AfterLoad,
+  OneToMany,
 } from "typeorm";
+import { AudioBasketMapping } from "./AudioBasketMapping";
 import { Category } from "./Category";
 import { Division, DivisionEnum } from "./Types";
 import { User } from "./User";
@@ -24,6 +25,9 @@ export class SleepAudio {
   @Column()
   time: number;
 
+  @Column({ nullable: true, default: null })
+  time2: number;
+
   @Column({
     type: "enum",
     enum: DivisionEnum,
@@ -38,7 +42,10 @@ export class SleepAudio {
   thumbnail: string;
 
   @Column()
-  file: string;
+  file1: string;
+
+  @Column()
+  file2: string;
 
   @Column({ default: true })
   recoFlag: boolean;
@@ -46,8 +53,10 @@ export class SleepAudio {
   @ManyToOne(() => User, (user) => user.makedAudios)
   creator: User;
 
-  @ManyToMany(() => User, (user) => user.inBasketAudios)
-  @JoinTable()
+  @OneToMany(
+    () => AudioBasketMapping,
+    (audioBasketMappings) => audioBasketMappings.user
+  )
   inBasketUsers: User[];
 
   @Column({ nullable: true, default: null })

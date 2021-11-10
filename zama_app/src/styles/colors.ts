@@ -1,5 +1,8 @@
 export const PRIMARY = '#222';
 export const WHITE = '#ffffff';
+export const PURPLE = '#C2ADEC';
+export const MIDDLE_PURPLE = '#a48bbf';
+export const DARK_PURPLE = '#241257';
 export const BLUE_GREEN = '#003756';
 export const PASTEL = '#454eae';
 export const BLUE = '#00abfb';
@@ -8,7 +11,7 @@ export const BRIGHT_GRAY = '#e0e0e0';
 export const RIGTH_GRAY = '#999999';
 export const MIDDLE_GRAY = '#555555';
 export const DARK_GRAY = '#121212';
-export const TRANSPARENT_DARK = 'rgba(0, 0, 0, 0.4)';
+export const TRANSPARENT_DARK = 'rgba(0, 0, 0, 0.5)';
 export const DIVIDER_BORDER_COLOR = '#f1f0f0';
 export const DIVIDER_COLOR = '#e5e5e5';
 export const ORANGE = '#fd8e00';

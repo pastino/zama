@@ -8,7 +8,7 @@ import {
 
 export const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export const HEADER_HEIGHT = 70;
+export const HEADER_HEIGHT = isIphoneX() ? 90 : 70;
 
 export const SCREEN_HEIGHT =
   Platform.OS === 'ios' && isIphoneX()
@@ -52,6 +52,6 @@ export const LOGIN_BUTTON_WIDTH = SCREEN_WIDTH * 0.8;
 export const SIDE_PADDING = 20;
 
 // Horizon 오디오 카드 넓이
-export const HORIZON_AUDIO_CARD_WIDTH = SCREEN_WIDTH * 0.35;
+export const HORIZON_AUDIO_CARD_WIDTH = SCREEN_WIDTH * 0.42;
 // Vertical 2Line 오디오 카드 넓이
 export const VERTI_AUDIO_CARD_WIDTH = SCREEN_WIDTH * 0.45;

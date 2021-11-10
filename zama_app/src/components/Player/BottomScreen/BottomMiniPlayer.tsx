@@ -7,6 +7,9 @@ import TouchableOpacity from '@/commons/TouchableOpacity';
 import {BOTTOM_TAB_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
 import styled from 'styled-components/native';
 import {BRIGHT_GRAY, WHITE} from '@/styles/colors';
+import {useSelector} from 'react-redux';
+import {State} from '@/redux/rootReducer';
+import {bottomTabInfo} from '@/navigation/TabNavigation';
 
 interface Props {
   title: string;
@@ -27,9 +30,19 @@ const BottomMiniPlayer: FunctionComponent<Props> = ({
   handlePause,
   handlePlay,
 }) => {
+  const {currentRoute} = useSelector(
+    (state: State) => state.interactionReducer,
+  );
+  const isCurrentTabRoute = bottomTabInfo
+    .map(item => item.name)
+    .includes(currentRoute);
+
   const HEIGHT = 70;
+  const BOTTOM_HEIGHT =
+    isCurrentTabRoute || currentRoute === '' ? BOTTOM_TAB_HEIGHT : 0;
+
   return (
-    <Continer height={HEIGHT}>
+    <Continer height={HEIGHT} bottom={BOTTOM_HEIGHT}>
       <TouchableOpacity style={{flex: 1}} onPress={handleModal}>
         <View
           style={{
@@ -73,6 +86,7 @@ const BottomMiniPlayer: FunctionComponent<Props> = ({
 interface ContainerProp {
   width?: number;
   height?: number;
+  bottom?: number;
 }
 
 const Continer = styled.View<ContainerProp>`
@@ -81,7 +95,7 @@ const Continer = styled.View<ContainerProp>`
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
-  bottom: ${BOTTOM_TAB_HEIGHT}px;
+  bottom: ${props => props.bottom}px;
   height: ${props => props.height}px;
   width: ${SCREEN_WIDTH}px;
   background-color: rgba(0, 0, 0, 0.7);

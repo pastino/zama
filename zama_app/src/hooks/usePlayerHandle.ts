@@ -21,10 +21,12 @@ export default function usePlayerHandle() {
   const continuePlayRef = useRef<any>(null);
 
   const state = useSelector((state: State) => state.playerReducer);
+
   const {modalVisible, continuePlay, playList, playingNum} = state;
 
   const handleClickContent = (playList: PlayList[]) => {
     dispatch(setPlayList({playList}));
+    handleSetPlayingNum(0);
     handleModal();
   };
 
@@ -57,18 +59,10 @@ export default function usePlayerHandle() {
   };
 
   const handleNextEvent = async () => {
-    if (playList.length === playingNum) {
+    if (playList.length === playingNum + 1) {
       if (continuePlay) {
         handleSetPlayingNum(1);
         await TrackPlayer.skip(String(1));
-      } else {
-        ToastAndroid.showWithGravityAndOffset(
-          '마지막 오디오입니다.',
-          ToastAndroid.SHORT,
-          ToastAndroid.BOTTOM,
-          25,
-          50,
-        );
       }
     } else {
       handleSetPlayingNum(playingNum + 1);
@@ -78,18 +72,10 @@ export default function usePlayerHandle() {
   };
 
   const handlePrevEvent = async () => {
-    if (1 === playingNum) {
+    if (playingNum === 0) {
       if (continuePlay) {
         handleSetPlayingNum(playList.length);
         await TrackPlayer.skip(String(playList.length));
-      } else {
-        ToastAndroid.showWithGravityAndOffset(
-          '첫번째 오디오입니다.',
-          ToastAndroid.SHORT,
-          ToastAndroid.BOTTOM,
-          25,
-          50,
-        );
       }
     } else {
       handleSetPlayingNum(playingNum - 1);
