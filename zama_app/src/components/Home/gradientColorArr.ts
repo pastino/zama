@@ -1,5 +1,5 @@
 export const PURPLE_COLOR = number => `rgba(235,230,249, ${number})`;
-
+//  'rgba(194,173,236,0.9)',
 // export const PURPLE_COLOR = number => `rgba(206, 210, 239, ${number})`;
 export const gradientColorArr = [
   PURPLE_COLOR(0),

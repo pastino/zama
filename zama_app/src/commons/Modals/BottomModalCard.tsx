@@ -135,7 +135,7 @@ const BottomModalCard = ({
                 flex: 1,
                 marginRight: 10,
                 backgroundColor: colors.WHITE,
-                borderColor: colors.BLUE_GREEN,
+                borderColor: colors.DARK_PURPLE,
                 borderWidth: 1,
               }}
               textStyle={{color: colors.FONT}}

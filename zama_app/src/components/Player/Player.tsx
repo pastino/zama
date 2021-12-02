@@ -145,8 +145,11 @@ const Player = () => {
           handlePlay={handlePlay}
         />
       ) : null}
-      <ModalContainer isVisible={modalVisible} close={handleModal}>
-        <Container
+      <ModalContainer
+        isVisible={modalVisible}
+        close={handleModal}
+        style={{flex: 1}}>
+        <View
           style={{
             width: SCREEN_WIDTH,
             height: FULL_SCREEN_HEIGHT,
@@ -223,16 +226,10 @@ const Player = () => {
               </View>
             </View>
           </View>
-        </Container>
+        </View>
       </ModalContainer>
     </>
   );
 };
-
-const Container = styled.View`
-  width: ${SCREEN_WIDTH}px;
-  height: ${FULL_SCREEN_HEIGHT}px;
-  background-color: ${WHITE};
-`;
 
 export default Player;

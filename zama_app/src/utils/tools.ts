@@ -31,9 +31,9 @@ export const timeConverter = time => {
   }
 };
 
-export function getDataFromDeepLinkUrl(url: string) {
+export const getDataFromDeepLinkUrl = (url: string) => {
   let path = '';
-  console.log(url);
+
   if (url.split('www.artkeykorea.com/').length > 1) {
     path = url.split('www.artkeykorea.com/')[1].split('?')[0];
   }
@@ -41,4 +41,6 @@ export function getDataFromDeepLinkUrl(url: string) {
   const query = queryString.parse(splitForQuery[1]);
 
   return {path, query};
-}
+};
+
+export const checkSubscriber = () => {};

@@ -5,6 +5,17 @@ import {TermTypes} from '@/components/Auth/TermsAgree';
 export default function useAuthAPI() {
   const {getHandler, postHandler, deleteHandler, putHandler} = useAPI();
 
+  const getUserInfo = async () => {
+    try {
+      const res: any = await getHandler('/user');
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      console.log(errorMessage);
+      throw error;
+    }
+  };
+
   const loginByEmailAPI = async (email: string, password: string) => {
     try {
       const res: any = await postHandler('/auth/login/email', {
@@ -109,6 +120,7 @@ export default function useAuthAPI() {
   };
 
   return {
+    getUserInfo,
     loginByEmailAPI,
     loginByKakaoAPI,
     signUpByEmailAPI,

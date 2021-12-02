@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import mg from "nodemailer-mailgun-transport";
+import { Subscription } from "./entities/Subscription";
 
 export const generateToken = (id: number) =>
   jwt.sign({ id }, process.env.SECRET as string);
@@ -11,6 +12,39 @@ export const generateSecret = (n: number) => {
     str += Math.floor(Math.random() * (9 - 1) + 1);
   }
   return Number(str);
+};
+
+const decimal = [];
+const baseList =
+  "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const baseSize: any = baseList.length;
+
+const getRandomInt = (mininum: number, maximum: number) => {
+  const min = Math.ceil(mininum);
+  const max = Math.floor(maximum);
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
+const getBase62 = (n: any) => {
+  let num: any = n;
+  const res: any = [];
+  do {
+    const mod: any = num % baseSize;
+    num = parseInt(num) / parseInt(baseSize);
+    res.push(baseList[mod]);
+  } while (num > 0);
+
+  return res.reverse().join("");
+};
+
+export const generateVoucherNum = () => {
+  let result = "";
+  for (let i = 0; i < 12; i++) {
+    const n = getRandomInt(0, 62);
+    decimal.push(n);
+    result += getBase62(n);
+  }
+  return result;
 };
 
 const sendMail = (email: {}) => {
@@ -49,4 +83,12 @@ export const audioClassifier = (data: any) => {
   console.log(data);
 
   return data;
+};
+
+export const filteredSubscriptions = (subscriptions: Subscription[]) => {
+  return subscriptions.filter(
+    (subscription) =>
+      new Date(subscription.startDate).getTime() <= new Date().getTime() &&
+      new Date(subscription.endDate).getTime() >= new Date().getTime()
+  );
 };

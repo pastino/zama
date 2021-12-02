@@ -25,9 +25,6 @@ export class SleepAudio {
   @Column()
   time: number;
 
-  @Column({ nullable: true, default: null })
-  time2: number;
-
   @Column({
     type: "enum",
     enum: DivisionEnum,
@@ -42,13 +39,16 @@ export class SleepAudio {
   thumbnail: string;
 
   @Column()
-  file1: string;
-
-  @Column()
-  file2: string;
+  file: string;
 
   @Column({ default: true })
   recoFlag: boolean;
+
+  @Column({ default: false })
+  free: boolean;
+
+  @Column({ nullable: true, default: null })
+  voiceGender: string;
 
   @ManyToOne(() => User, (user) => user.makedAudios)
   creator: User;
@@ -61,6 +61,9 @@ export class SleepAudio {
 
   @Column({ nullable: true, default: null })
   history: string;
+
+  @Column({ nullable: true, default: null })
+  order: number;
 
   @CreateDateColumn()
   createAt: Date;

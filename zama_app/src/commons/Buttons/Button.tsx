@@ -44,7 +44,7 @@ function Button({
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor:
-            styleDisabled || disabled ? colors.RIGTH_GRAY : colors.BLUE_GREEN,
+            styleDisabled || disabled ? colors.RIGTH_GRAY : colors.DARK_PURPLE,
           height: sizes.BUTTON_HEIGHT,
           paddingHorizontal: 15,
           borderRadius: 50,

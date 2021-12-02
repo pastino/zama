@@ -6,7 +6,7 @@ import BottomModalContainer from '@/commons/Modals/Container/BottomModalContaine
 import CheckBoxButton from '@/commons/Buttons/CheckBoxButton';
 import VerticalDivider from '@/commons/Divider/VerticalDivider';
 // stylse
-import {RED, BLUE_GREEN} from '@/styles/colors';
+import {RED, DARK_PURPLE} from '@/styles/colors';
 import {SCREEN_WIDTH} from '@/styles/sizes';
 
 export interface TermTypes {
@@ -128,7 +128,7 @@ const TermsAgree: FunctionComponent<Props> = ({
                 <Text
                   style={{
                     fontSize: 13,
-                    color: BLUE_GREEN,
+                    color: DARK_PURPLE,
                     textDecorationLine: 'underline',
                   }}>
                   보러가기

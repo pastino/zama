@@ -8,7 +8,7 @@ import {Controller} from 'react-hook-form';
 // utils
 import validator from '@/utils/validator';
 // styles
-import {MIDDLE_GRAY, BLUE_GREEN} from '@/styles/colors';
+import {MIDDLE_GRAY, DARK_PURPLE} from '@/styles/colors';
 import {LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
 
 interface Props {
@@ -50,7 +50,7 @@ const LoginInput: FunctionComponent<Props> = ({
                 width: LOGIN_BUTTON_WIDTH,
                 borderRadius: LOGIN_BUTTON_WIDTH / 2,
                 borderWidth: 2,
-                borderColor: BLUE_GREEN,
+                borderColor: DARK_PURPLE,
               }}
               labelTextStyle={{
                 fontSize: 15,
@@ -83,7 +83,7 @@ const LoginInput: FunctionComponent<Props> = ({
                 width: LOGIN_BUTTON_WIDTH,
                 borderRadius: LOGIN_BUTTON_WIDTH / 2,
                 borderWidth: 2,
-                borderColor: BLUE_GREEN,
+                borderColor: DARK_PURPLE,
               }}
               labelTextStyle={{
                 fontSize: 15,

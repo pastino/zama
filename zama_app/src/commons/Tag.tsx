@@ -1,4 +1,4 @@
-import {BLUE_GREEN} from '@/styles/colors';
+import {DARK_PURPLE} from '@/styles/colors';
 import React, {FunctionComponent} from 'react';
 import {Text, View} from 'react-native';
 
@@ -12,7 +12,7 @@ const Tag: FunctionComponent<Props> = ({title, style}) => {
     <View
       style={[
         {
-          backgroundColor: BLUE_GREEN,
+          backgroundColor: DARK_PURPLE,
           paddingVertical: 2,
           paddingHorizontal: 4,
           borderRadius: 10,

@@ -10,18 +10,19 @@ import {typography} from '@/styles/typography';
 
 const HomeIcon = ({isFocused}) => {
   return (
-    <View style={{alignItems: 'center'}}>
+    <View style={{alignItems: 'center', opacity: isFocused ? 1 : 0.7}}>
       <IoniconsIcons
-        name={'home'}
-        color={isFocused ? colors.DARK_PURPLE : colors.RIGTH_GRAY}
+        name={isFocused ? 'home' : 'home-outline'}
+        color={colors.DARK_PURPLE}
         size={25}
       />
       <Text
         style={[
           typography.f10,
+
           isFocused ? typography.bold : typography.normal,
           {
-            color: isFocused ? colors.DARK_PURPLE : colors.RIGTH_GRAY,
+            color: colors.DARK_PURPLE,
           },
         ]}>
         홈
@@ -32,17 +33,17 @@ const HomeIcon = ({isFocused}) => {
 
 const SleepBasket = ({isFocused}) => {
   return (
-    <View style={{alignItems: 'center'}}>
+    <View style={{alignItems: 'center', opacity: isFocused ? 1 : 0.7}}>
       <IoniconsIcons
-        name={'basket'}
-        color={isFocused ? colors.DARK_PURPLE : colors.RIGTH_GRAY}
+        name={isFocused ? 'basket' : 'basket-outline'}
+        color={colors.DARK_PURPLE}
         size={25}
       />
       <Text
         style={[
           typography.f10,
           isFocused ? typography.bold : typography.normal,
-          {color: isFocused ? colors.DARK_PURPLE : colors.RIGTH_GRAY},
+          {color: colors.DARK_PURPLE},
         ]}>
         잠바구니
       </Text>
@@ -76,7 +77,8 @@ export default function BottomTabButton({state, descriptors, navigation}) {
   const {navigate, emit} = navigation;
 
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View
+      style={{flexDirection: 'row', backgroundColor: 'rgba(194,173,236,0.5)'}}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const isFocused = state.index === index;

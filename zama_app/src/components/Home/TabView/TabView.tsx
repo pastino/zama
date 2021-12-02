@@ -18,7 +18,7 @@ const TabView = ({data}) => {
       }}>
       {data.map(item => (
         <View key={item.id} style={{paddingTop: 10}}>
-          <AudioCard data={item} size={'big'} />
+          <AudioCard data={item} />
         </View>
       ))}
     </View>

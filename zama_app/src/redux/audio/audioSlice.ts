@@ -6,14 +6,14 @@ export interface AudioState {
   recoFlag: boolean;
   title: string;
   time: number;
-  time2: number;
   division: string;
   thumbnail: string;
-  file1: string;
-  file2: string;
+  file: string;
+  voiceGender: string;
   isLike: boolean;
   createAt: Date;
   updateAt: Date;
+  free: boolean;
   history?: any;
 }
 

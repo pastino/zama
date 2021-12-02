@@ -4,6 +4,7 @@ export interface InteractionState {
   toastMessage: boolean;
   toastMessageText: string;
   openUsePurposeServey: boolean;
+  openSubscriptionModal: boolean;
   currentRoute: string;
 }
 
@@ -13,6 +14,7 @@ const userSlice = createSlice({
     toastMessage: false,
     toastMessageText: '',
     openUsePurposeServey: false,
+    openSubscriptionModal: false,
     currentRoute: '',
   } as InteractionState,
   reducers: {
@@ -30,6 +32,9 @@ const userSlice = createSlice({
     setCloseUsePurposeServey(state, action) {
       state.openUsePurposeServey = false;
     },
+    setSubscriptionModal(state, action) {
+      state.openSubscriptionModal = action.payload.openSubscriptionModal;
+    },
     setCurrentRoute(state, action) {
       state.currentRoute = action.payload.currentRoute;
     },
@@ -41,6 +46,7 @@ export const {
   offToastMessage,
   setOpenUsePurposeServey,
   setCloseUsePurposeServey,
+  setSubscriptionModal,
   setCurrentRoute,
 } = userSlice.actions;
 

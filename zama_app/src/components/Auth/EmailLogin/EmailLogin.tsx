@@ -14,7 +14,7 @@ import {logIn} from '@/redux/user/userSlice';
 import {onToastMessage} from '@/redux/interation/interactionSlice';
 // styles
 import styled from 'styled-components/native';
-import {BLUE_GREEN, WHITE} from '@/styles/colors';
+import {DARK_PURPLE, WHITE} from '@/styles/colors';
 import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
 import {isIphoneX} from 'react-native-iphone-x-helper';
 
@@ -75,7 +75,7 @@ const EmailLogin = ({navigation: {goBack}}) => {
               style={{
                 width: LOGIN_BUTTON_WIDTH,
                 height: BUTTON_HEIGHT,
-                backgroundColor: BLUE_GREEN,
+                backgroundColor: DARK_PURPLE,
               }}>
               로그인
             </Button>

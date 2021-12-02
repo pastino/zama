@@ -11,6 +11,8 @@ const GetHomeAudioSubCate = async (req: Request, res: Response) => {
     const sleepAudioRepository = getRepository(SleepAudio);
     const basketMappingRepository = getRepository(AudioBasketMapping);
 
+    // TODO
+    // 구독권 있으면 아무거나, 아니면 공짜만 추천
     const recoData: SleepAudio[] | [] | undefined = await sleepAudioRepository
       .createQueryBuilder("sleepAudio")
       .innerJoinAndSelect("sleepAudio.creator", "creator")
@@ -44,10 +46,10 @@ const GetHomeAudioSubCate = async (req: Request, res: Response) => {
         .createQueryBuilder("sleepAudio")
         .innerJoinAndSelect("sleepAudio.creator", "creator")
         .where({ division })
+        .orderBy("sleepAudio.order", "ASC")
         .getMany();
 
       const audioData = await temporaryClassifiedData(audio);
-
       classifiedData.push({ division, data: audioData });
     }
 

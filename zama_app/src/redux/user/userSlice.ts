@@ -1,5 +1,15 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+export interface SubscriptionState {
+  id: number;
+  user: any;
+  startDate: Date;
+  endDate: Date;
+  extraInfo: string;
+  available: boolean;
+  createAt: Date;
+  updateAt: Date;
+}
 export interface UserState {
   id: number;
   name: string;
@@ -18,6 +28,7 @@ export interface UserState {
   serviceTermAgreement: boolean | null;
   privacyPolicyAgreement: boolean | null;
   marketingAgreement: boolean | null;
+  subscriptions: SubscriptionState[] | [];
   updateAt: string;
   createAt: string;
 }
@@ -42,8 +53,11 @@ const userSlice = createSlice({
       state.token = null;
       state.user = null;
     },
+    setUserInfo(state, action) {
+      state.user = action.payload.user;
+    },
   },
 });
 
-export const {logIn, logOut} = userSlice.actions;
+export const {logIn, logOut, setUserInfo} = userSlice.actions;
 export default userSlice.reducer;

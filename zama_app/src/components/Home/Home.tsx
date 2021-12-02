@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Image, TouchableWithoutFeedback, Text} from 'react-native';
+import {View, TouchableWithoutFeedback, Text} from 'react-native';
 // commons
 import {IoniconsIcons} from '@/commons/Icons/RnIcons';
 import Tag from '@/commons/Tag';
@@ -8,6 +8,7 @@ import {gradientColorArr, PURPLE_COLOR} from './gradientColorArr';
 import SplashScreen from 'react-native-splash-screen';
 import LinearGradient from 'react-native-linear-gradient';
 import FastImage from 'react-native-fast-image';
+import {isIphoneX} from 'react-native-iphone-x-helper';
 // redux
 import {useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
@@ -22,9 +23,11 @@ import {
   BRIGHT_GRAY,
   TRANSPARENT_DARK,
   DARK_GRAY,
+  DARK_PURPLE,
 } from '@/styles/colors';
 
-const Home = ({navigation: {navigate}}) => {
+const Home = ({navigation}) => {
+  const {navigate, openDrawer} = navigation;
   const {recoAudios} = useSelector((state: State) => state.audioReducer);
 
   const {playList, modalVisible} = useSelector(
@@ -33,8 +36,6 @@ const Home = ({navigation: {navigate}}) => {
 
   const isUpScreen = playList.length > 0 && !modalVisible;
 
-  const [voiceGender, setVoiceGender] = useState('여');
-
   const {handleClickContent} = usePlayerHandle();
 
   const handleClickRecoAudio = () => {
@@ -42,10 +43,9 @@ const Home = ({navigation: {navigate}}) => {
       {
         id: 0,
         title: recoAudios[0].title,
-        duration:
-          voiceGender === '여' ? recoAudios[0].time : recoAudios[0].time2,
+        duration: recoAudios[0].time,
         artwork: recoAudios[0].thumbnail,
-        url: voiceGender === '여' ? recoAudios[0].file1 : recoAudios[0].file2,
+        url: recoAudios[0].file,
         division: recoAudios[0].division,
         artist: 'zama',
       },
@@ -63,7 +63,7 @@ const Home = ({navigation: {navigate}}) => {
       <TouchableWithoutFeedback onPress={onPress}>
         <View
           style={{
-            backgroundColor: MIDDLE_PURPLE,
+            backgroundColor: DARK_PURPLE,
             width: 60,
             height: 60,
             justifyContent: 'center',
@@ -109,6 +109,17 @@ const Home = ({navigation: {navigate}}) => {
         />
       </View>
       <View style={{flex: 1}}>
+        <TouchableWithoutFeedback onPress={openDrawer}>
+          <View
+            style={{
+              position: 'absolute',
+              top: isIphoneX() ? 45 : 30,
+              right: 25,
+              zIndex: 1,
+            }}>
+            <IoniconsIcons name={'menu'} color={'white'} size={30} />
+          </View>
+        </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={handleClickRecoAudio}>
           <LinearGradient
             colors={gradientColorArr}
@@ -161,25 +172,43 @@ const Home = ({navigation: {navigate}}) => {
         </TouchableWithoutFeedback>
         <View
           style={{
-            paddingTop: 15,
-            paddingHorizontal: 20,
+            position: 'relative',
             backgroundColor: PURPLE_COLOR(1),
+            flex: isUpScreen ? SCREEN_HEIGHT * 0.26 : SCREEN_HEIGHT * 0.2,
           }}>
-          <Text style={{fontWeight: '700', fontSize: 17, color: DARK_GRAY}}>
-            꿈나라로 떠나볼까요?
-          </Text>
-        </View>
-        <View
-          style={{
-            backgroundColor: PURPLE_COLOR(1),
-            flex: isUpScreen ? SCREEN_HEIGHT * 0.21 : SCREEN_HEIGHT * 0.15,
-          }}>
-          <View style={{marginTop: 20}}>
+          <LinearGradient
+            colors={[
+              'rgba(255,255,255,0)',
+              'rgba(255,255,255,0.1)',
+              'rgba(194,173,236,0.2)',
+              'rgba(194,173,236,0.2)',
+              'rgba(194,173,236,0.2)',
+              'rgba(194,173,236,0.3)',
+              'rgba(194,173,236,0.4)',
+              'rgba(194,173,236,0.5)',
+              'rgba(194,173,236,0.5)',
+              'rgba(194,173,236,0.5)',
+              'rgba(194,173,236,0.6)',
+              'rgba(194,173,236,0.8)',
+            ]}
+            style={{
+              flex: 1,
+            }}>
+            <View
+              style={{
+                paddingTop: 15,
+                paddingHorizontal: 20,
+              }}>
+              <Text style={{fontWeight: '700', fontSize: 17, color: DARK_GRAY}}>
+                꿈나라로 떠나볼까요?
+              </Text>
+            </View>
             <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 paddingHorizontal: 50,
+                marginTop: 20,
               }}>
               <CategryButton
                 category={'스토리'}
@@ -197,7 +226,7 @@ const Home = ({navigation: {navigate}}) => {
                 onPress={() => navigate('AudioView', {division: 'ASMR'})}
               />
             </View>
-          </View>
+          </LinearGradient>
         </View>
       </View>
     </View>

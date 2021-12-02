@@ -1,30 +1,20 @@
-import {useEffect, useState} from 'react';
-import {SafeAreaView} from 'react-native';
+import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
-import {SCREEN_WIDTH} from '@/styles/sizes';
 import RootNavigator from './RootNavigator';
+import {SCREEN_WIDTH} from '@/styles/sizes';
 
 const DrawerNavigation = () => {
   const Drawer = createDrawerNavigator();
-  const [init, setInit] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setInit(true);
-    }, 1);
-  }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Drawer.Navigator
-        initialRouteName="Maim"
-        drawerType="slide"
-        drawerStyle={{width: init ? SCREEN_WIDTH * 0.7 : 0}}
-        drawerContent={props => <DrawerContent {...props} />}>
-        <Drawer.Screen name="Maim" component={RootNavigator} />
-      </Drawer.Navigator>
-    </SafeAreaView>
+    <Drawer.Navigator
+      initialRouteName="Main"
+      drawerType="front"
+      drawerStyle={{width: SCREEN_WIDTH}}
+      drawerContent={props => <DrawerContent {...props} />}>
+      <Drawer.Screen name="Main" component={RootNavigator} />
+    </Drawer.Navigator>
   );
 };
 

@@ -1,9 +1,12 @@
-import {State} from '@/redux/rootReducer';
 import axios from 'axios';
+// redux
+import {State} from '@/redux/rootReducer';
 import {useSelector} from 'react-redux';
 
+export const appVersion = '0.0.1';
+
 export default function useAPI() {
-  const API_URL = 'http://672f-221-141-228-118.ngrok.io';
+  const API_URL = 'http://8d6d-14-63-37-213.ngrok.io';
 
   const {token} = useSelector((state: State) => state.usersReducer);
 

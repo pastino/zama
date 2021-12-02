@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useMemo, useState} from 'react';
 import {Text, TouchableWithoutFeedback, View} from 'react-native';
 // commons
 import TouchableOpacity from '@/commons/TouchableOpacity';
@@ -10,6 +10,9 @@ import useContentAPI from '@/api/content/useContentAPI';
 import FastImage from 'react-native-fast-image';
 // redux
 import {RecoAudiosState} from '@/redux/audio/audioSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {State} from '@/redux/rootReducer';
+import {setSubscriptionModal} from '@/redux/interation/interactionSlice';
 // hooks
 import usePlayerHandle from '@/hooks/usePlayerHandle';
 import useSleepBasket from '@/hooks/useSleepBasket';
@@ -19,6 +22,7 @@ import {transformTimes} from '@/utils/tools';
 import {SCREEN_WIDTH} from '@/styles/sizes';
 import {
   BRIGHT_GRAY,
+  DARK_PURPLE,
   DIVIDER_BORDER_COLOR,
   PURPLE,
   RIGTH_GRAY,
@@ -29,18 +33,14 @@ import * as mixins from '@/styles/mixins';
 
 interface Props {
   data: RecoAudiosState;
-  isGenderVoiceBtn?: boolean;
   isBasketBtn?: boolean;
 }
 
-const AudioCard: FunctionComponent<Props> = ({
-  data,
-  isGenderVoiceBtn = true,
-  isBasketBtn = true,
-}) => {
+const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
   const appliedSize = SCREEN_WIDTH * 0.9;
   const height = appliedSize * 0.6;
   const RODIUS = 10;
+
   if (!data?.title) {
     return (
       <View style={{flexDirection: 'column'}}>
@@ -75,38 +75,70 @@ const AudioCard: FunctionComponent<Props> = ({
     );
   }
 
-  const [voiceGender, setVoiceGender] = useState('여');
-  const {id, title, time, time2, thumbnail, file1, file2, division, creator} =
-    data;
+  const {
+    id,
+    title,
+    time,
+    thumbnail,
+    voiceGender,
+    file,
+    division,
+    isLike,
+    creator,
+  } = data;
+
   const [onLoadEnd, setOnLoadEnd] = useState(false);
   const {handleClickContent} = usePlayerHandle();
   const {inBasketAudio} = useContentAPI();
   const {sleepBasketClick} = useSleepBasket();
 
+  const {subscriptions}: any = useSelector(
+    (state: State) => state.subscriptionReducer,
+  );
+  const subscription = subscriptions?.length > 0;
+
+  const available = subscription ? true : data?.free;
+
+  const dispatch = useDispatch();
+
   const handleInBasketAudio = async () => {
     try {
-      sleepBasketClick(id, division);
-      await inBasketAudio(id);
+      if (isLike) {
+        sleepBasketClick(id, division);
+        await inBasketAudio(id);
+      } else {
+        if (subscription) {
+          sleepBasketClick(id, division);
+          await inBasketAudio(id);
+        } else {
+          dispatch(setSubscriptionModal({openSubscriptionModal: true}));
+        }
+      }
     } catch (e) {
       console.log(e);
     }
   };
 
+  const handleClickAudio = () => {
+    if (available) {
+      handleClickContent([
+        {
+          id: 0,
+          title,
+          duration: time,
+          artwork: thumbnail,
+          url: file,
+          division,
+          artist: 'zama',
+        },
+      ]);
+    } else {
+      dispatch(setSubscriptionModal({openSubscriptionModal: true}));
+    }
+  };
+
   return (
-    <TouchableOpacity
-      onPress={() =>
-        handleClickContent([
-          {
-            id: 0,
-            title,
-            duration: voiceGender === '여' ? time : time2,
-            artwork: thumbnail,
-            url: voiceGender === '여' ? file1 : file2,
-            division,
-            artist: 'test',
-          },
-        ])
-      }>
+    <TouchableOpacity onPress={handleClickAudio}>
       <View
         style={[
           {
@@ -156,7 +188,7 @@ const AudioCard: FunctionComponent<Props> = ({
                   top: 13,
                 }}>
                 <IoniconsIcons
-                  name={data?.isLike ? 'bookmark' : 'bookmark-outline'}
+                  name={isLike ? 'bookmark' : 'bookmark-outline'}
                   size={20}
                   color={WHITE}
                 />
@@ -164,57 +196,29 @@ const AudioCard: FunctionComponent<Props> = ({
             </TouchableWithoutFeedback>
           )}
 
-          {isGenderVoiceBtn && (
-            <View style={{position: 'absolute', left: 13, top: 13}}>
-              <View
+          <View style={{position: 'absolute', left: 13, top: 13}}>
+            <View
+              style={[
+                mixins.shadow,
+                {
+                  paddingHorizontal: 10,
+                  paddingVertical: 7,
+                  borderRadius: 5,
+                  backgroundColor: voiceGender === '여' ? PURPLE : DARK_PURPLE,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                },
+              ]}>
+              <Text
                 style={{
-                  flexDirection: 'row',
+                  color: 'white',
+                  fontWeight: '700',
+                  fontSize: 12,
                 }}>
-                <TouchableWithoutFeedback onPress={() => setVoiceGender('여')}>
-                  <View
-                    style={[
-                      mixins.shadow,
-                      {
-                        width: 40,
-                        height: 25,
-                        borderRadius: 5,
-                        backgroundColor:
-                          voiceGender === '여' ? PURPLE : TRANSPARENT_DARK,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      },
-                    ]}>
-                    <Text
-                      style={{color: 'white', fontWeight: '700', fontSize: 12}}>
-                      여
-                    </Text>
-                  </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() => setVoiceGender('남')}>
-                  <View
-                    style={[
-                      mixins.shadow,
-                      {
-                        width: 40,
-                        height: 25,
-                        borderRadius: 5,
-                        marginLeft: 5,
-                        backgroundColor:
-                          voiceGender === '남' ? PURPLE : TRANSPARENT_DARK,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      },
-                    ]}>
-                    <Text
-                      style={{color: 'white', fontWeight: '700', fontSize: 12}}>
-                      남
-                    </Text>
-                  </View>
-                </TouchableWithoutFeedback>
-              </View>
+                Voice - {voiceGender}
+              </Text>
             </View>
-          )}
-
+          </View>
           <View
             style={{
               flexDirection: 'row',
@@ -229,14 +233,30 @@ const AudioCard: FunctionComponent<Props> = ({
               borderBottomRightRadius: RODIUS,
               backgroundColor: TRANSPARENT_DARK,
             }}>
-            <Text
+            <View
               style={{
-                fontWeight: '600',
-                fontSize: 17,
-                color: 'white',
+                flexDirection: 'row',
+                alignItems: 'center',
               }}>
-              {data.title}
-            </Text>
+              {!available && (
+                <View style={{marginRight: 7}}>
+                  <IoniconsIcons
+                    name={'lock-closed'}
+                    color={'white'}
+                    size={20}
+                  />
+                </View>
+              )}
+              <Text
+                style={{
+                  fontWeight: '600',
+                  fontSize: 17,
+                  color: 'white',
+                  marginTop: 3,
+                }}>
+                {data.title}
+              </Text>
+            </View>
             <Text
               style={{
                 fontSize: 12,

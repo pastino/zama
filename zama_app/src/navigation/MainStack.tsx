@@ -7,16 +7,17 @@ import {navigate} from './RootNavigation';
 // components
 import Servey from '@/components/Servey';
 import Player from '@/components/Player';
+import AudioView from '@/components/Home/AudioView';
 // apis
 import useContentAPI from '@/api/content/useContentAPI';
 // redux
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
-import {setHomeContents} from '@/redux/audio/audioSlice';
 // styles
 import {WHITE} from '@/styles/colors';
 import {PURPLE_COLOR} from '@/components/Home/gradientColorArr';
-import AudioView from '@/components/Home/AudioView';
+import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
+import NoticeModal from '@/commons/Modals/NoticeModal';
 
 const MainStack = () => {
   const [networkError, setNetworkError] = useState<boolean | null>(null);
@@ -28,6 +29,7 @@ const MainStack = () => {
   const {playList} = useSelector((state: State) => state.playerReducer);
 
   const {getHomeContentsSubCateAPI, getSleepBasketAudio} = useContentAPI();
+  const {getSubscription} = useSubscriptionAPI();
 
   const MainStack = createStackNavigator();
 
@@ -35,6 +37,7 @@ const MainStack = () => {
     try {
       await getHomeContentsSubCateAPI();
       await getSleepBasketAudio();
+      await getSubscription();
     } catch (e) {
       console.log(e);
       setNetworkError(true);
@@ -71,6 +74,7 @@ const MainStack = () => {
   return (
     <View style={{flex: 1, overflow: 'hidden'}}>
       {playList.length > 0 && <Player />}
+      <NoticeModal />
       <MainStack.Navigator
         initialRouteName="Main"
         headerMode="none"

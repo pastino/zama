@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { User } from "../../../../entities/User";
-import { generateToken } from "../../../../utils";
+import { filteredSubscriptions, generateToken } from "../../../../utils";
 
 const LoginByKakao = async (req: Request, res: Response) => {
   try {
@@ -9,21 +9,30 @@ const LoginByKakao = async (req: Request, res: Response) => {
     const terms = req.body.terms;
 
     const userRepository = getRepository(User);
-    const user: User | undefined = await userRepository.findOne({
-      kakaoId,
+
+    const userArr: User[] | undefined = await userRepository.find({
+      where: { kakaoId },
+      relations: ["subscriptions"],
     });
 
+    const user = userArr[0];
+
     if (user) {
-      return res
-        .status(200)
-        .send({ success: true, user, token: generateToken(user.id) });
+      return res.status(200).send({
+        success: true,
+        user: {
+          ...user,
+          subscriptions: filteredSubscriptions(user.subscriptions),
+        },
+        token: generateToken(user.id),
+      });
     }
 
     if (!terms) {
       return res.status(200).send({ success: true, user: null, token: null });
     }
 
-    const createUser = await userRepository.save({
+    const savedUser = await userRepository.save({
       name: "테스트",
       email: "joon5006@naver.com",
       loginMethod: "KAKAO",
@@ -39,7 +48,14 @@ const LoginByKakao = async (req: Request, res: Response) => {
       ).check,
     });
 
+    const createUserArr: User[] | undefined = await userRepository.find({
+      where: savedUser.kakaoId,
+      relations: ["subscriptions"],
+    });
+
+    const createUser = createUserArr[0];
     const token = generateToken(createUser.id);
+
     return res.status(200).send({ success: true, user: createUser, token });
   } catch (e: any) {
     res.status(400).json({ success: false, message: e.message });

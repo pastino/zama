@@ -20,7 +20,7 @@ import useAuthAPI from '@/api/user/useAuthAPI';
 import {useForm} from 'react-hook-form';
 // styles
 import styled from 'styled-components/native';
-import {BLUE_GREEN, WHITE} from '@/styles/colors';
+import {DARK_PURPLE, WHITE} from '@/styles/colors';
 import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
 import {isIphoneX} from 'react-native-iphone-x-helper';
 
@@ -100,7 +100,7 @@ const EmailSignup = ({navigation: {goBack, navigate}}) => {
               style={{
                 width: LOGIN_BUTTON_WIDTH,
                 height: BUTTON_HEIGHT,
-                backgroundColor: BLUE_GREEN,
+                backgroundColor: DARK_PURPLE,
               }}
               textStyle={{color: WHITE}}>
               <Text>회원가입</Text>

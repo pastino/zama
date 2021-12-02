@@ -1,5 +1,11 @@
-import React, {useState} from 'react';
-import {SafeAreaView, Text, TouchableWithoutFeedback, View} from 'react-native';
+import React from 'react';
+import {
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import AudioCard from '@/commons/Cards/AudioCard';
 // redux
@@ -8,34 +14,55 @@ import {useSelector} from 'react-redux';
 // hooks
 import usePlayerHandle from '@/hooks/usePlayerHandle';
 // styles
-import {PURPLE} from '@/styles/colors';
-import {PURPLE_COLOR} from '../Home/gradientColorArr';
+import {SCREEN_WIDTH} from '@/styles/sizes';
+import LinearGradient from 'react-native-linear-gradient';
+// 'rgba(194,173,236,0.6)'
 
 const SleepBasket = () => {
   const {basketAudios}: any = useSelector((state: State) => state.audioReducer);
   const {playList} = useSelector((state: State) => state.playerReducer);
 
   const {handleClickContent} = usePlayerHandle();
-
-  const [voiceGender, setVoiceGender] = useState('여');
+  const {subscriptions}: any = useSelector(
+    (state: State) => state.subscriptionReducer,
+  );
 
   const handleBasketTotalAudio = () => {
     const audioArr: any = [];
-    for (let i = 0; i < basketAudios.length; i++) {
-      if (!basketAudios[i]) return;
-      const {id, file1, file2, title, thumbnail, time, time2, division} =
-        basketAudios[i];
-      audioArr.push({
-        id: i,
-        url: voiceGender === '여' ? file1 : file2,
-        title: title,
-        artist: 'zama',
-        artwork: thumbnail,
-        duration: voiceGender === '여' ? time : time2,
-        division: division,
-      });
+    if (subscriptions.length > 0) {
+      for (let i = 0; i < basketAudios.length; i++) {
+        if (!basketAudios[i]) return;
+        const {id, file, title, thumbnail, time, division} = basketAudios[i];
+
+        audioArr.push({
+          id: i,
+          url: file,
+          title: title,
+          artist: 'zama',
+          artwork: thumbnail,
+          duration: time,
+          division: division,
+        });
+      }
+      handleClickContent(audioArr);
+    } else {
+      const sortedFreeAudios = basketAudios.filter(audio => audio.free);
+      for (let i = 0; i < sortedFreeAudios.length; i++) {
+        if (!sortedFreeAudios[i]) return;
+        const {id, file, title, thumbnail, time, division} =
+          sortedFreeAudios[i];
+        audioArr.push({
+          id: i,
+          url: file,
+          title: title,
+          artist: 'zama',
+          artwork: thumbnail,
+          duration: time,
+          division: division,
+        });
+      }
+      handleClickContent(audioArr);
     }
-    handleClickContent(audioArr);
   };
 
   return (
@@ -44,11 +71,10 @@ const SleepBasket = () => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: PURPLE_COLOR(1),
+        backgroundColor: 'rgba(194,173,236,0.6)',
       }}>
       <FlatList
         data={basketAudios}
-        style={{backgroundColor: PURPLE_COLOR(1)}}
         renderItem={({item, index}) => {
           return (
             <View
@@ -63,10 +89,7 @@ const SleepBasket = () => {
                     : 0,
               }}>
               <View key={item.id} style={{flex: 1}}>
-                <AudioCard
-                  data={{...item, isLike: true}}
-                  isGenderVoiceBtn={false}
-                />
+                <AudioCard data={{...item, isLike: true}} />
               </View>
             </View>
           );
@@ -84,69 +107,30 @@ const SleepBasket = () => {
           flexDirection: 'row',
           paddingHorizontal: 20,
         }}>
-        <View
-          style={{
-            flex: 0.5,
-            height: 50,
-            backgroundColor: 'rgba(0,55,86,0.9)',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 5,
-            marginBottom: playList.length > 0 ? 80 : 10,
-            marginRight: 20,
-            flexDirection: 'row',
-          }}>
-          <TouchableWithoutFeedback onPress={() => setVoiceGender('여')}>
-            <View
-              style={{
-                flex: 0.5,
-                backgroundColor:
-                  voiceGender === '여' ? PURPLE : 'rgba(153,153,153,0.9)',
-                height: 50,
-                justifyContent: 'center',
-                borderTopLeftRadius: 5,
-                borderBottomLeftRadius: 5,
-              }}>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  color: 'white',
-                  fontWeight: '600',
-                }}>
-                여자{' '}
-                <Text style={{fontSize: 10, textAlign: 'center'}}>목소리</Text>
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => setVoiceGender('남')}>
-            <View
-              style={{
-                flex: 0.5,
-                height: 50,
-                justifyContent: 'center',
-                backgroundColor:
-                  voiceGender === '남' ? PURPLE : 'rgba(153,153,153,0.9)',
-                borderTopRightRadius: 5,
-                borderBottomRightRadius: 5,
-              }}>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  color: 'white',
-                  fontWeight: '600',
-                }}>
-                남자{' '}
-                <Text style={{fontSize: 10, textAlign: 'center'}}>목소리</Text>
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
+        <View style={{position: 'absolute'}}>
+          <LinearGradient
+            colors={[
+              'rgba(36,18,87,0)',
+              'rgba(36,18,87,0.3)',
+              'rgba(36,18,87,0.5)',
+              'rgba(36,18,87,0.7)',
+              'rgba(36,18,87,0.9)',
+              'rgba(36,18,87,0.9)',
+              'rgba(36,18,87,1)',
+            ]}
+            style={{
+              flex: 1,
+              width: SCREEN_WIDTH,
+              height: 120,
+            }}
+          />
         </View>
         <TouchableWithoutFeedback onPress={handleBasketTotalAudio}>
           <View
             style={{
-              flex: 0.5,
+              flex: 1,
               height: 50,
-              backgroundColor: 'rgba(0,55,86,0.9)',
+              backgroundColor: 'rgba(36,18,87,1)',
               justifyContent: 'center',
               alignItems: 'center',
               borderRadius: 5,

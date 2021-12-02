@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { AudioBasketMapping } from "./AudioBasketMapping";
 import { SleepAudio } from "./SleepAudio";
+import { Subscription } from "./Subscription";
 
 export type LoginMethod =
   | "EMAIL"
@@ -66,6 +67,9 @@ export class User {
     enum: ["EMAIL", "KAKAO", "GOOGLE", "NAVER", "APPLE", "PHONE"],
   })
   loginMethod: LoginMethod | null | undefined;
+
+  @OneToMany(() => Subscription, (subscriptions) => subscriptions.user)
+  subscriptions: Subscription[];
 
   @OneToMany(() => SleepAudio, (sleepAudios) => sleepAudios.creator)
   makedAudios: SleepAudio[];

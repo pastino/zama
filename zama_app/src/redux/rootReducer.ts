@@ -7,12 +7,16 @@ import interactionReducer, {
 } from './interation/interactionSlice';
 import audioReducer, {HomeContentsState} from './audio/audioSlice';
 import playerReducer, {PlayerState} from './player/playerReducer';
+import subscriptionReducer, {
+  SubscriptionState,
+} from './subscription/subscriptionReducer';
 
 export interface State {
   usersReducer: MyState;
   interactionReducer: InteractionState;
   audioReducer: HomeContentsState;
   playerReducer: PlayerState;
+  subscriptionReducer: SubscriptionState;
 }
 
 const persistConfig = {
@@ -27,6 +31,7 @@ const rootReducer = combineReducers({
   audioReducer,
   interactionReducer,
   playerReducer,
+  subscriptionReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

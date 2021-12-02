@@ -7,16 +7,16 @@ import HeaderBasic from '@/commons/Header/HeaderBasic';
 // redux
 import {useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
-// styles
-import {PURPLE_COLOR} from '../gradientColorArr';
 
 const AudioView = ({navigation: {goBack}, route}) => {
   const division = route?.params.division;
   const {totalAudios} = useSelector((state: State) => state.audioReducer);
   const {playList} = useSelector((state: State) => state.playerReducer);
 
-  const audioArr = totalAudios.filter(item => item.division === division)[0]
-    .data;
+  const divisionData = totalAudios.filter(
+    item => item.division === division,
+  )[0];
+  const audioArr = divisionData.data;
 
   return (
     <View
@@ -26,13 +26,19 @@ const AudioView = ({navigation: {goBack}, route}) => {
       <HeaderBasic
         previousBtn={true}
         goBack={goBack}
-        title={'스토리'}
-        style={{backgroundColor: PURPLE_COLOR(1)}}
+        title={
+          divisionData?.division === 'Story'
+            ? '스토리'
+            : divisionData?.division === 'Song'
+            ? '음악'
+            : 'ASMR'
+        }
+        style={{backgroundColor: 'rgba(194,173,236,0.5)'}}
         textStyle={{color: 'black', fontWeight: '700'}}
       />
       <FlatList
         data={audioArr}
-        style={{backgroundColor: PURPLE_COLOR(1)}}
+        style={{backgroundColor: 'rgba(194,173,236,0.5)'}}
         renderItem={({item, index}) => {
           return (
             <View

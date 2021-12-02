@@ -22,6 +22,11 @@ import GetSignUpServeyList from "./routes/User/Auth/SignUp/GetSignUpServeyList";
 import LoginByEmail from "./routes/User/Auth/Login/LoginByEmail";
 import SleepBasket from "./routes/SleepAudio/SleepBasket";
 import GetSleepBasket from "./routes/SleepAudio/GetSleepBasket";
+import CreateVoucher from "./routes/User/Subscription/CreateVoucher";
+import UseVoucher from "./routes/User/Subscription/UseVoucher";
+import GetSubscription from "./routes/User/Subscription/GetSubscription";
+import GetUserInfo from "./routes/User/Auth/GetUserInfo";
+import ContactUs from "./routes/Etc/ContactUs";
 
 const app = express();
 const PORT = 5002;
@@ -40,7 +45,9 @@ app.use(
 app.use(authenticateJwt);
 
 //user
-app.get("/user", Users);
+app.get("/user", GetUserInfo);
+app.get("/users", Users);
+
 app.post("/auth/signup/email", SignUpByEmail);
 app.post("/auth/login/kakao", LoginByKakao);
 app.post("/auth/email/certnum", SendCertNumByEmail);
@@ -48,6 +55,7 @@ app.get("/auth/email/certnum", ConfirmCertNum);
 app.post("/auth/servey", SignUpServey);
 app.get("/auth/servey", GetSignUpServeyList);
 app.post("/auth/login/email", LoginByEmail);
+app.get("/subscription", GetSubscription);
 
 //sleep
 app.get("/home/contents", GetHomeAudio);
@@ -56,8 +64,15 @@ app.post("/sleep", uploadMiddleware, CreateSleepAudio);
 app.get("/sleep/basket", GetSleepBasket);
 app.post("/sleep/basket", SleepBasket);
 
+//voucher
+app.post("/voucher", CreateVoucher);
+app.post("/voucher/use", UseVoucher);
+
 //whiteNoise
 app.get("/whiteNoise", GetWhiteNoise);
+
+//contact
+app.post("/contact", ContactUs);
 
 createConnection(connectionOptions)
   .then(() => {

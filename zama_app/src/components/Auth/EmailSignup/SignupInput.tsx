@@ -14,7 +14,7 @@ import {transformTimes} from '@/utils/tools';
 import {useDispatch} from 'react-redux';
 import {onToastMessage} from '@/redux/interation/interactionSlice';
 // styles
-import {MIDDLE_GRAY, RIGTH_GRAY, BLUE_GREEN} from '@/styles/colors';
+import {MIDDLE_GRAY, RIGTH_GRAY, DARK_PURPLE} from '@/styles/colors';
 import {INPUT_HEIGHT, LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
 
 interface Props {
@@ -138,7 +138,7 @@ const SignupInput: FunctionComponent<Props> = ({
                 borderRadius: LOGIN_BUTTON_WIDTH / 2,
                 textAling: 'center',
                 borderWidth: 1,
-                borderColor: BLUE_GREEN,
+                borderColor: DARK_PURPLE,
               }}
               labelTextStyle={{
                 fontSize: 15,
@@ -173,7 +173,7 @@ const SignupInput: FunctionComponent<Props> = ({
                   borderRadius: LOGIN_BUTTON_WIDTH / 2,
                   textAling: 'center',
                   borderWidth: 1,
-                  borderColor: BLUE_GREEN,
+                  borderColor: DARK_PURPLE,
                 }}
                 labelTextStyle={{
                   fontSize: 15,
@@ -199,7 +199,7 @@ const SignupInput: FunctionComponent<Props> = ({
                     containerStyles={{
                       width: SCREEN_WIDTH / 4,
                       height: INPUT_HEIGHT,
-                      backgroundColor: successCert ? MIDDLE_GRAY : BLUE_GREEN,
+                      backgroundColor: successCert ? MIDDLE_GRAY : DARK_PURPLE,
                     }}
                     textStyles={{color: 'white', fontSize: 12}}
                   />
@@ -232,7 +232,7 @@ const SignupInput: FunctionComponent<Props> = ({
                       borderRadius: LOGIN_BUTTON_WIDTH / 2,
                       textAling: 'center',
                       borderWidth: 1,
-                      borderColor: BLUE_GREEN,
+                      borderColor: DARK_PURPLE,
                     }}
                     labelTextStyle={{
                       fontSize: 15,
@@ -264,7 +264,7 @@ const SignupInput: FunctionComponent<Props> = ({
                         containerStyles={{
                           width: SCREEN_WIDTH / 4,
                           height: INPUT_HEIGHT,
-                          backgroundColor: BLUE_GREEN,
+                          backgroundColor: DARK_PURPLE,
                         }}
                         textStyles={{color: 'white', fontSize: 12}}
                       />
@@ -298,7 +298,7 @@ const SignupInput: FunctionComponent<Props> = ({
                 borderRadius: LOGIN_BUTTON_WIDTH / 2,
                 textAling: 'center',
                 borderWidth: 1,
-                borderColor: BLUE_GREEN,
+                borderColor: DARK_PURPLE,
               }}
               labelTextStyle={{
                 fontSize: 15,
@@ -332,7 +332,7 @@ const SignupInput: FunctionComponent<Props> = ({
                 borderRadius: LOGIN_BUTTON_WIDTH / 2,
                 textAling: 'center',
                 borderWidth: 1,
-                borderColor: BLUE_GREEN,
+                borderColor: DARK_PURPLE,
               }}
               labelTextStyle={{
                 fontSize: 15,

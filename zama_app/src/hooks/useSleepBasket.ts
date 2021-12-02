@@ -14,16 +14,19 @@ function useSleepBasket() {
     const copiedRecoAudios = recoAudios.slice();
     //totalAudios
     const copiedTotalData = totalAudios.slice();
+
     const typeIndex = copiedTotalData.findIndex(
       item => item.division === division,
     );
+    console.log(copiedTotalData);
     const typeAudio = copiedTotalData[typeIndex].data;
     const totalIndex = typeAudio.findIndex(audio => audio.id === audioId);
     const totalAudio = typeAudio.slice();
-    totalAudio.splice(totalIndex, 1, {
+    totalAudio[totalIndex] = {
       ...totalAudio[totalIndex],
       isLike: !totalAudio[totalIndex].isLike,
-    });
+    };
+
     copiedTotalData[typeIndex] = {division, data: totalAudio};
     dispatch(
       setHomeContents({

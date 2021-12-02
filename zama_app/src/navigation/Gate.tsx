@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from './RootNavigation';
-import MainStack from './MainStack';
+import DrawerNavigation from './DrawerNavigation';
 import AuthStack from './AuthStack';
 // commons
 import ToastMessage from '@/commons/ToastMessage';
@@ -25,7 +25,7 @@ const Gate = () => {
             }),
           )
         }>
-        {token ? <MainStack /> : <AuthStack />}
+        {token ? <DrawerNavigation /> : <AuthStack />}
       </NavigationContainer>
       <ToastMessage />
     </>

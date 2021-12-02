@@ -4,13 +4,10 @@ import {Text, View} from 'react-native';
 import {isIphoneX} from 'react-native-iphone-x-helper';
 // commons
 import TouchableOpacity from '@/commons/TouchableOpacity';
-// assets
-import PreviousBtn from '@assets/svg/previous_btn.svg';
 // styles
 import {HEADER_HEIGHT} from '@/styles/sizes';
 import styled from 'styled-components/native';
-import * as mixins from '@/styles/mixins';
-import {BRIGHT_GRAY, DARK_GRAY, MIDDLE_GRAY, RIGTH_GRAY} from '@/styles/colors';
+import {MIDDLE_GRAY} from '@/styles/colors';
 import {IoniconsIcons} from '../Icons/RnIcons';
 
 interface Props {
@@ -28,7 +25,6 @@ const HeaderBasic: FunctionComponent<Props> = ({
   style,
   textStyle,
 }) => {
-  console.log(textStyle?.color);
   return (
     <View
       style={[
