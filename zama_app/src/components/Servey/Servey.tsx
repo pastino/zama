@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {SafeAreaView, ScrollView, Text, View} from 'react-native';
 // commons
 import HeaderBasic from '@/commons/Header/HeaderBasic';
 import NoCheckedSelectBtn from '@/commons/Buttons/NoCheckedSelectBtn';
 // styles
 import styled from 'styled-components/native';
 import useAuthAPI from '@/api/user/useAuthAPI';
-import {Text, View} from 'react-native';
 import {MIDDLE_GRAY, DARK_PURPLE, WHITE} from '@/styles/colors';
 import Button from '@/commons/Buttons/Button';
 import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
@@ -69,13 +69,13 @@ const Servey = ({navigation: {navigate}}) => {
         title={'가입완료'}
         goBack={() => navigate('Home')}
       />
-      <View style={{flex: 1}}>
+      <ScrollView>
         <Text
           style={{
             fontSize: 20,
             marginLeft: 20,
-
             fontWeight: '700',
+            marginTop: 20,
           }}>
           zama kids
         </Text>
@@ -128,21 +128,26 @@ const Servey = ({navigation: {navigate}}) => {
         <Text style={{marginLeft: 20, marginTop: 30, fontWeight: '700'}}>
           서비스 사용 목적
         </Text>
-        {serveyList.map((item, index) => (
-          <View key={item.id} style={{marginTop: 13, marginLeft: 20}}>
-            <NoCheckedSelectBtn
-              index={index}
-              title={item?.purpose}
-              check={item?.check}
-              handleCheck={handleSelectPurpose}
-            />
-          </View>
-        ))}
-      </View>
+        <View style={{marginTop: 10}}>
+          {serveyList.map((item, index) => (
+            <View key={item.id} style={{marginLeft: 20, paddingBottom: 10}}>
+              <NoCheckedSelectBtn
+                index={index}
+                title={item?.purpose}
+                check={item?.check}
+                handleCheck={handleSelectPurpose}
+              />
+            </View>
+          ))}
+        </View>
+      </ScrollView>
       <View
         style={{
           width: SCREEN_WIDTH,
           alignItems: 'center',
+          marginBottom: 20,
+          position: 'absolute',
+          bottom: 10,
         }}>
         <Button
           onPress={handleGoHome}
@@ -156,13 +161,14 @@ const Servey = ({navigation: {navigate}}) => {
           <Text>홈으로 가기</Text>
         </Button>
       </View>
+      <SafeAreaView />
     </Container>
   );
 };
 
-const Container = styled.SafeAreaView`
+const Container = styled.View`
   flex: 1;
-
   justify-content: space-between;
 `;
+
 export default Servey;

@@ -12,7 +12,7 @@ export const shadow = {
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
     },
-    android: {elevation: 5},
+    android: {elevation: 2},
   }),
 };
 

@@ -11,7 +11,8 @@ const ConfirmCertNum = async (req: Request, res: Response) => {
 
     const certEmailRepository = getRepository(CertEmail);
     const existingEmail = await certEmailRepository.findOne({
-      email,
+      where: { email },
+      order: { createAt: "DESC" },
     });
 
     if (!existingEmail)

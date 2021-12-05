@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useMemo, useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {Text, TouchableWithoutFeedback, View} from 'react-native';
 // commons
 import TouchableOpacity from '@/commons/TouchableOpacity';
@@ -61,7 +61,6 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
             backgroundColor: DIVIDER_BORDER_COLOR,
           }}
         />
-
         <View
           style={{
             width: appliedSize,
@@ -84,6 +83,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
     file,
     division,
     isLike,
+    free,
     creator,
   } = data;
 
@@ -97,7 +97,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
   );
   const subscription = subscriptions?.length > 0;
 
-  const available = subscription ? true : data?.free;
+  const available = subscription ? true : free;
 
   const dispatch = useDispatch();
 
@@ -107,7 +107,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
         sleepBasketClick(id, division);
         await inBasketAudio(id);
       } else {
-        if (subscription) {
+        if (subscription || free) {
           sleepBasketClick(id, division);
           await inBasketAudio(id);
         } else {
@@ -188,37 +188,40 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
                   top: 13,
                 }}>
                 <IoniconsIcons
-                  name={isLike ? 'bookmark' : 'bookmark-outline'}
+                  name={isLike ? 'basket' : 'basket-outline'}
                   size={20}
                   color={WHITE}
                 />
               </View>
             </TouchableWithoutFeedback>
           )}
-
-          <View style={{position: 'absolute', left: 13, top: 13}}>
-            <View
-              style={[
-                mixins.shadow,
-                {
-                  paddingHorizontal: 10,
-                  paddingVertical: 7,
-                  borderRadius: 5,
-                  backgroundColor: voiceGender === '여' ? PURPLE : DARK_PURPLE,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                },
-              ]}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontWeight: '700',
-                  fontSize: 12,
-                }}>
-                Voice - {voiceGender}
-              </Text>
+          {division === 'Story' && (
+            <View style={{position: 'absolute', left: 13, top: 13}}>
+              <View
+                style={[
+                  mixins.shadow,
+                  {
+                    paddingHorizontal: 10,
+                    paddingVertical: 7,
+                    borderRadius: 5,
+                    backgroundColor:
+                      voiceGender === '여' ? PURPLE : DARK_PURPLE,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  },
+                ]}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontWeight: '700',
+                    fontSize: 12,
+                  }}>
+                  Voice - {voiceGender}
+                </Text>
+              </View>
             </View>
-          </View>
+          )}
+
           <View
             style={{
               flexDirection: 'row',

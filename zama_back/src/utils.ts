@@ -70,7 +70,28 @@ export const sendSecretMail = (secret: number, adress: string) => {
     <br/>
     인증번호: ${secret}<br/>
     <br/>
-    인증번호는 60분 이내에 입력하셔야 합니다.<br/>
+    인증번호는 5분 이내에 입력하셔야 합니다.<br/>
+    <br/>
+    감사합니다.<br/>
+    <br/>
+    ZAMA팀 드림.`,
+  };
+  return sendMail(email);
+};
+
+export const sendSecretMailToFind = (secret: number, adress: string) => {
+  const email = {
+    from: "zama@zama.com",
+    to: adress,
+    subject: `zama 비밀번호를 찾기 위한 이메일 인증번호 안내`,
+    html: `안녕하세요.<br/>
+    <br/>
+    이메일을 인증하려면,<br/>
+    아래 인증 번호를 ZAMA에 입력해주세요.<br/>
+    <br/>
+    인증번호: ${secret}<br/>
+    <br/>
+    인증번호는 5분 이내에 입력하셔야 합니다.<br/>
     <br/>
     감사합니다.<br/>
     <br/>

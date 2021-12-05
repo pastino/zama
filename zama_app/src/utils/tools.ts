@@ -1,5 +1,6 @@
 import moment from 'moment';
 import queryString from 'query-string';
+import ImageSize from 'react-native-image-size';
 
 export const checkUrlForm = (str: string) => {
   const expUrl = /^http[s]?\:\/\//i;
@@ -44,3 +45,14 @@ export const getDataFromDeepLinkUrl = (url: string) => {
 };
 
 export const checkSubscriber = () => {};
+
+export async function handleGetImageData(uri, widthSize) {
+  try {
+    const {width, height} = await ImageSize.getSize(uri);
+    const ratio = width / height;
+    return {uri, width: widthSize, height: widthSize / ratio};
+  } catch (error) {
+    console.log(error);
+    return {uri, width: 0, height: 0};
+  }
+}

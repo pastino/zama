@@ -167,7 +167,7 @@ const SignupInput: FunctionComponent<Props> = ({
                 error={errors?.email?.message}
                 forceFocus={focusName === 'email'}
                 onSubmitEditing={() => setFocusName('password')}
-                maxLength={20}
+                maxLength={40}
                 style={{
                   width: LOGIN_BUTTON_WIDTH / 1.5,
                   borderRadius: LOGIN_BUTTON_WIDTH / 2,

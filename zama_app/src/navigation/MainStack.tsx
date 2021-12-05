@@ -17,7 +17,6 @@ import {State} from '@/redux/rootReducer';
 import {WHITE} from '@/styles/colors';
 import {PURPLE_COLOR} from '@/components/Home/gradientColorArr';
 import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
-import NoticeModal from '@/commons/Modals/NoticeModal';
 
 const MainStack = () => {
   const [networkError, setNetworkError] = useState<boolean | null>(null);
@@ -74,7 +73,7 @@ const MainStack = () => {
   return (
     <View style={{flex: 1, overflow: 'hidden'}}>
       {playList.length > 0 && <Player />}
-      <NoticeModal />
+      {/* <NoticeModal /> */}
       <MainStack.Navigator
         initialRouteName="Main"
         headerMode="none"

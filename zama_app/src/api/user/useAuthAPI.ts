@@ -119,6 +119,28 @@ export default function useAuthAPI() {
     }
   };
 
+  const sendCertNumToFindPassword = async (email: string) => {
+    try {
+      const res: any = await postHandler('/find/password/certnum', {email});
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      console.log(errorMessage);
+      throw error;
+    }
+  };
+
+  const changePassword = async (email: string, password: string) => {
+    try {
+      const res: any = await postHandler('/password/change', {email, password});
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      console.log(errorMessage);
+      throw error;
+    }
+  };
+
   return {
     getUserInfo,
     loginByEmailAPI,
@@ -128,5 +150,7 @@ export default function useAuthAPI() {
     checkCertNumAPI,
     getSignUpServeyListAPI,
     createSignUpServeyAPI,
+    sendCertNumToFindPassword,
+    changePassword,
   };
 }

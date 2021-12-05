@@ -8,6 +8,7 @@ import VerticalDivider from '@/commons/Divider/VerticalDivider';
 // stylse
 import {RED, DARK_PURPLE} from '@/styles/colors';
 import {SCREEN_WIDTH} from '@/styles/sizes';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 export interface TermTypes {
   title: string;
@@ -20,12 +21,16 @@ interface Props {
   visible: boolean;
   setVisible: (any) => void;
   handlePressBtn: (term: TermTypes[]) => void;
+  navigation: any;
+  handleMoveToTerm: (term: string) => void;
 }
 
 const TermsAgree: FunctionComponent<Props> = ({
   visible,
   setVisible,
   handlePressBtn,
+  navigation,
+  handleMoveToTerm,
 }) => {
   const [allAgree, setAllAgree] = useState(false);
   const [term, setTerm] = useState([
@@ -124,7 +129,12 @@ const TermsAgree: FunctionComponent<Props> = ({
               )}
             </View>
             {obj.content && (
-              <View style={{}}>
+              <TouchableWithoutFeedback
+                onPress={() =>
+                  obj?.title === '서비스 이용약관'
+                    ? handleMoveToTerm('UseTerm')
+                    : handleMoveToTerm('PrivacyPolicy')
+                }>
                 <Text
                   style={{
                     fontSize: 13,
@@ -133,7 +143,7 @@ const TermsAgree: FunctionComponent<Props> = ({
                   }}>
                   보러가기
                 </Text>
-              </View>
+              </TouchableWithoutFeedback>
             )}
           </View>
         ))}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Keyboard, Text, View} from 'react-native';
+import {Keyboard, SafeAreaView, Text, View} from 'react-native';
 // components
 import SignupInput from './SignupInput';
 import TermsAgree from '../TermsAgree';
@@ -31,7 +31,8 @@ interface TermTypes {
   content: boolean;
 }
 
-const EmailSignup = ({navigation: {goBack, navigate}}) => {
+const EmailSignup = ({navigation}) => {
+  const {goBack, navigate} = navigation;
   const [successCert, setSuccessCert] = useState(false);
   const [agreeTermModal, setAgreeTermModal] = useState(false);
   const [focusName, setFocusName] = useState('');
@@ -79,6 +80,15 @@ const EmailSignup = ({navigation: {goBack, navigate}}) => {
     }
   };
 
+  const setTermsModal = () => {
+    setAgreeTermModal(!agreeTermModal);
+  };
+
+  const handleMoveToTerm = termKey => {
+    setTermsModal();
+    navigation.navigate(termKey, {setTermsModal});
+  };
+
   useEffect(() => {
     if (errors) {
       setFocusName(Object.keys(errors)[0]);
@@ -121,12 +131,15 @@ const EmailSignup = ({navigation: {goBack, navigate}}) => {
         visible={agreeTermModal}
         setVisible={setAgreeTermModal}
         handlePressBtn={handleConfirmAgreeTerms}
+        navigation={navigation}
+        handleMoveToTerm={handleMoveToTerm}
       />
+      <SafeAreaView />
     </Container>
   );
 };
 
-const Container = styled.SafeAreaView`
+const Container = styled.View`
   flex: 1;
 `;
 

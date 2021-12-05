@@ -27,6 +27,9 @@ import UseVoucher from "./routes/User/Subscription/UseVoucher";
 import GetSubscription from "./routes/User/Subscription/GetSubscription";
 import GetUserInfo from "./routes/User/Auth/GetUserInfo";
 import ContactUs from "./routes/Etc/ContactUs";
+import SendCertNumToFind from "./routes/User/Auth/Find/SendCertNumToFind";
+import ChangePassword from "./routes/User/Auth/Find/ChangePassword";
+import GetNotices from "./routes/Etc/GetNotices";
 
 const app = express();
 const PORT = 5002;
@@ -55,6 +58,8 @@ app.get("/auth/email/certnum", ConfirmCertNum);
 app.post("/auth/servey", SignUpServey);
 app.get("/auth/servey", GetSignUpServeyList);
 app.post("/auth/login/email", LoginByEmail);
+app.post("/find/password/certnum", SendCertNumToFind);
+app.post("/password/change", ChangePassword);
 app.get("/subscription", GetSubscription);
 
 //sleep
@@ -73,6 +78,9 @@ app.get("/whiteNoise", GetWhiteNoise);
 
 //contact
 app.post("/contact", ContactUs);
+
+//notice
+app.get("/notice", GetNotices);
 
 createConnection(connectionOptions)
   .then(() => {

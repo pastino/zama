@@ -72,7 +72,9 @@ const DrawerContent = ({navigation}) => {
         </Text>
         {subscriptions?.length === 0 ? (
           <Button
-            onPress={() => navigation.navigate('Voucher')}
+            onPress={() =>
+              navigation.navigate('Voucher', {isOpenDrawerWhenBack: true})
+            }
             style={{
               borderRadius: 5,
               backgroundColor: DARK_PURPLE,

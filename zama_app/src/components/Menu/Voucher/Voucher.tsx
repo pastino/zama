@@ -7,7 +7,8 @@ import LinearGradient from 'react-native-linear-gradient';
 // styles
 import VoucherInput from '@/commons/Input/VoucherInput';
 
-const Voucher = ({navigation: {goBack, openDrawer}}) => {
+const Voucher = ({navigation: {goBack, openDrawer}, route}) => {
+  const isOpenDrawerWhenBack = route?.params?.isOpenDrawerWhenBack;
   return (
     <LinearGradient
       colors={[
@@ -23,7 +24,9 @@ const Voucher = ({navigation: {goBack, openDrawer}}) => {
         previousBtn={true}
         goBack={() => {
           goBack();
-          openDrawer();
+          if (isOpenDrawerWhenBack) {
+            openDrawer();
+          }
         }}
         style={{borderBottomWidth: 0}}
         textStyle={{color: 'black'}}

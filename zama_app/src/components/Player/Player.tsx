@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 // components
 import Controller from './FullScreen/Controller';
 import BottomMiniPlayer from './BottomScreen/BottomMiniPlayer';
@@ -7,7 +7,7 @@ import BottomMiniPlayer from './BottomScreen/BottomMiniPlayer';
 import ModalContainer from '@/commons/Modals/Container/ModalContainer';
 import PreviousWhiteBtn from '@assets/svg/previous_white_btn.svg';
 import Tag from '@/commons/Tag';
-import TouchableOpacity from '@/commons/TouchableOpacity';
+// import TouchableOpacity from '@/commons/TouchableOpacity';
 // hooks
 import usePlayerHandle from '@/hooks/usePlayerHandle';
 // libs
@@ -67,7 +67,6 @@ const Player = () => {
     const position = await TrackPlayer.getPosition();
     const duration = await TrackPlayer.getDuration();
     const currentTrack = await TrackPlayer.getCurrentTrack();
-
     const durationString = transformTimes(Math.round(duration));
     const currentPosition = Number(position);
 

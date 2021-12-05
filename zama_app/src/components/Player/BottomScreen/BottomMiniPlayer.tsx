@@ -39,7 +39,7 @@ const BottomMiniPlayer: FunctionComponent<Props> = ({
 
   const HEIGHT = 70;
   const BOTTOM_HEIGHT =
-    isCurrentTabRoute || currentRoute === '' ? BOTTOM_TAB_HEIGHT : 0;
+    isCurrentTabRoute || currentRoute === '' ? BOTTOM_TAB_HEIGHT - 5 : 0;
 
   return (
     <Continer height={HEIGHT} bottom={BOTTOM_HEIGHT}>

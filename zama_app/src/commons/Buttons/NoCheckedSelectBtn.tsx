@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {Text, View} from 'react-native';
+import {Platform, Text, View} from 'react-native';
 // commons
 import TouchableOpacity from '@/commons/TouchableOpacity';
 // styles
@@ -37,7 +37,7 @@ const NoCheckedSelectBtn: FunctionComponent<Props> = ({
           {
             width: SCREEN_WIDTH * 0.7,
             height: 45,
-            borderRadius: 7,
+            borderRadius: Platform.OS === 'ios' ? 7 : 0,
             justifyContent: 'center',
             paddingHorizontal: 13,
           },

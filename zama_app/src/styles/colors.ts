@@ -9,6 +9,8 @@ export const BLUE = '#00abfb';
 export const YELLOW = '#fee600';
 export const BRIGHT_GRAY = '#e0e0e0';
 export const RIGTH_GRAY = '#999999';
+export const RIGTH_GRAY_MORE = '#f1f0f0';
+
 export const MIDDLE_GRAY = '#555555';
 export const DARK_GRAY = '#121212';
 export const TRANSPARENT_DARK = 'rgba(0, 0, 0, 0.5)';

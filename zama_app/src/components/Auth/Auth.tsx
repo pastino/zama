@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, NativeModules} from 'react-native';
-// redux
-import {logIn} from '@/redux/user/userSlice';
-import {useDispatch} from 'react-redux';
 // commons
 import LoginButton from '@/commons/Buttons/LoginButton';
 import HorizontalSmallDivider from '@/commons/Divider/HorizontalSmallDivider';
+import TermsAgree from './TermsAgree';
+// libs
+import SplashScreen from 'react-native-splash-screen';
+// redux
+import {logIn} from '@/redux/user/userSlice';
+import {useDispatch} from 'react-redux';
 // types
 import {KakaoProfile} from './types';
 import {
@@ -18,8 +21,6 @@ import useAuthAPI from '@/api/user/useAuthAPI';
 import {MIDDLE_GRAY, YELLOW} from '@/styles/colors';
 import {SCREEN_WIDTH} from '@styles/sizes';
 import styled from 'styled-components/native';
-
-import TermsAgree from './TermsAgree';
 
 const Auth = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -78,6 +79,21 @@ const Auth = ({navigation}) => {
     }
   };
 
+  const setTermsModal = () => {
+    setAgreeTermModal(true);
+  };
+
+  const handleMoveToTerm = termKey => {
+    setAgreeTermModal(false);
+    navigation.navigate(termKey, {setTermsModal});
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000);
+  }, []);
+
   return (
     <ScreenWrapper>
       <Logo>
@@ -114,6 +130,8 @@ const Auth = ({navigation}) => {
         visible={agreeTermModal}
         setVisible={setAgreeTermModal}
         handlePressBtn={handleConfirmAgreeTerms}
+        navigation={navigation}
+        handleMoveToTerm={handleMoveToTerm}
       />
     </ScreenWrapper>
   );

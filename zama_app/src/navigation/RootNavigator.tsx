@@ -11,6 +11,7 @@ import SubscriptionModal from '@/commons/Modals/SubscriptionModal';
 import Info from '@/components/Menu/Info';
 // styles
 import {WHITE} from '@/styles/colors';
+import NoticeDetail from '@/components/Menu/Notice/NoticeDetail';
 
 const RootStack = createStackNavigator();
 const MenuStack = createStackNavigator();
@@ -50,6 +51,11 @@ const RootNavigator = () => {
           options={basicOptions}
         />
         <MenuStack.Screen name="Info" component={Info} options={basicOptions} />
+        <MenuStack.Screen
+          name="NoticeDetail"
+          component={NoticeDetail}
+          options={basicOptions}
+        />
       </RootStack.Navigator>
     </>
   );

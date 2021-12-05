@@ -20,6 +20,12 @@ export class Notice {
   @Column({ nullable: true })
   contents: string;
 
+  @Column({ default: true })
+  isVisible: Boolean;
+
+  @Column({ default: false })
+  isHomeNotice: Boolean;
+
   @CreateDateColumn()
   createAt: Date;
   @UpdateDateColumn()

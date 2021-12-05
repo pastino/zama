@@ -9,6 +9,11 @@ import Servey from '@/components/Servey';
 //styles
 import {WHITE} from '@styles/colors';
 import {SafeAreaView, View} from 'react-native';
+import PrivacyPolicy from '@/components/Auth/Terms/PrivacyPolicy';
+import UseTerm from '@/components/Auth/Terms/UseTerm';
+import FindPassword from '@/components/Auth/FindPassword';
+import ConfirmCertNum from '@/components/Auth/FindPassword/ConfirmCertNum';
+import ChangePassword from '@/components/Auth/FindPassword/ChangePassword';
 
 const AuthStack = () => {
   const AuthStack = createStackNavigator();
@@ -28,6 +33,31 @@ const AuthStack = () => {
       <AuthStack.Screen
         name="EmailSignup"
         component={EmailSignup}
+        options={basicOptions}
+      />
+      <AuthStack.Screen
+        name="PrivacyPolicy"
+        component={PrivacyPolicy}
+        options={basicOptions}
+      />
+      <AuthStack.Screen
+        name="UseTerm"
+        component={UseTerm}
+        options={basicOptions}
+      />
+      <AuthStack.Screen
+        name="FindPassword"
+        component={FindPassword}
+        options={basicOptions}
+      />
+      <AuthStack.Screen
+        name="ConfirmCertNum"
+        component={ConfirmCertNum}
+        options={basicOptions}
+      />
+      <AuthStack.Screen
+        name="ChangePassword"
+        component={ChangePassword}
         options={basicOptions}
       />
     </AuthStack.Navigator>

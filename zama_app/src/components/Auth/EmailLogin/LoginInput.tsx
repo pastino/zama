@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useState} from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableWithoutFeedback, View} from 'react-native';
 // commons
 import TouchableOpacity from '@/commons/TouchableOpacity';
 import Input from '@/commons/Input/Input';
@@ -9,13 +9,14 @@ import {Controller} from 'react-hook-form';
 import validator from '@/utils/validator';
 // styles
 import {MIDDLE_GRAY, DARK_PURPLE} from '@/styles/colors';
-import {LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
+import {LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
 
 interface Props {
   control: any;
   errors: any;
   focusName?: string;
   setFocusName: any;
+  navigation: any;
 }
 
 const LoginInput: FunctionComponent<Props> = ({
@@ -23,6 +24,7 @@ const LoginInput: FunctionComponent<Props> = ({
   errors,
   focusName,
   setFocusName,
+  navigation,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -107,14 +109,17 @@ const LoginInput: FunctionComponent<Props> = ({
         />
       </View>
       <View style={{width: LOGIN_BUTTON_WIDTH, alignItems: 'flex-end'}}>
-        <Text
-          style={{
-            color: MIDDLE_GRAY,
-            marginTop: 25,
-            textDecorationLine: 'underline',
-          }}>
-          비밀번호를 잊으셨나요?
-        </Text>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate('FindPassword')}>
+          <Text
+            style={{
+              color: MIDDLE_GRAY,
+              marginTop: 25,
+              textDecorationLine: 'underline',
+            }}>
+            비밀번호를 잊으셨나요?
+          </Text>
+        </TouchableWithoutFeedback>
       </View>
     </View>
   );

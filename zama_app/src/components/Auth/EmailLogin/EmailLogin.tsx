@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Keyboard, Text, View} from 'react-native';
+import {Keyboard, SafeAreaView, Text, View} from 'react-native';
 import {useForm} from 'react-hook-form';
 //commons
 import HeaderBasic from '@/commons/Header/HeaderBasic';
@@ -18,7 +18,8 @@ import {DARK_PURPLE, WHITE} from '@/styles/colors';
 import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
 import {isIphoneX} from 'react-native-iphone-x-helper';
 
-const EmailLogin = ({navigation: {goBack}}) => {
+const EmailLogin = ({navigation}) => {
+  const {goBack} = navigation;
   const {control, watch, handleSubmit, errors} = useForm();
   const {email, password} = watch();
 
@@ -86,13 +87,15 @@ const EmailLogin = ({navigation: {goBack}}) => {
           errors={errors}
           focusName={focusName}
           setFocusName={setFocusName}
+          navigation={navigation}
         />
       </KeyboardAvoidingView>
+      <SafeAreaView />
     </Container>
   );
 };
 
-const Container = styled.SafeAreaView`
+const Container = styled.View`
   flex: 1;
   flex-grow: 1;
 `;

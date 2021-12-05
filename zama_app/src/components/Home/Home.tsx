@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TouchableWithoutFeedback, Text} from 'react-native';
+import {View, TouchableWithoutFeedback, Text, Platform} from 'react-native';
 // commons
 import {IoniconsIcons} from '@/commons/Icons/RnIcons';
 import Tag from '@/commons/Tag';
@@ -64,8 +64,8 @@ const Home = ({navigation}) => {
         <View
           style={{
             backgroundColor: DARK_PURPLE,
-            width: 60,
-            height: 60,
+            width: 65,
+            height: 65,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 15,
@@ -174,7 +174,13 @@ const Home = ({navigation}) => {
           style={{
             position: 'relative',
             backgroundColor: PURPLE_COLOR(1),
-            flex: isUpScreen ? SCREEN_HEIGHT * 0.26 : SCREEN_HEIGHT * 0.2,
+            height: isUpScreen
+              ? Platform.OS === 'ios'
+                ? 200
+                : 220
+              : SCREEN_HEIGHT * 0.2,
+
+            // flex: isUpScreen ? SCREEN_HEIGHT * 0.26 : SCREEN_HEIGHT * 0.2,
           }}>
           <LinearGradient
             colors={[

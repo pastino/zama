@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-
 import { Contact } from "../../entities/Contact";
-
-import { User } from "../../entities/User";
 
 const ContactUs = async (req: Request, res: Response) => {
   try {
