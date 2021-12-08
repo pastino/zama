@@ -12,6 +12,7 @@ import SignUpByEmail from "./routes/User/Auth/SignUp/SignUpByEmail";
 import Users from "./routes/User/Users";
 import CreateSleepAudio from "./routes/SleepAudio/CreateSleepAudio";
 import LoginByKakao from "./routes/User/Auth/Login/LoginByKakao";
+import LoginByApple from "./routes/User/Auth/Login/LoginByApple";
 import SendCertNumByEmail from "./routes/User/Auth/SignUp/SendCertNumByEmail";
 import GetHomeAudio from "./routes/SleepAudio/GetHomeAudio";
 import GetHomeAudioSubCate from "./routes/SleepAudio/GetHomeAudioSubCate";
@@ -53,6 +54,7 @@ app.get("/users", Users);
 
 app.post("/auth/signup/email", SignUpByEmail);
 app.post("/auth/login/kakao", LoginByKakao);
+app.post("/auth/login/apple", LoginByApple);
 app.post("/auth/email/certnum", SendCertNumByEmail);
 app.get("/auth/email/certnum", ConfirmCertNum);
 app.post("/auth/servey", SignUpServey);
