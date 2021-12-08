@@ -44,6 +44,7 @@
 		483A2A533451423AB691A00D /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		594489AD2707FC7A00A4186D /* zama_app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "zama_app-Bridging-Header.h"; sourceTree = "<group>"; };
 		594489B42707FC9000A4186D /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
+		5986CDDA275E38F5006C8438 /* zama_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = zama_app.entitlements; path = zama_app/zama_app.entitlements; sourceTree = "<group>"; };
 		5DC5179C787540129E76C857 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		708DF80A1010D794D3304785 /* libPods-zama_app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-zama_app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7413520D81F349FEB43AF8EE /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
@@ -116,6 +117,7 @@
 		13B07FAE1A68108700A75B9A /* zama_app */ = {
 			isa = PBXGroup;
 			children = (
+				5986CDDA275E38F5006C8438 /* zama_app.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -531,6 +533,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = zama_app/zama_app.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = zama_app/Info.plist;
@@ -558,6 +561,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = zama_app/zama_app.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = zama_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -38,38 +38,45 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var CertEmail_1 = require("../../../../entities/CertEmail");
-var ConfirmCertNum = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var args, email, certNum, certEmailRepository, existingEmail, e_1;
+var User_1 = require("../../../../entities/User");
+var utils_1 = require("../../../../utils");
+var SendCertNumToFind = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var email, certNum, certEmailRepository, userRepository, existingEmail, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                args = req.query;
-                email = args.email;
-                certNum = args.certNum;
+                _a.trys.push([0, 5, , 6]);
+                email = req.body.email;
+                certNum = utils_1.generateSecret(6);
                 certEmailRepository = typeorm_1.getRepository(CertEmail_1.CertEmail);
-                return [4 /*yield*/, certEmailRepository.findOne({
-                        where: { email: email },
-                        order: { createAt: "DESC" },
+                userRepository = typeorm_1.getRepository(User_1.User);
+                return [4 /*yield*/, userRepository.findOne({
+                        email: email,
+                        loginMethod: "EMAIL",
                     })];
             case 1:
                 existingEmail = _a.sent();
-                if (!existingEmail)
-                    return [2 /*return*/, res
-                            .status(200)
-                            .send({ success: false, message: "잘못된 이메일 입니다." })];
-                if (Number(existingEmail.certNum) !== Number(certNum))
-                    return [2 /*return*/, res
-                            .status(200)
-                            .send({ success: false, message: "인증번호가 일치하지 않습니다." })];
-                return [2 /*return*/, res.status(200).send({ success: true })];
+                if (!existingEmail) return [3 /*break*/, 3];
+                return [4 /*yield*/, certEmailRepository.save({
+                        email: email,
+                        certNum: certNum,
+                    })];
             case 2:
+                _a.sent();
+                return [3 /*break*/, 4];
+            case 3: return [2 /*return*/, res
+                    .status(200)
+                    .send({ success: false, message: "가입된 이메일이 아닙니다." })];
+            case 4:
+                utils_1.sendSecretMailToFind(certNum, email);
+                return [2 /*return*/, res.status(200).send({ success: true })];
+            case 5:
                 e_1 = _a.sent();
                 res.status(400).json({ success: false, message: e_1.message });
                 throw new Error(e_1);
-            case 3: return [2 /*return*/];
+            case 6: return [2 /*return*/];
         }
     });
 }); };
-exports.default = ConfirmCertNum;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ29uZmlybUNlcnROdW0uanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi9zcmMvcm91dGVzL1VzZXIvQXV0aC9TaWduVXAvQ29uZmlybUNlcnROdW0udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxtQ0FBd0M7QUFDeEMsNERBQTJEO0FBRzNELElBQU0sY0FBYyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFFL0MsSUFBSSxHQUFRLEdBQUcsQ0FBQyxLQUFLLENBQUM7Z0JBQ3RCLEtBQUssR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDO2dCQUNuQixPQUFPLEdBQUcsSUFBSSxDQUFDLE9BQU8sQ0FBQztnQkFFdkIsbUJBQW1CLEdBQUcsdUJBQWEsQ0FBQyxxQkFBUyxDQUFDLENBQUM7Z0JBQy9CLHFCQUFNLG1CQUFtQixDQUFDLE9BQU8sQ0FBQzt3QkFDdEQsS0FBSyxFQUFFLEVBQUUsS0FBSyxPQUFBLEVBQUU7d0JBQ2hCLEtBQUssRUFBRSxFQUFFLFFBQVEsRUFBRSxNQUFNLEVBQUU7cUJBQzVCLENBQUMsRUFBQTs7Z0JBSEksYUFBYSxHQUFHLFNBR3BCO2dCQUVGLElBQUksQ0FBQyxhQUFhO29CQUNoQixzQkFBTyxHQUFHOzZCQUNQLE1BQU0sQ0FBQyxHQUFHLENBQUM7NkJBQ1gsSUFBSSxDQUFDLEVBQUUsT0FBTyxFQUFFLEtBQUssRUFBRSxPQUFPLEVBQUUsY0FBYyxFQUFFLENBQUMsRUFBQztnQkFFdkQsSUFBSSxNQUFNLENBQUMsYUFBYSxDQUFDLE9BQU8sQ0FBQyxLQUFLLE1BQU0sQ0FBQyxPQUFPLENBQUM7b0JBQ25ELHNCQUFPLEdBQUc7NkJBQ1AsTUFBTSxDQUFDLEdBQUcsQ0FBQzs2QkFDWCxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsS0FBSyxFQUFFLE9BQU8sRUFBRSxrQkFBa0IsRUFBRSxDQUFDLEVBQUM7Z0JBRTNELHNCQUFPLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsT0FBTyxFQUFFLElBQUksRUFBRSxDQUFDLEVBQUM7OztnQkFFL0MsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsS0FBSyxFQUFFLE9BQU8sRUFBRSxHQUFDLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQztnQkFDN0QsTUFBTSxJQUFJLEtBQUssQ0FBQyxHQUFDLENBQUMsQ0FBQzs7OztLQUV0QixDQUFDO0FBRUYsa0JBQWUsY0FBYyxDQUFDIn0=
+exports.default = SendCertNumToFind;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU2VuZENlcnROdW1Ub0ZpbmQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi9zcmMvcm91dGVzL1VzZXIvQXV0aC9GaW5kL1NlbmRDZXJ0TnVtVG9GaW5kLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQ0EsbUNBQXdDO0FBQ3hDLDREQUEyRDtBQUMzRCxrREFBaUQ7QUFDakQsMkNBQXlFO0FBRXpFLElBQU0saUJBQWlCLEdBQUcsVUFBTyxHQUFZLEVBQUUsR0FBYTs7Ozs7O2dCQUVsRCxLQUFLLEdBQUcsR0FBRyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUM7Z0JBQ3ZCLE9BQU8sR0FBRyxzQkFBYyxDQUFDLENBQUMsQ0FBQyxDQUFDO2dCQUM1QixtQkFBbUIsR0FBRyx1QkFBYSxDQUFDLHFCQUFTLENBQUMsQ0FBQztnQkFDL0MsY0FBYyxHQUFHLHVCQUFhLENBQUMsV0FBSSxDQUFDLENBQUM7Z0JBRXJCLHFCQUFNLGNBQWMsQ0FBQyxPQUFPLENBQUM7d0JBQ2pELEtBQUssT0FBQTt3QkFDTCxXQUFXLEVBQUUsT0FBTztxQkFDckIsQ0FBQyxFQUFBOztnQkFISSxhQUFhLEdBQUcsU0FHcEI7cUJBQ0UsYUFBYSxFQUFiLHdCQUFhO2dCQUNmLHFCQUFNLG1CQUFtQixDQUFDLElBQUksQ0FBQzt3QkFDN0IsS0FBSyxPQUFBO3dCQUNMLE9BQU8sU0FBQTtxQkFDUixDQUFDLEVBQUE7O2dCQUhGLFNBR0UsQ0FBQzs7b0JBRUgsc0JBQU8sR0FBRztxQkFDUCxNQUFNLENBQUMsR0FBRyxDQUFDO3FCQUNYLElBQUksQ0FBQyxFQUFFLE9BQU8sRUFBRSxLQUFLLEVBQUUsT0FBTyxFQUFFLGdCQUFnQixFQUFFLENBQUMsRUFBQzs7Z0JBR3pELDRCQUFvQixDQUFDLE9BQU8sRUFBRSxLQUFLLENBQUMsQ0FBQztnQkFDckMsc0JBQU8sR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsSUFBSSxFQUFFLENBQUMsRUFBQzs7O2dCQUUvQyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLE9BQU8sRUFBRSxLQUFLLEVBQUUsT0FBTyxFQUFFLEdBQUMsQ0FBQyxPQUFPLEVBQUUsQ0FBQyxDQUFDO2dCQUM3RCxNQUFNLElBQUksS0FBSyxDQUFDLEdBQUMsQ0FBQyxDQUFDOzs7O0tBRXRCLENBQUM7QUFFRixrQkFBZSxpQkFBaUIsQ0FBQyJ9

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, TouchableWithoutFeedback, Text, Platform} from 'react-native';
 // commons
 import {IoniconsIcons} from '@/commons/Icons/RnIcons';

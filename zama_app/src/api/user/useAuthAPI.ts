@@ -44,6 +44,20 @@ export default function useAuthAPI() {
     }
   };
 
+  const loginByAppleAPI = async (email: string, terms?: boolean) => {
+    try {
+      const res: any = await postHandler('/auth/login/apple', {
+        email,
+        terms,
+      });
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      console.log(errorMessage);
+      throw error;
+    }
+  };
+
   const signUpByEmailAPI = async (
     name: string,
     email: string,
@@ -145,6 +159,7 @@ export default function useAuthAPI() {
     getUserInfo,
     loginByEmailAPI,
     loginByKakaoAPI,
+    loginByAppleAPI,
     signUpByEmailAPI,
     sendCertNumByEmailAPI,
     checkCertNumAPI,

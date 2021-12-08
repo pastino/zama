@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Image, NativeModules} from 'react-native';
+import {Image, NativeModules, Platform} from 'react-native';
 // commons
 import LoginButton from '@/commons/Buttons/LoginButton';
 import HorizontalSmallDivider from '@/commons/Divider/HorizontalSmallDivider';
 import TermsAgree from './TermsAgree';
 // libs
 import SplashScreen from 'react-native-splash-screen';
+import appleAuth from '@invertase/react-native-apple-authentication';
+import jwt_decode from 'jwt-decode';
 // redux
 import {logIn} from '@/redux/user/userSlice';
 import {useDispatch} from 'react-redux';
@@ -18,7 +20,7 @@ import {
 // apis
 import useAuthAPI from '@/api/user/useAuthAPI';
 // styles
-import {MIDDLE_GRAY, YELLOW} from '@/styles/colors';
+import {MIDDLE_GRAY, WHITE, YELLOW} from '@/styles/colors';
 import {SCREEN_WIDTH} from '@styles/sizes';
 import styled from 'styled-components/native';
 
@@ -26,6 +28,7 @@ const Auth = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [kakaoId, setKakaoId] = useState(0);
   const [agreeTermModal, setAgreeTermModal] = useState(false);
+
   const KAKAO_BUTTON_INFO = {
     buttonText: '카카오로 로그인하기',
     kakaoIcon: require('@/assets/images/kakaoLogo.png'),
@@ -33,10 +36,11 @@ const Auth = ({navigation}) => {
   };
 
   const {buttonText, kakaoIcon, backColor} = KAKAO_BUTTON_INFO;
+
   const {RNKakaoLogins} = NativeModules;
 
   const dispatch = useDispatch();
-  const {loginByKakaoAPI} = useAuthAPI();
+  const {loginByKakaoAPI, loginByAppleAPI} = useAuthAPI();
 
   const handleKakaoLogin = async () => {
     setIsLoading(true);
@@ -59,6 +63,34 @@ const Auth = ({navigation}) => {
     } catch (e) {
       setIsLoading(false);
       console.log(e);
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    const appleAuthRequestResponse: any = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+    });
+    const credentialState = await appleAuth.getCredentialStateForUser(
+      appleAuthRequestResponse.user,
+    );
+    if (credentialState === appleAuth.State.AUTHORIZED) {
+      const decodedToken: any = jwt_decode(
+        appleAuthRequestResponse.identityToken,
+      );
+      const email = decodedToken.email;
+
+      const {success, message, token, user} = await loginByAppleAPI(email);
+      if (!success) {
+        dispatch(onToastMessage({toastMessageText: message}));
+      }
+      if (!user) {
+        setAgreeTermModal(true);
+      }
+      if (success && user) {
+        dispatch(logIn({token, user}));
+      }
+      dispatch(logIn({token, user}));
     }
   };
 
@@ -116,6 +148,15 @@ const Auth = ({navigation}) => {
           backgroundColor={backColor}
           style={{marginBottom: 10}}
         />
+        {Platform.OS === 'ios' && (
+          <LoginButton
+            handleClick={handleAppleLogin}
+            text={'애플로 로그인하기'}
+            iconPath={require('@/assets/images/appleLogo.png')}
+            backgroundColor={WHITE}
+            style={{marginBottom: 10}}
+          />
+        )}
         <EmailLoginWrapper>
           <TextTouchable onPress={() => navigation.navigate('EmailLogin')}>
             <TextInput>이메일로 로그인하기</TextInput>

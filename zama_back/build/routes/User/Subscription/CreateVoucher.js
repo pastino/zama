@@ -37,39 +37,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var CertEmail_1 = require("../../../../entities/CertEmail");
-var ConfirmCertNum = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var args, email, certNum, certEmailRepository, existingEmail, e_1;
+var Voucher_1 = require("../../../entities/Voucher");
+var utils_1 = require("../../../utils");
+var CreateVoucher = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var voucherNumber, voucherRepository, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                args = req.query;
-                email = args.email;
-                certNum = args.certNum;
-                certEmailRepository = typeorm_1.getRepository(CertEmail_1.CertEmail);
-                return [4 /*yield*/, certEmailRepository.findOne({
-                        where: { email: email },
-                        order: { createAt: "DESC" },
+                voucherNumber = utils_1.generateVoucherNum();
+                voucherRepository = typeorm_1.getRepository(Voucher_1.Voucher);
+                return [4 /*yield*/, voucherRepository.save({
+                        voucherNumber: voucherNumber,
+                        name: "6Month",
                     })];
             case 1:
-                existingEmail = _a.sent();
-                if (!existingEmail)
-                    return [2 /*return*/, res
-                            .status(200)
-                            .send({ success: false, message: "잘못된 이메일 입니다." })];
-                if (Number(existingEmail.certNum) !== Number(certNum))
-                    return [2 /*return*/, res
-                            .status(200)
-                            .send({ success: false, message: "인증번호가 일치하지 않습니다." })];
+                _a.sent();
                 return [2 /*return*/, res.status(200).send({ success: true })];
             case 2:
                 e_1 = _a.sent();
-                res.status(400).json({ success: false, message: e_1.message });
+                res.status(400).json({ message: e_1.message });
                 throw new Error(e_1);
             case 3: return [2 /*return*/];
         }
     });
 }); };
-exports.default = ConfirmCertNum;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ29uZmlybUNlcnROdW0uanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi9zcmMvcm91dGVzL1VzZXIvQXV0aC9TaWduVXAvQ29uZmlybUNlcnROdW0udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxtQ0FBd0M7QUFDeEMsNERBQTJEO0FBRzNELElBQU0sY0FBYyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFFL0MsSUFBSSxHQUFRLEdBQUcsQ0FBQyxLQUFLLENBQUM7Z0JBQ3RCLEtBQUssR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDO2dCQUNuQixPQUFPLEdBQUcsSUFBSSxDQUFDLE9BQU8sQ0FBQztnQkFFdkIsbUJBQW1CLEdBQUcsdUJBQWEsQ0FBQyxxQkFBUyxDQUFDLENBQUM7Z0JBQy9CLHFCQUFNLG1CQUFtQixDQUFDLE9BQU8sQ0FBQzt3QkFDdEQsS0FBSyxFQUFFLEVBQUUsS0FBSyxPQUFBLEVBQUU7d0JBQ2hCLEtBQUssRUFBRSxFQUFFLFFBQVEsRUFBRSxNQUFNLEVBQUU7cUJBQzVCLENBQUMsRUFBQTs7Z0JBSEksYUFBYSxHQUFHLFNBR3BCO2dCQUVGLElBQUksQ0FBQyxhQUFhO29CQUNoQixzQkFBTyxHQUFHOzZCQUNQLE1BQU0sQ0FBQyxHQUFHLENBQUM7NkJBQ1gsSUFBSSxDQUFDLEVBQUUsT0FBTyxFQUFFLEtBQUssRUFBRSxPQUFPLEVBQUUsY0FBYyxFQUFFLENBQUMsRUFBQztnQkFFdkQsSUFBSSxNQUFNLENBQUMsYUFBYSxDQUFDLE9BQU8sQ0FBQyxLQUFLLE1BQU0sQ0FBQyxPQUFPLENBQUM7b0JBQ25ELHNCQUFPLEdBQUc7NkJBQ1AsTUFBTSxDQUFDLEdBQUcsQ0FBQzs2QkFDWCxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsS0FBSyxFQUFFLE9BQU8sRUFBRSxrQkFBa0IsRUFBRSxDQUFDLEVBQUM7Z0JBRTNELHNCQUFPLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsT0FBTyxFQUFFLElBQUksRUFBRSxDQUFDLEVBQUM7OztnQkFFL0MsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsS0FBSyxFQUFFLE9BQU8sRUFBRSxHQUFDLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQztnQkFDN0QsTUFBTSxJQUFJLEtBQUssQ0FBQyxHQUFDLENBQUMsQ0FBQzs7OztLQUV0QixDQUFDO0FBRUYsa0JBQWUsY0FBYyxDQUFDIn0=
+exports.default = CreateVoucher;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ3JlYXRlVm91Y2hlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9yb3V0ZXMvVXNlci9TdWJzY3JpcHRpb24vQ3JlYXRlVm91Y2hlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLG1DQUF3QztBQUN4QyxxREFBb0Q7QUFDcEQsd0NBQW9EO0FBRXBELElBQU0sYUFBYSxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFFOUMsYUFBYSxHQUFHLDBCQUFrQixFQUFFLENBQUM7Z0JBQ3JDLGlCQUFpQixHQUFHLHVCQUFhLENBQUMsaUJBQU8sQ0FBQyxDQUFDO2dCQUNqRCxxQkFBTSxpQkFBaUIsQ0FBQyxJQUFJLENBQUM7d0JBQzNCLGFBQWEsZUFBQTt3QkFDYixJQUFJLEVBQUUsUUFBUTtxQkFDZixDQUFDLEVBQUE7O2dCQUhGLFNBR0UsQ0FBQztnQkFDSCxzQkFBTyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLE9BQU8sRUFBRSxJQUFJLEVBQUUsQ0FBQyxFQUFDOzs7Z0JBRS9DLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsT0FBTyxFQUFFLEdBQUMsQ0FBQyxPQUFPLEVBQUUsQ0FBQyxDQUFDO2dCQUM3QyxNQUFNLElBQUksS0FBSyxDQUFDLEdBQUMsQ0FBQyxDQUFDOzs7O0tBRXRCLENBQUM7QUFFRixrQkFBZSxhQUFhLENBQUMifQ==
