@@ -11,11 +11,11 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		5810BF820FE58A0DE37ABD25 /* libPods-zama_app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 708DF80A1010D794D3304785 /* libPods-zama_app.a */; };
 		594489B52707FC9000A4186D /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594489B42707FC9000A4186D /* SwiftBridge.swift */; };
-		595DBA0627637619005FE4C1 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 595DBA0527637619005FE4C1 /* main.jsbundle */; };
+		595DBCC527637F0E005FE4C1 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 595DBCC427637F0E005FE4C1 /* main.jsbundle */; };
+		8149958C0D5BDC6EBB4443F8 /* libPods-zama_app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5531FE5A8608A992F0BCF099 /* libPods-zama_app.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		CAEF973A7647D1F05E6050A2 /* libPods-zama_app-zama_appTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8E6381E76DD05A266CB484C /* libPods-zama_app-zama_appTests.a */; };
+		F3A5D166CD9662C80BB487E7 /* libPods-zama_app-zama_appTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8470B7EADFD00DD42DA5FB /* libPods-zama_app-zama_appTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,29 +42,29 @@
 		20991B9E2BEE4C09A28D4B82 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		20B2F6D992D34A9E8D1B0423 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		34D5917C36A544B1ABB70346 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		453B402A5DBD02219AF237FC /* Pods-zama_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zama_app.debug.xcconfig"; path = "Target Support Files/Pods-zama_app/Pods-zama_app.debug.xcconfig"; sourceTree = "<group>"; };
 		483A2A533451423AB691A00D /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		5531FE5A8608A992F0BCF099 /* libPods-zama_app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-zama_app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		594489AD2707FC7A00A4186D /* zama_app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "zama_app-Bridging-Header.h"; sourceTree = "<group>"; };
 		594489B42707FC9000A4186D /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
-		595DBA0427637611005FE4C1 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
-		595DBA0527637619005FE4C1 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		595DBCC327637F06005FE4C1 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		595DBCC427637F0E005FE4C1 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		5986CDDA275E38F5006C8438 /* zama_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = zama_app.entitlements; path = zama_app/zama_app.entitlements; sourceTree = "<group>"; };
 		5DC5179C787540129E76C857 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		708DF80A1010D794D3304785 /* libPods-zama_app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-zama_app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69035E547114C4C73D474F0B /* Pods-zama_app-zama_appTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zama_app-zama_appTests.release.xcconfig"; path = "Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests.release.xcconfig"; sourceTree = "<group>"; };
 		7413520D81F349FEB43AF8EE /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		7BC22CCD8E272BDB698FB90A /* Pods-zama_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zama_app.release.xcconfig"; path = "Target Support Files/Pods-zama_app/Pods-zama_app.release.xcconfig"; sourceTree = "<group>"; };
+		757BEF1FBF830B60C7467F28 /* Pods-zama_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zama_app.release.xcconfig"; path = "Target Support Files/Pods-zama_app/Pods-zama_app.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = zama_app/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8566E15EF2524A4AAFF11EEC /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		8C8470B7EADFD00DD42DA5FB /* libPods-zama_app-zama_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-zama_app-zama_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CDD0BEED5834AE9AE34D11D /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		901F1BE8D5D34341A22F24E4 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		9650D8BEF7EB4671B90D3B0F /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		A517D887FC304C94949E3386 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		BEBF6DE4C8F947D495BA6CA3 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		C23BB6615F99D9032BCE5385 /* Pods-zama_app-zama_appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zama_app-zama_appTests.debug.xcconfig"; path = "Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C7FE7ED8FF4A40389B7FCF8E /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		C8DFA3B811EF4A7A9E0F6571 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		C8E6381E76DD05A266CB484C /* libPods-zama_app-zama_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-zama_app-zama_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CECF32956780BCE5D099C9F1 /* Pods-zama_app-zama_appTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zama_app-zama_appTests.release.xcconfig"; path = "Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests.release.xcconfig"; sourceTree = "<group>"; };
-		E2AE8C25CE0A63942328D616 /* Pods-zama_app-zama_appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zama_app-zama_appTests.debug.xcconfig"; path = "Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E7BE848E97667D5BDCF879DA /* Pods-zama_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zama_app.debug.xcconfig"; path = "Target Support Files/Pods-zama_app/Pods-zama_app.debug.xcconfig"; sourceTree = "<group>"; };
 		EB224CE2FD5D436191A7B14C /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAEF973A7647D1F05E6050A2 /* libPods-zama_app-zama_appTests.a in Frameworks */,
+				F3A5D166CD9662C80BB487E7 /* libPods-zama_app-zama_appTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5810BF820FE58A0DE37ABD25 /* libPods-zama_app.a in Frameworks */,
+				8149958C0D5BDC6EBB4443F8 /* libPods-zama_app.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,10 +109,10 @@
 		047BF00D41D8D8E42C427D27 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E7BE848E97667D5BDCF879DA /* Pods-zama_app.debug.xcconfig */,
-				7BC22CCD8E272BDB698FB90A /* Pods-zama_app.release.xcconfig */,
-				E2AE8C25CE0A63942328D616 /* Pods-zama_app-zama_appTests.debug.xcconfig */,
-				CECF32956780BCE5D099C9F1 /* Pods-zama_app-zama_appTests.release.xcconfig */,
+				453B402A5DBD02219AF237FC /* Pods-zama_app.debug.xcconfig */,
+				757BEF1FBF830B60C7467F28 /* Pods-zama_app.release.xcconfig */,
+				C23BB6615F99D9032BCE5385 /* Pods-zama_app-zama_appTests.debug.xcconfig */,
+				69035E547114C4C73D474F0B /* Pods-zama_app-zama_appTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -120,7 +120,7 @@
 		13B07FAE1A68108700A75B9A /* zama_app */ = {
 			isa = PBXGroup;
 			children = (
-				595DBA0527637619005FE4C1 /* main.jsbundle */,
+				595DBCC427637F0E005FE4C1 /* main.jsbundle */,
 				5986CDDA275E38F5006C8438 /* zama_app.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -137,8 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				708DF80A1010D794D3304785 /* libPods-zama_app.a */,
-				C8E6381E76DD05A266CB484C /* libPods-zama_app-zama_appTests.a */,
+				5531FE5A8608A992F0BCF099 /* libPods-zama_app.a */,
+				8C8470B7EADFD00DD42DA5FB /* libPods-zama_app-zama_appTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -153,7 +153,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				595DBA0427637611005FE4C1 /* assets */,
+				595DBCC327637F06005FE4C1 /* assets */,
 				13B07FAE1A68108700A75B9A /* zama_app */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* zama_appTests */,
@@ -207,12 +207,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "zama_appTests" */;
 			buildPhases = (
-				724E076C5F2FCE308FE4047A /* [CP] Check Pods Manifest.lock */,
+				86B15FC2D57984FE779B7501 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				991D43FB0D934C4D124359FF /* [CP] Embed Pods Frameworks */,
-				BFA04C798FEC000E8D357E19 /* [CP] Copy Pods Resources */,
+				9974D2EF562421BB77DC16D1 /* [CP] Copy Pods Resources */,
+				4B26E910B61A3C46DDA5A97B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -228,14 +228,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "zama_app" */;
 			buildPhases = (
-				1B33036D5F81D523358D2665 /* [CP] Check Pods Manifest.lock */,
+				738862355DFADB2FE81C6DA7 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				8F7E5474345C8BDE075C649D /* [CP] Embed Pods Frameworks */,
-				B2D375721FAB9903E9218D03 /* [CP] Copy Pods Resources */,
+				B0E3D36FE7E430C92F00EC12 /* [CP] Copy Pods Resources */,
+				1F70AAE3DBA15D88D6A699E0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -294,7 +294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				595DBA0627637619005FE4C1 /* main.jsbundle in Resources */,
+				595DBCC527637F0E005FE4C1 /* main.jsbundle in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -317,7 +317,41 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		1B33036D5F81D523358D2665 /* [CP] Check Pods Manifest.lock */ = {
+		1F70AAE3DBA15D88D6A699E0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B26E910B61A3C46DDA5A97B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		738862355DFADB2FE81C6DA7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -339,7 +373,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		724E076C5F2FCE308FE4047A /* [CP] Check Pods Manifest.lock */ = {
+		86B15FC2D57984FE779B7501 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -361,58 +395,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8F7E5474345C8BDE075C649D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		991D43FB0D934C4D124359FF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B2D375721FAB9903E9218D03 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BFA04C798FEC000E8D357E19 /* [CP] Copy Pods Resources */ = {
+		9974D2EF562421BB77DC16D1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -427,6 +410,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0E3D36FE7E430C92F00EC12 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zama_app/Pods-zama_app-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -482,7 +482,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E2AE8C25CE0A63942328D616 /* Pods-zama_app-zama_appTests.debug.xcconfig */;
+			baseConfigurationReference = C23BB6615F99D9032BCE5385 /* Pods-zama_app-zama_appTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -510,7 +510,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CECF32956780BCE5D099C9F1 /* Pods-zama_app-zama_appTests.release.xcconfig */;
+			baseConfigurationReference = 69035E547114C4C73D474F0B /* Pods-zama_app-zama_appTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -535,7 +535,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E7BE848E97667D5BDCF879DA /* Pods-zama_app.debug.xcconfig */;
+			baseConfigurationReference = 453B402A5DBD02219AF237FC /* Pods-zama_app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -568,7 +568,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7BC22CCD8E272BDB698FB90A /* Pods-zama_app.release.xcconfig */;
+			baseConfigurationReference = 757BEF1FBF830B60C7467F28 /* Pods-zama_app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

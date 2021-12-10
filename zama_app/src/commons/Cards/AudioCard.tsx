@@ -8,11 +8,15 @@ import LoadingImage from './LoadingImage';
 import useContentAPI from '@/api/content/useContentAPI';
 // libs
 import FastImage from 'react-native-fast-image';
+import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 // redux
 import {RecoAudiosState} from '@/redux/audio/audioSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
-import {setSubscriptionModal} from '@/redux/interation/interactionSlice';
+import {
+  setOpenReportModal,
+  setSubscriptionModal,
+} from '@/redux/interation/interactionSlice';
 // hooks
 import usePlayerHandle from '@/hooks/usePlayerHandle';
 import useSleepBasket from '@/hooks/useSleepBasket';
@@ -30,6 +34,7 @@ import {
   WHITE,
 } from '@/styles/colors';
 import * as mixins from '@/styles/mixins';
+import ReportSendModal from '../Modals/ReportSendModal';
 
 interface Props {
   data: RecoAudiosState;
@@ -91,6 +96,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
   const {handleClickContent} = usePlayerHandle();
   const {inBasketAudio} = useContentAPI();
   const {sleepBasketClick} = useSleepBasket();
+  const [reportVisible, setReportVisible] = useState(false);
 
   const {subscriptions}: any = useSelector(
     (state: State) => state.subscriptionReducer,
@@ -260,13 +266,47 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
                 {data.title}
               </Text>
             </View>
-            <Text
+            <View
               style={{
-                fontSize: 12,
-                color: BRIGHT_GRAY,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
               }}>
-              {transformTimes(data.time)}
-            </Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: BRIGHT_GRAY,
+                }}>
+                {transformTimes(data.time)}
+              </Text>
+              <View style={{marginLeft: 7}} />
+              <View>
+                <Menu
+                  visible={reportVisible}
+                  style={{height: 40}}
+                  anchor={
+                    <TouchableOpacity
+                      activeOpacity={0.6}
+                      onPress={() => setReportVisible(!reportVisible)}>
+                      <IoniconsIcons
+                        name={'ellipsis-vertical'}
+                        color={'white'}
+                        size={17}
+                      />
+                    </TouchableOpacity>
+                  }
+                  onRequestClose={() => setReportVisible(!reportVisible)}>
+                  <MenuItem
+                    style={{height: 40}}
+                    onPress={() => {
+                      dispatch(setOpenReportModal({openReportModal: true}));
+                      setReportVisible(!reportVisible);
+                    }}>
+                    신고하기
+                  </MenuItem>
+                </Menu>
+              </View>
+            </View>
           </View>
         </View>
       </View>

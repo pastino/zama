@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
 // navigation
 import TabNavigation from './TabNavigation';
@@ -8,15 +8,18 @@ import {navigate} from './RootNavigation';
 import Servey from '@/components/Servey';
 import Player from '@/components/Player';
 import AudioView from '@/components/Home/AudioView';
+import ReportSendModal from '@/commons/Modals/ReportSendModal';
 // apis
 import useContentAPI from '@/api/content/useContentAPI';
+import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
+
 // redux
 import {useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
 // styles
 import {WHITE} from '@/styles/colors';
 import {PURPLE_COLOR} from '@/components/Home/gradientColorArr';
-import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
+import Modal from 'react-native-modal';
 
 const MainStack = () => {
   const [networkError, setNetworkError] = useState<boolean | null>(null);
@@ -73,7 +76,7 @@ const MainStack = () => {
   return (
     <View style={{flex: 1, overflow: 'hidden'}}>
       {playList.length > 0 && <Player />}
-      {/* <NoticeModal /> */}
+      <ReportSendModal />
       <MainStack.Navigator
         initialRouteName="Main"
         headerMode="none"

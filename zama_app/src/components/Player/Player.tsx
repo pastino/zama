@@ -5,7 +5,6 @@ import Controller from './FullScreen/Controller';
 import BottomMiniPlayer from './BottomScreen/BottomMiniPlayer';
 // commons
 import ModalContainer from '@/commons/Modals/Container/ModalContainer';
-import PreviousWhiteBtn from '@assets/svg/previous_white_btn.svg';
 import Tag from '@/commons/Tag';
 // import TouchableOpacity from '@/commons/TouchableOpacity';
 // hooks
@@ -20,14 +19,14 @@ import {transformTimes} from '@/utils/tools';
 import {useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
 // styles
-import styled from 'styled-components/native';
 import {
   FULL_SCREEN_HEIGHT,
   HEADER_HEIGHT,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
 } from '@/styles/sizes';
-import {TRANSPARENT_DARK, WHITE} from '@/styles/colors';
+import {TRANSPARENT_DARK} from '@/styles/colors';
+import {IoniconsIcons} from '@/commons/Icons/RnIcons';
 
 export interface TimeData {
   position: number;
@@ -85,19 +84,6 @@ const Player = () => {
     ) {
       handleSetPlayingNum(Number(currentTrack));
     }
-
-    // if (
-    //   Number(duration) > 0 &&
-    //   Math.round(Number(duration)) === Math.round(position)
-    // ) {
-    //   handlePause();
-    //   setData({
-    //     position: currentPosition + 1,
-    //     duration,
-    //     positionString: transformTimes(currentPosition + 1),
-    //     durationString,
-    //   });
-    // }
   };
 
   const handleOnValueChange = (position: number) => {
@@ -181,7 +167,11 @@ const Player = () => {
                     marginBottom: 10,
                     marginLeft: 10,
                   }}>
-                  <PreviousWhiteBtn />
+                  <IoniconsIcons
+                    name={'chevron-down'}
+                    size={30}
+                    color={'white'}
+                  />
                 </View>
               </TouchableOpacity>
             </View>

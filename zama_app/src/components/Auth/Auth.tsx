@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, NativeModules, Platform} from 'react-native';
+import {Image, Platform} from 'react-native';
 // commons
 import LoginButton from '@/commons/Buttons/LoginButton';
 import HorizontalSmallDivider from '@/commons/Divider/HorizontalSmallDivider';
@@ -7,12 +7,11 @@ import TermsAgree from './TermsAgree';
 // libs
 import SplashScreen from 'react-native-splash-screen';
 import appleAuth from '@invertase/react-native-apple-authentication';
+import KakaoLogins, {KAKAO_AUTH_TYPES} from '@react-native-seoul/kakao-login';
 import jwt_decode from 'jwt-decode';
 // redux
 import {logIn} from '@/redux/user/userSlice';
 import {useDispatch} from 'react-redux';
-// types
-import {KakaoProfile} from './types';
 import {
   onToastMessage,
   setOpenUsePurposeServey,
@@ -26,7 +25,7 @@ import styled from 'styled-components/native';
 
 const Auth = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [kakaoId, setKakaoId] = useState(0);
+  const [kakaoId, setKakaoId] = useState<number>(0);
   const [agreeTermModal, setAgreeTermModal] = useState(false);
 
   const KAKAO_BUTTON_INFO = {
@@ -37,17 +36,19 @@ const Auth = ({navigation}) => {
 
   const {buttonText, kakaoIcon, backColor} = KAKAO_BUTTON_INFO;
 
-  const {RNKakaoLogins} = NativeModules;
-
   const dispatch = useDispatch();
   const {loginByKakaoAPI, loginByAppleAPI} = useAuthAPI();
 
   const handleKakaoLogin = async () => {
     setIsLoading(true);
     try {
-      await RNKakaoLogins.login();
-      const {id}: KakaoProfile = await RNKakaoLogins.getProfile();
-      if (!id) throw new Error('아이디가 존재하지 않습니다.');
+      await KakaoLogins.login([
+        KAKAO_AUTH_TYPES.Talk,
+        KAKAO_AUTH_TYPES.Account,
+      ]);
+      const profile = await getProfile();
+      const id = profile?.id ? Number(profile?.id) : 0;
+      if (id === 0) throw new Error('아이디가 존재하지 않습니다.');
       setKakaoId(id);
       const {success, message, token, user} = await loginByKakaoAPI(id);
       if (!success) {
@@ -64,6 +65,17 @@ const Auth = ({navigation}) => {
       setIsLoading(false);
       console.log(e);
     }
+  };
+
+  const getProfile = async () => {
+    return KakaoLogins.getProfile()
+      .then(result => {
+        return result;
+      })
+      .catch(e => {
+        console.log(e);
+        return null;
+      });
   };
 
   const handleAppleLogin = async () => {

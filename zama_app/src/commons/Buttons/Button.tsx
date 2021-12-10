@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native';
 // components
 import TouchableOpacity from '../TouchableOpacity';
-import Loading from '../Lotties/Loading';
+
 // styles
 import * as colors from '@/styles/colors';
 import * as sizes from '@/styles//sizes';
@@ -75,9 +75,7 @@ function Button({
             width: '100%',
             justifyContent: 'center',
             alignItems: 'center',
-          }}>
-          <Loading white={!loadingBlack} size={loadingSize} />
-        </View>
+          }}></View>
       ) : null}
     </TouchableOpacity>
   );
