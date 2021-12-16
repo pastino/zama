@@ -31,6 +31,8 @@ import ContactUs from "./routes/Etc/ContactUs";
 import SendCertNumToFind from "./routes/User/Auth/Find/SendCertNumToFind";
 import ChangePassword from "./routes/User/Auth/Find/ChangePassword";
 import GetNotices from "./routes/Etc/GetNotices";
+import GetVersion from "./routes/Etc/GetVersion";
+import GiveSubscription from "./routes/User/Subscription/GiveSubscription";
 
 const app = express();
 const PORT = 5002;
@@ -63,6 +65,7 @@ app.post("/auth/login/email", LoginByEmail);
 app.post("/find/password/certnum", SendCertNumToFind);
 app.post("/password/change", ChangePassword);
 app.get("/subscription", GetSubscription);
+app.post("/subscription", GiveSubscription);
 
 //sleep
 app.get("/home/contents", GetHomeAudio);
@@ -83,6 +86,9 @@ app.post("/contact", ContactUs);
 
 //notice
 app.get("/notice", GetNotices);
+
+//etc
+app.get("/version", GetVersion);
 
 createConnection(connectionOptions)
   .then(() => {

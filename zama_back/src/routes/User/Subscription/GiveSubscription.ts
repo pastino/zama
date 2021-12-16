@@ -1,13 +1,26 @@
 import { Request, Response } from "express";
-import { getRepository, In } from "typeorm";
+import { getRepository } from "typeorm";
 import { Subscription } from "../../../entities/Subscription";
+import moment from "moment";
 import { filteredSubscriptions } from "../../../utils";
 
-const GetSubscription = async (req: Request, res: Response) => {
-  const user: any = req.user;
-
+const GiveSubscription = async (req: Request, res: Response) => {
   try {
+    const user: any = req.user;
+
     const subscriptionRepository = getRepository(Subscription);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const oneMonthLater = new Date(moment(today).add(1, "months").format());
+    oneMonthLater.setHours(24, 0, 0, 0);
+
+    await subscriptionRepository.save({
+      user,
+      startDate: today,
+      endDate: oneMonthLater,
+      name: "1Month",
+    });
 
     const subscriptions: Subscription[] | [] =
       await subscriptionRepository.find({
@@ -24,4 +37,4 @@ const GetSubscription = async (req: Request, res: Response) => {
   }
 };
 
-export default GetSubscription;
+export default GiveSubscription;
