@@ -10,6 +10,7 @@ import playerReducer, {PlayerState} from './player/playerReducer';
 import subscriptionReducer, {
   SubscriptionState,
 } from './subscription/subscriptionReducer';
+import versionReducer, {VersionState} from './version/versionReducer';
 
 export interface State {
   usersReducer: MyState;
@@ -17,6 +18,7 @@ export interface State {
   audioReducer: HomeContentsState;
   playerReducer: PlayerState;
   subscriptionReducer: SubscriptionState;
+  versionReducer: VersionState;
 }
 
 const persistConfig = {
@@ -32,6 +34,7 @@ const rootReducer = combineReducers({
   interactionReducer,
   playerReducer,
   subscriptionReducer,
+  versionReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

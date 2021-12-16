@@ -73,7 +73,7 @@ const DrawerContent = ({navigation}) => {
         {subscriptions?.length === 0 ? (
           <Button
             onPress={() =>
-              navigation.navigate('Voucher', {isOpenDrawerWhenBack: true})
+              navigation.navigate('Subscription', {isOpenDrawerWhenBack: true})
             }
             style={{
               borderRadius: 5,
@@ -82,7 +82,7 @@ const DrawerContent = ({navigation}) => {
               marginBottom: 30,
             }}
             textStyle={{fontSize: 14, fontWeight: '700'}}>
-            리워드 구독권 사용하기
+            프리미엄 회원 신청하기
           </Button>
         ) : (
           <View

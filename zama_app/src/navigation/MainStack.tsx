@@ -20,6 +20,7 @@ import {State} from '@/redux/rootReducer';
 import {WHITE} from '@/styles/colors';
 import {PURPLE_COLOR} from '@/components/Home/gradientColorArr';
 import Modal from 'react-native-modal';
+import useVersionAPI from '@/api/etc/useVersionAPI';
 
 const MainStack = () => {
   const [networkError, setNetworkError] = useState<boolean | null>(null);
@@ -27,6 +28,7 @@ const MainStack = () => {
   const {openUsePurposeServey} = useSelector(
     (state: State) => state.interactionReducer,
   );
+  const {getVersion} = useVersionAPI();
 
   const {playList} = useSelector((state: State) => state.playerReducer);
 
@@ -40,6 +42,7 @@ const MainStack = () => {
       await getHomeContentsSubCateAPI();
       await getSleepBasketAudio();
       await getSubscription();
+      await getVersion();
     } catch (e) {
       console.log(e);
       setNetworkError(true);

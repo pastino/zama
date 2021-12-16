@@ -22,6 +22,21 @@ export default function useSubscriptionAPI() {
     }
   };
 
+  const giveSubscription = async () => {
+    try {
+      const res: any = await postHandler('/subscription', {});
+      const {success, subscriptions} = res.data;
+      if (success) {
+        dispatch(setSubscription({subscriptions}));
+      }
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      console.log(errorMessage);
+      throw error;
+    }
+  };
+
   const useVoucher = async code => {
     try {
       const res: any = await postHandler('/voucher/use', {code});
@@ -36,6 +51,7 @@ export default function useSubscriptionAPI() {
 
   return {
     getSubscription,
+    giveSubscription,
     useVoucher,
   };
 }

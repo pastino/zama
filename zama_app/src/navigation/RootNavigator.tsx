@@ -12,6 +12,8 @@ import Info from '@/components/Menu/Info';
 // styles
 import {WHITE} from '@/styles/colors';
 import NoticeDetail from '@/components/Menu/Notice/NoticeDetail';
+import RewardModal from '@/commons/Modals/ RewardModal';
+import Subscription from '@/components/Menu/Subscription';
 
 const RootStack = createStackNavigator();
 const MenuStack = createStackNavigator();
@@ -24,12 +26,18 @@ const basicOptions = {
 const RootNavigator = () => {
   return (
     <>
+      <RewardModal />
       <SubscriptionModal />
       <RootStack.Navigator
         initialRouteName="Main"
         mode="modal"
         headerMode="none">
         <RootStack.Screen name="Main" component={MainStack} />
+        <MenuStack.Screen
+          name="Subscription"
+          component={Subscription}
+          options={basicOptions}
+        />
         <MenuStack.Screen
           name="Voucher"
           component={Voucher}

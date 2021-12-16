@@ -135,8 +135,10 @@ android {
         applicationId "com.zama_app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 4
-        versionName "1.0"
+        versionCode 5
+        versionName "0.0.1"
+        missingDimensionStrategy 'react-native-camera', 'general'
+        missingDimensionStrategy 'store', 'play'
     }
     splits {
         abi {
@@ -201,7 +203,10 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     
     implementation project(':react-native-vector-icons')
-
+    
+    implementation 'com.android.billingclient:billing:2.0.3'
+    implementation project(':react-native-iap')
+    
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }

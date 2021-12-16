@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 // commons
 import AudioCard from '@/commons/Cards/AudioCard';
@@ -7,6 +7,7 @@ import HeaderBasic from '@/commons/Header/HeaderBasic';
 // redux
 import {useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
+import {DARK_GRAY} from '@/styles/colors';
 
 const AudioView = ({navigation: {goBack}, route}) => {
   const division = route?.params.division;
@@ -36,6 +37,7 @@ const AudioView = ({navigation: {goBack}, route}) => {
         style={{backgroundColor: 'rgba(194,173,236,0.5)'}}
         textStyle={{color: 'black', fontWeight: '700'}}
       />
+
       <FlatList
         data={audioArr}
         style={{backgroundColor: 'rgba(194,173,236,0.5)'}}
@@ -59,6 +61,20 @@ const AudioView = ({navigation: {goBack}, route}) => {
         showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
         contentContainerStyle={{paddingVertical: 5}}
+        ListHeaderComponent={
+          audioArr.length === 0 ? (
+            <Text
+              style={{color: DARK_GRAY, paddingLeft: 20, fontWeight: '400'}}>
+              현재&nbsp;
+              {divisionData?.division === 'Story'
+                ? '스토리'
+                : divisionData?.division === 'Song'
+                ? '음악'
+                : 'ASMR'}
+              &nbsp; 컨텐츠가 비어있습니다.
+            </Text>
+          ) : null
+        }
       />
     </View>
   );

@@ -10,7 +10,7 @@ import usePlayerHandle from '@/hooks/usePlayerHandle';
 // styles
 import {FULL_SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
 import LinearGradient from 'react-native-linear-gradient';
-import {DARK_GRAY, RIGTH_GRAY} from '@/styles/colors';
+import {DARK_GRAY} from '@/styles/colors';
 
 const SleepBasket = () => {
   const {basketAudios}: any = useSelector((state: State) => state.audioReducer);
@@ -27,7 +27,6 @@ const SleepBasket = () => {
       for (let i = 0; i < basketAudios.length; i++) {
         if (!basketAudios[i]) return;
         const {id, file, title, thumbnail, time, division} = basketAudios[i];
-
         audioArr.push({
           id: i,
           url: file,
@@ -38,7 +37,7 @@ const SleepBasket = () => {
           division: division,
         });
       }
-      return;
+      return audioArr;
     } else {
       const sortedFreeAudios = basketAudios.filter(audio => audio.free);
       for (let i = 0; i < sortedFreeAudios.length; i++) {
@@ -116,7 +115,7 @@ const SleepBasket = () => {
           flexDirection: 'row',
           paddingHorizontal: 20,
         }}>
-        <View style={{position: 'absolute'}}>
+        <View style={{position: 'absolute', zIndex: -1}}>
           <LinearGradient
             colors={
               audibleContents().length === 0

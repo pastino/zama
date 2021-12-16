@@ -59,7 +59,7 @@ const MyAccount = ({navigation}) => {
                   구독중인 이용권이 없습니다.
                 </Text>
                 <Button
-                  onPress={() => navigation.navigate('Voucher')}
+                  onPress={() => navigation.navigate('Subscription')}
                   style={{
                     borderRadius: 5,
                     backgroundColor: DARK_PURPLE,
@@ -67,11 +67,8 @@ const MyAccount = ({navigation}) => {
                     marginTop: 20,
                   }}
                   textStyle={{fontSize: 14, fontWeight: '700'}}>
-                  리워드 구독권 사용하기
+                  프리미엄 회원 신청하기
                 </Button>
-                <Text style={{marginTop: 7, fontSize: 13, color: MIDDLE_GRAY}}>
-                  현재는 펀딩을 통해 제공받은 이용권만 사용가능합니다.
-                </Text>
               </View>
             ) : (
               <View
