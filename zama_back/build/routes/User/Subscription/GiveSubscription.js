@@ -35,20 +35,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Subscription_1 = require("../../../entities/Subscription");
+var moment_1 = __importDefault(require("moment"));
 var utils_1 = require("../../../utils");
-var GetSubscription = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, subscriptionRepository, subscriptions, e_1;
+var GiveSubscription = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, subscriptionRepository, today, oneMonthLater, subscriptions, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 3, , 4]);
                 user = req.user;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
                 subscriptionRepository = typeorm_1.getRepository(Subscription_1.Subscription);
+                today = new Date();
+                today.setHours(0, 0, 0, 0);
+                oneMonthLater = new Date(moment_1.default(today).add(1, "months").format());
+                oneMonthLater.setHours(24, 0, 0, 0);
+                return [4 /*yield*/, subscriptionRepository.save({
+                        user: user,
+                        startDate: today,
+                        endDate: oneMonthLater,
+                        name: "1Month",
+                    })];
+            case 1:
+                _a.sent();
                 return [4 /*yield*/, subscriptionRepository.find({
                         where: { user: user },
                     })];
@@ -66,5 +80,5 @@ var GetSubscription = function (req, res) { return __awaiter(void 0, void 0, voi
         }
     });
 }); };
-exports.default = GetSubscription;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0U3Vic2NyaXB0aW9uLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL3JvdXRlcy9Vc2VyL1N1YnNjcmlwdGlvbi9HZXRTdWJzY3JpcHRpb24udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxtQ0FBNEM7QUFDNUMsK0RBQThEO0FBQzlELHdDQUF1RDtBQUV2RCxJQUFNLGVBQWUsR0FBRyxVQUFPLEdBQVksRUFBRSxHQUFhOzs7OztnQkFDbEQsSUFBSSxHQUFRLEdBQUcsQ0FBQyxJQUFJLENBQUM7Ozs7Z0JBR25CLHNCQUFzQixHQUFHLHVCQUFhLENBQUMsMkJBQVksQ0FBQyxDQUFDO2dCQUd6RCxxQkFBTSxzQkFBc0IsQ0FBQyxJQUFJLENBQUM7d0JBQ2hDLEtBQUssRUFBRSxFQUFFLElBQUksTUFBQSxFQUFFO3FCQUNoQixDQUFDLEVBQUE7O2dCQUhFLGFBQWEsR0FDakIsU0FFRTtnQkFFSixzQkFBTyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQzt3QkFDMUIsT0FBTyxFQUFFLElBQUk7d0JBQ2IsYUFBYSxFQUFFLDZCQUFxQixDQUFDLGFBQWEsQ0FBQztxQkFDcEQsQ0FBQyxFQUFDOzs7Z0JBRUgsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsR0FBQyxDQUFDLE9BQU8sRUFBRSxDQUFDLENBQUM7Z0JBQzdDLE1BQU0sSUFBSSxLQUFLLENBQUMsR0FBQyxDQUFDLENBQUM7Ozs7S0FFdEIsQ0FBQztBQUVGLGtCQUFlLGVBQWUsQ0FBQyJ9
+exports.default = GiveSubscription;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2l2ZVN1YnNjcmlwdGlvbi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9yb3V0ZXMvVXNlci9TdWJzY3JpcHRpb24vR2l2ZVN1YnNjcmlwdGlvbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLG1DQUF3QztBQUN4QywrREFBOEQ7QUFDOUQsa0RBQTRCO0FBQzVCLHdDQUF1RDtBQUV2RCxJQUFNLGdCQUFnQixHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFFakQsSUFBSSxHQUFRLEdBQUcsQ0FBQyxJQUFJLENBQUM7Z0JBRXJCLHNCQUFzQixHQUFHLHVCQUFhLENBQUMsMkJBQVksQ0FBQyxDQUFDO2dCQUVyRCxLQUFLLEdBQUcsSUFBSSxJQUFJLEVBQUUsQ0FBQztnQkFDekIsS0FBSyxDQUFDLFFBQVEsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQztnQkFDckIsYUFBYSxHQUFHLElBQUksSUFBSSxDQUFDLGdCQUFNLENBQUMsS0FBSyxDQUFDLENBQUMsR0FBRyxDQUFDLENBQUMsRUFBRSxRQUFRLENBQUMsQ0FBQyxNQUFNLEVBQUUsQ0FBQyxDQUFDO2dCQUN4RSxhQUFhLENBQUMsUUFBUSxDQUFDLEVBQUUsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDO2dCQUVwQyxxQkFBTSxzQkFBc0IsQ0FBQyxJQUFJLENBQUM7d0JBQ2hDLElBQUksTUFBQTt3QkFDSixTQUFTLEVBQUUsS0FBSzt3QkFDaEIsT0FBTyxFQUFFLGFBQWE7d0JBQ3RCLElBQUksRUFBRSxRQUFRO3FCQUNmLENBQUMsRUFBQTs7Z0JBTEYsU0FLRSxDQUFDO2dCQUdELHFCQUFNLHNCQUFzQixDQUFDLElBQUksQ0FBQzt3QkFDaEMsS0FBSyxFQUFFLEVBQUUsSUFBSSxNQUFBLEVBQUU7cUJBQ2hCLENBQUMsRUFBQTs7Z0JBSEUsYUFBYSxHQUNqQixTQUVFO2dCQUVKLHNCQUFPLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDO3dCQUMxQixPQUFPLEVBQUUsSUFBSTt3QkFDYixhQUFhLEVBQUUsNkJBQXFCLENBQUMsYUFBYSxDQUFDO3FCQUNwRCxDQUFDLEVBQUM7OztnQkFFSCxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLE9BQU8sRUFBRSxHQUFDLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQztnQkFDN0MsTUFBTSxJQUFJLEtBQUssQ0FBQyxHQUFDLENBQUMsQ0FBQzs7OztLQUV0QixDQUFDO0FBRUYsa0JBQWUsZ0JBQWdCLENBQUMifQ==

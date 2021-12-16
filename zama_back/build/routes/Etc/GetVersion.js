@@ -37,34 +37,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var Subscription_1 = require("../../../entities/Subscription");
-var utils_1 = require("../../../utils");
-var GetSubscription = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, subscriptionRepository, subscriptions, e_1;
+var Version_1 = require("../../entities/Version");
+var GetNotices = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var versionRepository, version, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                user = req.user;
-                _a.label = 1;
+                _a.trys.push([0, 2, , 3]);
+                versionRepository = typeorm_1.getRepository(Version_1.Version);
+                return [4 /*yield*/, versionRepository.find()];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                subscriptionRepository = typeorm_1.getRepository(Subscription_1.Subscription);
-                return [4 /*yield*/, subscriptionRepository.find({
-                        where: { user: user },
-                    })];
+                version = _a.sent();
+                return [2 /*return*/, res.status(200).send({ success: true, data: version[0] })];
             case 2:
-                subscriptions = _a.sent();
-                return [2 /*return*/, res.status(200).send({
-                        success: true,
-                        subscriptions: utils_1.filteredSubscriptions(subscriptions),
-                    })];
-            case 3:
                 e_1 = _a.sent();
-                res.status(400).json({ message: e_1.message });
+                res.status(400).json({ success: false, message: e_1.message });
                 throw new Error(e_1);
-            case 4: return [2 /*return*/];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
-exports.default = GetSubscription;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0U3Vic2NyaXB0aW9uLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL3JvdXRlcy9Vc2VyL1N1YnNjcmlwdGlvbi9HZXRTdWJzY3JpcHRpb24udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxtQ0FBNEM7QUFDNUMsK0RBQThEO0FBQzlELHdDQUF1RDtBQUV2RCxJQUFNLGVBQWUsR0FBRyxVQUFPLEdBQVksRUFBRSxHQUFhOzs7OztnQkFDbEQsSUFBSSxHQUFRLEdBQUcsQ0FBQyxJQUFJLENBQUM7Ozs7Z0JBR25CLHNCQUFzQixHQUFHLHVCQUFhLENBQUMsMkJBQVksQ0FBQyxDQUFDO2dCQUd6RCxxQkFBTSxzQkFBc0IsQ0FBQyxJQUFJLENBQUM7d0JBQ2hDLEtBQUssRUFBRSxFQUFFLElBQUksTUFBQSxFQUFFO3FCQUNoQixDQUFDLEVBQUE7O2dCQUhFLGFBQWEsR0FDakIsU0FFRTtnQkFFSixzQkFBTyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQzt3QkFDMUIsT0FBTyxFQUFFLElBQUk7d0JBQ2IsYUFBYSxFQUFFLDZCQUFxQixDQUFDLGFBQWEsQ0FBQztxQkFDcEQsQ0FBQyxFQUFDOzs7Z0JBRUgsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsR0FBQyxDQUFDLE9BQU8sRUFBRSxDQUFDLENBQUM7Z0JBQzdDLE1BQU0sSUFBSSxLQUFLLENBQUMsR0FBQyxDQUFDLENBQUM7Ozs7S0FFdEIsQ0FBQztBQUVGLGtCQUFlLGVBQWUsQ0FBQyJ9
+exports.default = GetNotices;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0VmVyc2lvbi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9yb3V0ZXMvRXRjL0dldFZlcnNpb24udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxtQ0FBd0M7QUFDeEMsa0RBQWlEO0FBRWpELElBQU0sVUFBVSxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFFM0MsaUJBQWlCLEdBQUcsdUJBQWEsQ0FBQyxpQkFBTyxDQUFDLENBQUM7Z0JBQ2pDLHFCQUFNLGlCQUFpQixDQUFDLElBQUksRUFBRSxFQUFBOztnQkFBeEMsT0FBTyxHQUFHLFNBQThCO2dCQUU5QyxzQkFBTyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLE9BQU8sRUFBRSxJQUFJLEVBQUUsSUFBSSxFQUFFLE9BQU8sQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDLEVBQUM7OztnQkFFakUsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsS0FBSyxFQUFFLE9BQU8sRUFBRSxHQUFDLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQztnQkFDN0QsTUFBTSxJQUFJLEtBQUssQ0FBQyxHQUFDLENBQUMsQ0FBQzs7OztLQUV0QixDQUFDO0FBRUYsa0JBQWUsVUFBVSxDQUFDIn0=
