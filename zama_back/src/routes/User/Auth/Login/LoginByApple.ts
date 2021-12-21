@@ -3,15 +3,15 @@ import { getRepository } from "typeorm";
 import { User } from "../../../../entities/User";
 import { filteredSubscriptions, generateToken } from "../../../../utils";
 
-const LoginByKakao = async (req: Request, res: Response) => {
+const LoginByApple = async (req: Request, res: Response) => {
   try {
-    const kakaoId = req.body.kakaoId;
+    const email = req.body.email;
     const terms = req.body.terms;
 
     const userRepository = getRepository(User);
 
     const userArr: User[] | undefined = await userRepository.find({
-      where: { kakaoId },
+      where: { email },
       relations: ["subscriptions"],
     });
 
@@ -32,11 +32,10 @@ const LoginByKakao = async (req: Request, res: Response) => {
       return res.status(200).send({ success: true, user: null, token: null });
     }
 
-    const savedUser = await userRepository.save({
-      name: "테스트",
-      email: "joon5006@naver.com",
-      loginMethod: "KAKAO",
-      kakaoId,
+    await userRepository.save({
+      name: "",
+      email,
+      loginMethod: "APPLE",
       serviceTermAgreement: terms.filter(
         (obj: any) => obj.title === "서비스 이용약관"
       ).check,
@@ -49,7 +48,7 @@ const LoginByKakao = async (req: Request, res: Response) => {
     });
 
     const createUserArr: User[] | undefined = await userRepository.find({
-      where: { kakaoId: savedUser.kakaoId },
+      where: { email },
       relations: ["subscriptions"],
     });
 
@@ -63,4 +62,4 @@ const LoginByKakao = async (req: Request, res: Response) => {
   }
 };
 
-export default LoginByKakao;
+export default LoginByApple;

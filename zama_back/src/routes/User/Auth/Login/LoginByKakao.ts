@@ -33,8 +33,8 @@ const LoginByKakao = async (req: Request, res: Response) => {
     }
 
     const savedUser = await userRepository.save({
-      name: "테스트",
-      email: "joon5006@naver.com",
+      name: "",
+      email: "",
       loginMethod: "KAKAO",
       kakaoId,
       serviceTermAgreement: terms.filter(
