@@ -86,7 +86,13 @@ const MyAccount = ({navigation}) => {
                   </Text>
                   <Text
                     style={{marginLeft: 10, color: 'white', fontWeight: '700'}}>
-                    ({subscriptions[0]?.name === '6Month' ? '6개월' : null}권)
+                    (
+                    {subscriptions[0]?.name === '6Month'
+                      ? '6개월'
+                      : subscriptions[0]?.name === '1Month'
+                      ? '1개월'
+                      : null}
+                    권)
                   </Text>
                 </View>
                 <View

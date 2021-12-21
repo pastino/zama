@@ -15,7 +15,7 @@ const Subscription = ({navigation: {goBack, openDrawer, navigate}, route}) => {
   const {giveSubscription} = useSubscriptionAPI();
   const {isTest} = useSelector((state: State) => state.versionReducer);
   const itemSkus: any = Platform.select({
-    ios: ['1_month_irregular'],
+    ios: ['1_month'],
     android: ['1_month_irregular'],
   });
 
@@ -41,6 +41,7 @@ const Subscription = ({navigation: {goBack, openDrawer, navigate}, route}) => {
       if (Platform.OS === 'android') {
         await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
       }
+      await RNIap.getProducts(itemSkus);
     } catch (e) {
       console.log(e);
     }

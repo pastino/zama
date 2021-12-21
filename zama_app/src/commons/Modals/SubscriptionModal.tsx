@@ -6,7 +6,7 @@ import HeaderBasic from '../Header/HeaderBasic';
 // libs
 import * as RNIap from 'react-native-iap';
 // redux
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, useStore} from 'react-redux';
 import {
   setRewardModal,
   setSubscriptionModal,
@@ -24,11 +24,12 @@ const SubscriptionModal = ({}) => {
   const {openSubscriptionModal} = useSelector(
     (state: State) => state.interactionReducer,
   );
-
+  const [product, setProduct] = useState<any>();
   const {giveSubscription} = useSubscriptionAPI();
   const {isTest} = useSelector((state: State) => state.versionReducer);
+
   const itemSkus: any = Platform.select({
-    ios: ['1_month_irregular'],
+    ios: ['1_month'],
     android: ['1_month_irregular'],
   });
 
@@ -54,6 +55,7 @@ const SubscriptionModal = ({}) => {
         await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
       }
       //성공
+      console.log(result);
       await giveSubscription();
       handleModal();
     } catch (e) {
@@ -67,6 +69,8 @@ const SubscriptionModal = ({}) => {
       if (Platform.OS === 'android') {
         await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
       }
+      const product = await RNIap.getProducts(itemSkus);
+      setProduct(product);
     } catch (e) {
       console.log(e);
     }
