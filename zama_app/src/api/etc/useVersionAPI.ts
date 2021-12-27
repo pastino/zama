@@ -17,6 +17,8 @@ export default function useVersionAPI() {
           setVersion({
             appVersionAnd: data?.appVersionAnd,
             appVersionIOS: data?.appVersionIOS,
+            appMinimumVersion: data?.appMinimumVersion,
+            appLatestVersion: data?.appLatestVersion,
             isTest: data?.isTest,
           }),
         );

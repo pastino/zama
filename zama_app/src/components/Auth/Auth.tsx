@@ -26,6 +26,7 @@ import styled from 'styled-components/native';
 const Auth = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [kakaoId, setKakaoId] = useState<number>(0);
+  const [appleEmail, setAppleEmail] = useState('');
   const [agreeTermModal, setAgreeTermModal] = useState(false);
 
   const KAKAO_BUTTON_INFO = {
@@ -91,7 +92,7 @@ const Auth = ({navigation}) => {
         appleAuthRequestResponse.identityToken,
       );
       const email = decodedToken.email;
-
+      setAppleEmail(email);
       const {success, message, token, user} = await loginByAppleAPI(email);
       if (!success) {
         dispatch(onToastMessage({toastMessageText: message}));
@@ -106,17 +107,30 @@ const Auth = ({navigation}) => {
     }
   };
 
+  const finishLogin = ({success, token, user, message}) => {
+    if (success) {
+      console.log(success, token, user, message);
+      dispatch(logIn({token, user}));
+      dispatch(setOpenUsePurposeServey({}));
+    } else {
+      dispatch(onToastMessage({toastMessageText: message}));
+    }
+  };
+
   const handleConfirmAgreeTerms = async terms => {
     try {
-      const {success, token, user, message} = await loginByKakaoAPI(
-        kakaoId,
-        terms,
-      );
-      if (success) {
-        dispatch(logIn({token, user}));
-        dispatch(setOpenUsePurposeServey({}));
+      if (kakaoId) {
+        const {success, token, user, message} = await loginByKakaoAPI(
+          kakaoId,
+          terms,
+        );
+        finishLogin({success, token, user, message});
       } else {
-        dispatch(onToastMessage({toastMessageText: message}));
+        const {success, token, user, message} = await loginByAppleAPI(
+          appleEmail,
+          terms,
+        );
+        finishLogin({success, token, user, message});
       }
     } catch (e) {
       console.log(e);

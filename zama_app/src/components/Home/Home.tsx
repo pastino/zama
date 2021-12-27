@@ -19,7 +19,6 @@ import {transformTimes} from '@/utils/tools';
 // styles
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
 import {
-  MIDDLE_PURPLE,
   BRIGHT_GRAY,
   TRANSPARENT_DARK,
   DARK_GRAY,

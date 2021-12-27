@@ -1,26 +1,33 @@
 import React, {useEffect, useState} from 'react';
-import {Platform, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 // Components
 import ModalContainer from './Container/ModalContainer';
 import HeaderBasic from '../Header/HeaderBasic';
 // libs
 import * as RNIap from 'react-native-iap';
 // redux
-import {useDispatch, useSelector, useStore} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   setRewardModal,
   setSubscriptionModal,
 } from '@/redux/interation/interactionSlice';
 import {State} from '@/redux/rootReducer';
 // styles
-import {FULL_SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
+import {FULL_SCREEN_HEIGHT, SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
 import {PURPLE} from '@/styles/colors';
 import Button from '../Buttons/Button';
 import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
 
 const SubscriptionModal = ({}) => {
   const dispatch = useDispatch();
-
+  const [isLoading, setIsLoading] = useState(false);
   const {openSubscriptionModal} = useSelector(
     (state: State) => state.interactionReducer,
   );
@@ -29,7 +36,7 @@ const SubscriptionModal = ({}) => {
   const {isTest} = useSelector((state: State) => state.versionReducer);
 
   const itemSkus: any = Platform.select({
-    ios: ['1_month'],
+    ios: ['1_month_subscription'],
     android: ['1_month_irregular'],
   });
 
@@ -46,20 +53,45 @@ const SubscriptionModal = ({}) => {
     }, 800);
   };
 
+  const iosPurchaseValidate = async product => {
+    try {
+      const receiptBody = {
+        'receipt-data': product.transactionReceipt,
+      };
+      const result: any = await RNIap.validateReceiptIos(receiptBody, true);
+      if (result?.status === 0) {
+        await giveSubscription();
+      } else {
+        Alert.alert('인앱결제에 실패하였습니다.');
+      }
+    } catch (err: any) {
+      console.warn(err.code, err.message);
+      Alert.alert(err.message);
+    }
+  };
+
   const handlePurchase = async () => {
     try {
+      setIsLoading(true);
       const result: any = await RNIap.requestPurchase(itemSkus[0]);
-      if (Platform.OS === 'ios') {
-        await RNIap.finishTransaction(result.transactionId);
-      } else {
+      await RNIap.finishTransaction(result, true);
+      if (Platform.OS === 'android') {
         await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
       }
-      //성공
-      console.log(result);
-      await giveSubscription();
+      if (Platform.OS === 'ios') {
+        iosPurchaseValidate(result);
+      } else {
+        await giveSubscription();
+      }
       handleModal();
-    } catch (e) {
-      console.log(e);
+    } catch (err: any) {
+      console.warn(err.code, err.message);
+      if (err.code !== 'E_USER_CANCELLED') {
+        Alert.alert(err.message);
+      }
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -114,6 +146,20 @@ const SubscriptionModal = ({}) => {
           )}
         </View>
       </View>
+      {isLoading && (
+        <View
+          style={{
+            flex: 1,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: SCREEN_WIDTH,
+            height: SCREEN_HEIGHT,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          }}>
+          <ActivityIndicator size={30} />
+        </View>
+      )}
     </ModalContainer>
   );
 };

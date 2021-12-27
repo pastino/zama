@@ -1,33 +1,20 @@
-import axios from 'axios';
-// redux
-import {State} from '@/redux/rootReducer';
-import {useSelector} from 'react-redux';
-
-export const appVersion = '0.0.1';
+import axios from "axios";
 
 export default function useAPI() {
-  const API_URL = 'http://8591-221-141-228-118.ngrok.io';
-
-  //'http://3.34.216.81:5002';
-
-  const {token} = useSelector((state: State) => state.usersReducer);
+  const API_URL = "http://localhost:5002";
 
   async function getHandler(
     url: string,
     params?: any,
     headers?: any,
-    axiosParams?: any,
+    axiosParams?: any
   ) {
     try {
       const res = await axios({
-        method: 'get',
+        method: "get",
         url: `${API_URL}${url}`,
         params,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-          ...headers,
-        },
+        headers: { "Content-Type": "application/json", ...headers },
         ...axiosParams,
       });
       return res;
@@ -39,14 +26,10 @@ export default function useAPI() {
   async function deleteHandler(url: string, data?: any, headers?: any) {
     try {
       const res = await axios({
-        method: 'delete',
+        method: "delete",
         url: `${API_URL}${url}`,
         data: data ? data : {},
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-          ...headers,
-        },
+        headers: { "Content-Type": "application/json", ...headers },
       });
       return res;
     } catch (error) {
@@ -57,14 +40,10 @@ export default function useAPI() {
   async function postHandler(url: string, data: any, headers?: any) {
     try {
       const res = await axios({
-        method: 'post',
+        method: "post",
         url: `${API_URL}${url}`,
         data,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-          ...headers,
-        },
+        headers: { "Content-Type": "application/json", ...headers },
       });
       return res;
     } catch (error) {
@@ -75,14 +54,10 @@ export default function useAPI() {
   async function putHandler(url: string, data: any, headers?: any) {
     try {
       const res = await axios({
-        method: 'put',
+        method: "put",
         url: `${API_URL}${url}`,
         data,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-          ...headers,
-        },
+        headers: { "Content-Type": "application/json", ...headers },
       });
       return res;
     } catch (error) {
@@ -93,14 +68,10 @@ export default function useAPI() {
   async function patchHandler(url: string, data: any, headers?: any) {
     try {
       const res = await axios({
-        method: 'patch',
+        method: "patch",
         url: `${API_URL}${url}`,
         data,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-          ...headers,
-        },
+        headers: { "Content-Type": "application/json", ...headers },
       });
       return res;
     } catch (error) {

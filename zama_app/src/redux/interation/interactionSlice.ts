@@ -8,6 +8,7 @@ export interface InteractionState {
   openRewardModal: boolean;
   openReportModal: boolean;
   currentRoute: string;
+  isLoading: boolean;
 }
 
 const userSlice = createSlice({
@@ -20,6 +21,7 @@ const userSlice = createSlice({
     openSubscriptionModal: false,
     openRewardModal: false,
     currentRoute: '',
+    isLoading: false,
   } as InteractionState,
   reducers: {
     onToastMessage(state, action) {
@@ -48,6 +50,9 @@ const userSlice = createSlice({
     setCurrentRoute(state, action) {
       state.currentRoute = action.payload.currentRoute;
     },
+    setLoading(state, action) {
+      state.isLoading = action.payload.isLoading;
+    },
   },
 });
 
@@ -60,6 +65,7 @@ export const {
   setRewardModal,
   setOpenReportModal,
   setCurrentRoute,
+  setLoading,
 } = userSlice.actions;
 
 export default userSlice.reducer;

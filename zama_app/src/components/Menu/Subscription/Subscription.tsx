@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Platform, Text, View, TouchableOpacity} from 'react-native';
+import {Platform, Text, View, TouchableOpacity, Alert} from 'react-native';
 // commons
 import HeaderBasic from '@/commons/Header/HeaderBasic';
 // libs
@@ -8,30 +8,59 @@ import * as RNIap from 'react-native-iap';
 // styles
 import Button from '@/commons/Buttons/Button';
 import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
+import {setLoading} from '@/redux/interation/interactionSlice';
 
 const Subscription = ({navigation: {goBack, openDrawer, navigate}, route}) => {
   const {giveSubscription} = useSubscriptionAPI();
+  const dispatch = useDispatch();
   const {isTest} = useSelector((state: State) => state.versionReducer);
   const itemSkus: any = Platform.select({
-    ios: ['1_month'],
+    ios: ['1_month_subscription'],
     android: ['1_month_irregular'],
   });
 
+  const iosPurchaseValidate = async product => {
+    try {
+      const receiptBody = {
+        'receipt-data': product.transactionReceipt,
+      };
+      const result: any = await RNIap.validateReceiptIos(receiptBody, true);
+      if (result?.status === 0) {
+        await giveSubscription();
+      } else {
+        Alert.alert('인앱결제에 실패하였습니다.');
+      }
+    } catch (err: any) {
+      console.warn(err.code, err.message);
+      Alert.alert(err.message);
+    }
+  };
+
   const handlePurchase = async () => {
     try {
+      dispatch(setLoading({isLoading: true}));
+
       const result: any = await RNIap.requestPurchase(itemSkus[0]);
-      if (Platform.OS === 'ios') {
-        await RNIap.finishTransaction(result.transactionId);
-      } else {
+      await RNIap.finishTransaction(result, true);
+      if (Platform.OS === 'android') {
         await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
       }
-      //성공
-      await giveSubscription();
+      if (Platform.OS === 'ios') {
+        iosPurchaseValidate(result);
+      } else {
+        await giveSubscription();
+      }
       goBack();
-    } catch (e) {
-      console.log(e);
+    } catch (err: any) {
+      console.warn(err.code, err.message);
+      if (err.code !== 'E_USER_CANCELLED') {
+        Alert.alert(err.message);
+      }
+      dispatch(setLoading({isLoading: false}));
+    } finally {
+      dispatch(setLoading({isLoading: false}));
     }
   };
 
@@ -52,6 +81,7 @@ const Subscription = ({navigation: {goBack, openDrawer, navigate}, route}) => {
   }, []);
 
   const isOpenDrawerWhenBack = route?.params?.isOpenDrawerWhenBack;
+
   return (
     <LinearGradient
       colors={[

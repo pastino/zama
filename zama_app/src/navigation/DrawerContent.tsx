@@ -68,7 +68,7 @@ const DrawerContent = ({navigation}) => {
             lineHeight: 35,
             marginBottom: 30,
           }}>
-          {user?.name}님,{'\n'}환영합니다!
+          {user?.name ? `${user?.name}님,${'\n'}환영합니다!` : '환영합니다!'}
         </Text>
         {subscriptions?.length === 0 ? (
           <Button

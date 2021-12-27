@@ -14,6 +14,10 @@ import {WHITE} from '@/styles/colors';
 import NoticeDetail from '@/components/Menu/Notice/NoticeDetail';
 import RewardModal from '@/commons/Modals/ RewardModal';
 import Subscription from '@/components/Menu/Subscription';
+import {ActivityIndicator, View} from 'react-native';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
+import {useSelector} from 'react-redux';
+import {State} from '@/redux/rootReducer';
 
 const RootStack = createStackNavigator();
 const MenuStack = createStackNavigator();
@@ -24,6 +28,7 @@ const basicOptions = {
   ...TransitionPresets.SlideFromRightIOS,
 };
 const RootNavigator = () => {
+  const {isLoading} = useSelector((state: State) => state.interactionReducer);
   return (
     <>
       <RewardModal />
@@ -65,6 +70,20 @@ const RootNavigator = () => {
           options={basicOptions}
         />
       </RootStack.Navigator>
+      {isLoading && (
+        <View
+          style={{
+            flex: 1,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: SCREEN_WIDTH,
+            height: SCREEN_HEIGHT,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          }}>
+          <ActivityIndicator size={30} />
+        </View>
+      )}
     </>
   );
 };

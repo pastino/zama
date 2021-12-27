@@ -1,5 +1,5 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, SafeAreaView, Text, View} from 'react-native';
 // navigation
 import TabNavigation from './TabNavigation';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
@@ -19,16 +19,14 @@ import {State} from '@/redux/rootReducer';
 // styles
 import {WHITE} from '@/styles/colors';
 import {PURPLE_COLOR} from '@/components/Home/gradientColorArr';
-import Modal from 'react-native-modal';
-import useVersionAPI from '@/api/etc/useVersionAPI';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
 
 const MainStack = () => {
   const [networkError, setNetworkError] = useState<boolean | null>(null);
 
-  const {openUsePurposeServey} = useSelector(
+  const {openUsePurposeServey, isLoading} = useSelector(
     (state: State) => state.interactionReducer,
   );
-  const {getVersion} = useVersionAPI();
 
   const {playList} = useSelector((state: State) => state.playerReducer);
 
@@ -42,7 +40,6 @@ const MainStack = () => {
       await getHomeContentsSubCateAPI();
       await getSleepBasketAudio();
       await getSubscription();
-      await getVersion();
     } catch (e) {
       console.log(e);
       setNetworkError(true);
@@ -80,6 +77,7 @@ const MainStack = () => {
     <View style={{flex: 1, overflow: 'hidden'}}>
       {playList.length > 0 && <Player />}
       <ReportSendModal />
+
       <MainStack.Navigator
         initialRouteName="Main"
         headerMode="none"
@@ -100,6 +98,20 @@ const MainStack = () => {
           options={basicOptions}
         />
       </MainStack.Navigator>
+      {isLoading && (
+        <View
+          style={{
+            flex: 1,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: SCREEN_WIDTH,
+            height: SCREEN_HEIGHT,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          }}>
+          <ActivityIndicator size={30} />
+        </View>
+      )}
     </View>
   );
 };
