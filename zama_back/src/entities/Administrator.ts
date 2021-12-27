@@ -7,31 +7,21 @@ import {
 } from "typeorm";
 
 @Entity()
-export class Version {
+export class Administrator {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  appVersionAnd: string;
+  administratorId: string;
 
   @Column()
-  appVersionIOS: string;
+  password: string;
 
   @Column()
-  appMinimumVersion: string;
-
-  @Column()
-  appLatestVersion: string;
-
-  @Column({ nullable: true })
-  updateContents: string;
-
-  @Column()
-  isTest: boolean;
+  super: boolean;
 
   @CreateDateColumn()
   createAt: Date;
-
   @UpdateDateColumn()
   updateAt: Date;
 }

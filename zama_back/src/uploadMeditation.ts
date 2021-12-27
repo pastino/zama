@@ -11,12 +11,18 @@ const s3 = new aws.S3({
 const upload = multer({
   storage: multerS3({
     s3,
-    bucket: "infectsoul",
+    bucket: "zama-assets",
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
     key: function (req, file, cb) {
-      cb(null, Date.now().toString() + "_" + file.originalname);
+      const basePath =
+        file.fieldname === "file"
+          ? "audios/"
+          : file.fieldname === "thumbnail"
+          ? "images/"
+          : "";
+      cb(null, basePath + Date.now().toString() + "_" + file.originalname);
     },
   }),
 });

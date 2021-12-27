@@ -10,7 +10,7 @@ import { uploadMiddleware } from "./uploadMeditation";
 //apis
 import SignUpByEmail from "./routes/User/Auth/SignUp/SignUpByEmail";
 import Users from "./routes/User/Users";
-import CreateSleepAudio from "./routes/SleepAudio/CreateSleepAudio";
+import CreateSleepAudio from "./routes/admin/CreateSleepAudio";
 import LoginByKakao from "./routes/User/Auth/Login/LoginByKakao";
 import LoginByApple from "./routes/User/Auth/Login/LoginByApple";
 import SendCertNumByEmail from "./routes/User/Auth/SignUp/SendCertNumByEmail";
@@ -33,6 +33,9 @@ import ChangePassword from "./routes/User/Auth/Find/ChangePassword";
 import GetNotices from "./routes/Etc/GetNotices";
 import GetVersion from "./routes/Etc/GetVersion";
 import GiveSubscription from "./routes/User/Subscription/GiveSubscription";
+import LoginAdmin from "./routes/admin/AdminLogin";
+import CreateAdmin from "./routes/admin/CreateAdmin";
+import GetAudios from "./routes/admin/GetAudios";
 
 const app = express();
 const PORT = 5002;
@@ -70,7 +73,7 @@ app.post("/subscription", GiveSubscription);
 //sleep
 app.get("/home/contents", GetHomeAudio);
 app.get("/home/contents/v2", GetHomeAudioSubCate);
-app.post("/sleep", uploadMiddleware, CreateSleepAudio);
+// app.post("/sleep", uploadMiddleware, CreateSleepAudio);
 app.get("/sleep/basket", GetSleepBasket);
 app.post("/sleep/basket", SleepBasket);
 
@@ -89,6 +92,12 @@ app.get("/notice", GetNotices);
 
 //etc
 app.get("/version", GetVersion);
+
+//admin
+app.post("/admin/login", LoginAdmin);
+app.post("/admin/signUp", CreateAdmin);
+app.get("/admin/audios", GetAudios);
+app.post("/admin/content", uploadMiddleware, CreateSleepAudio);
 
 createConnection(connectionOptions)
   .then(() => {

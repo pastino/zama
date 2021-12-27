@@ -37,25 +37,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var Version_1 = require("../../entities/Version");
-var GetVersion = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var versionRepository, version, e_1;
+var SleepAudio_1 = require("../../entities/SleepAudio");
+var GetAudios = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var division, sleepAudioRepository, audios, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                versionRepository = typeorm_1.getRepository(Version_1.Version);
-                return [4 /*yield*/, versionRepository.find()];
+                division = req.query.division;
+                sleepAudioRepository = typeorm_1.getRepository(SleepAudio_1.SleepAudio);
+                return [4 /*yield*/, sleepAudioRepository.find({
+                        where: { division: division },
+                        relations: ["creator"],
+                    })];
             case 1:
-                version = _a.sent();
-                return [2 /*return*/, res.status(200).send({ success: true, data: version[0] })];
+                audios = _a.sent();
+                console.log(audios);
+                return [2 /*return*/, res.status(200).send({
+                        success: true,
+                        audios: audios,
+                    })];
             case 2:
                 e_1 = _a.sent();
-                res.status(400).json({ success: false, message: e_1.message });
+                res.status(400).json({ message: e_1.message });
                 throw new Error(e_1);
             case 3: return [2 /*return*/];
         }
     });
 }); };
-exports.default = GetVersion;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0VmVyc2lvbi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9yb3V0ZXMvRXRjL0dldFZlcnNpb24udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxtQ0FBd0M7QUFDeEMsa0RBQWlEO0FBRWpELElBQU0sVUFBVSxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFFM0MsaUJBQWlCLEdBQUcsdUJBQWEsQ0FBQyxpQkFBTyxDQUFDLENBQUM7Z0JBQ2pDLHFCQUFNLGlCQUFpQixDQUFDLElBQUksRUFBRSxFQUFBOztnQkFBeEMsT0FBTyxHQUFHLFNBQThCO2dCQUU5QyxzQkFBTyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLE9BQU8sRUFBRSxJQUFJLEVBQUUsSUFBSSxFQUFFLE9BQU8sQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDLEVBQUM7OztnQkFFakUsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsS0FBSyxFQUFFLE9BQU8sRUFBRSxHQUFDLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQztnQkFDN0QsTUFBTSxJQUFJLEtBQUssQ0FBQyxHQUFDLENBQUMsQ0FBQzs7OztLQUV0QixDQUFDO0FBRUYsa0JBQWUsVUFBVSxDQUFDIn0=
+exports.default = GetAudios;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0QXVkaW9zLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL3JvdXRlcy9hZG1pbi9HZXRBdWRpb3MudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxtQ0FBd0M7QUFDeEMsd0RBQXVEO0FBRXZELElBQU0sU0FBUyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFHckMsUUFBUSxHQUNWLEdBQUcsZUFETyxDQUNOO2dCQUVQLG9CQUFvQixHQUFHLHVCQUFhLENBQUMsdUJBQVUsQ0FBQyxDQUFDO2dCQUVyRCxxQkFBTSxvQkFBb0IsQ0FBQyxJQUFJLENBQUM7d0JBQzlCLEtBQUssRUFBRSxFQUFFLFFBQVEsVUFBQSxFQUFFO3dCQUNuQixTQUFTLEVBQUUsQ0FBQyxTQUFTLENBQUM7cUJBQ3ZCLENBQUMsRUFBQTs7Z0JBSkUsTUFBTSxHQUNWLFNBR0U7Z0JBQ0osT0FBTyxDQUFDLEdBQUcsQ0FBQyxNQUFNLENBQUMsQ0FBQztnQkFDcEIsc0JBQU8sR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUM7d0JBQzFCLE9BQU8sRUFBRSxJQUFJO3dCQUNiLE1BQU0sUUFBQTtxQkFDUCxDQUFDLEVBQUM7OztnQkFFSCxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLE9BQU8sRUFBRSxHQUFDLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQztnQkFDN0MsTUFBTSxJQUFJLEtBQUssQ0FBQyxHQUFDLENBQUMsQ0FBQzs7OztLQUV0QixDQUFDO0FBRUYsa0JBQWUsU0FBUyxDQUFDIn0=

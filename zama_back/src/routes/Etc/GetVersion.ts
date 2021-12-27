@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { Version } from "../../entities/Version";
 
-const GetNotices = async (req: Request, res: Response) => {
+const GetVersion = async (req: Request, res: Response) => {
   try {
     const versionRepository = getRepository(Version);
     const version = await versionRepository.find();
@@ -14,4 +14,4 @@ const GetNotices = async (req: Request, res: Response) => {
   }
 };
 
-export default GetNotices;
+export default GetVersion;
