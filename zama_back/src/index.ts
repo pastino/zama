@@ -36,6 +36,7 @@ import GiveSubscription from "./routes/User/Subscription/GiveSubscription";
 import LoginAdmin from "./routes/admin/AdminLogin";
 import CreateAdmin from "./routes/admin/CreateAdmin";
 import GetAudios from "./routes/admin/GetAudios";
+import SendRewardMessage from "./routes/admin/SendRewardMessage";
 
 const app = express();
 const PORT = 5002;
@@ -98,6 +99,7 @@ app.post("/admin/login", LoginAdmin);
 app.post("/admin/signUp", CreateAdmin);
 app.get("/admin/audios", GetAudios);
 app.post("/admin/content", uploadMiddleware, CreateSleepAudio);
+app.post("/admin/reward", SendRewardMessage);
 
 createConnection(connectionOptions)
   .then(() => {

@@ -26,6 +26,7 @@ import styled from 'styled-components/native';
 const Auth = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [kakaoId, setKakaoId] = useState<number>(0);
+  const [kakaoInfo, setKakaoInfo] = useState<any>(null);
   const [appleEmail, setAppleEmail] = useState('');
   const [agreeTermModal, setAgreeTermModal] = useState(false);
 
@@ -51,7 +52,10 @@ const Auth = ({navigation}) => {
       const id = profile?.id ? Number(profile?.id) : 0;
       if (id === 0) throw new Error('아이디가 존재하지 않습니다.');
       setKakaoId(id);
-      const {success, message, token, user} = await loginByKakaoAPI(id);
+      setKakaoInfo(profile);
+      const {success, message, token, user} = await loginByKakaoAPI({
+        kakaoId: id,
+      });
       if (!success) {
         dispatch(onToastMessage({toastMessageText: message}));
       }
@@ -119,11 +123,16 @@ const Auth = ({navigation}) => {
 
   const handleConfirmAgreeTerms = async terms => {
     try {
+      console.log(123, kakaoInfo);
+
       if (kakaoId) {
-        const {success, token, user, message} = await loginByKakaoAPI(
+        const {success, token, user, message} = await loginByKakaoAPI({
           kakaoId,
+          email: kakaoInfo?.email,
+          nickname: kakaoInfo?.nickname,
           terms,
-        );
+        });
+
         finishLogin({success, token, user, message});
       } else {
         const {success, token, user, message} = await loginByAppleAPI(

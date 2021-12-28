@@ -30,10 +30,24 @@ export default function useAuthAPI() {
     }
   };
 
-  const loginByKakaoAPI = async (kakaoId: number, terms?: boolean) => {
+  interface LoginByKakao {
+    kakaoId: number;
+    email?: string | any;
+    nickname?: string | any;
+    terms?: boolean;
+  }
+
+  const loginByKakaoAPI = async ({
+    kakaoId,
+    email,
+    nickname,
+    terms,
+  }: LoginByKakao) => {
     try {
+      console.log(123123, terms);
       const res: any = await postHandler('/auth/login/kakao', {
         kakaoId,
+        nickname,
         terms,
       });
       return res.data;

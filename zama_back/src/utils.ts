@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import mg from "nodemailer-mailgun-transport";
 import { Subscription } from "./entities/Subscription";
+import axios from "axios";
 
 export const generateToken = (id: number) =>
   jwt.sign({ id }, process.env.SECRET as string);
@@ -112,4 +113,24 @@ export const filteredSubscriptions = (subscriptions: Subscription[]) => {
       new Date(subscription.startDate).getTime() <= new Date().getTime() &&
       new Date(subscription.endDate).getTime() >= new Date().getTime()
   );
+};
+
+export const sendSms = ({ receivers, message }: any) => {
+  return axios
+    .post("https://apis.aligo.in/send/", null, {
+      params: {
+        key: process.env.ALIGO_API_KEY,
+        user_id: "joon5006",
+        sender: "01039497613",
+        receiver: receivers.join(","),
+        msg: message,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      res.data;
+    })
+    .catch((err) => {
+      console.log("err", err);
+    });
 };

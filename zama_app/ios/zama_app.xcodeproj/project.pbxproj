@@ -11,8 +11,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		594276622774C7670007FD61 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 594276612774C7670007FD61 /* main.jsbundle */; };
 		594489B52707FC9000A4186D /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594489B42707FC9000A4186D /* SwiftBridge.swift */; };
+		59877AB42779F76B0058400D /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 59877AB32779F76B0058400D /* main.jsbundle */; };
 		59A52F4527678D300021EAEE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A52F4427678D300021EAEE /* StoreKit.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		89471B75F749582A4306E0A1 /* libPods-zama_app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D65B64072E1DC438EFA7D119 /* libPods-zama_app.a */; };
@@ -44,11 +44,11 @@
 		20B2F6D992D34A9E8D1B0423 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		34D5917C36A544B1ABB70346 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		483A2A533451423AB691A00D /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		594276612774C7670007FD61 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		594489AD2707FC7A00A4186D /* zama_app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "zama_app-Bridging-Header.h"; sourceTree = "<group>"; };
 		594489B42707FC9000A4186D /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
 		595DBCC327637F06005FE4C1 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		5986CDDA275E38F5006C8438 /* zama_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = zama_app.entitlements; path = zama_app/zama_app.entitlements; sourceTree = "<group>"; };
+		59877AB32779F76B0058400D /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		59A52F4427678D300021EAEE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5DC5179C787540129E76C857 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		6540C237B0EDF776FD9D773F /* Pods-zama_app-zama_appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zama_app-zama_appTests.debug.xcconfig"; path = "Target Support Files/Pods-zama_app-zama_appTests/Pods-zama_app-zama_appTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 		13B07FAE1A68108700A75B9A /* zama_app */ = {
 			isa = PBXGroup;
 			children = (
-				594276612774C7670007FD61 /* main.jsbundle */,
+				59877AB32779F76B0058400D /* main.jsbundle */,
 				5986CDDA275E38F5006C8438 /* zama_app.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -298,7 +298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				594276622774C7670007FD61 /* main.jsbundle in Resources */,
+				59877AB42779F76B0058400D /* main.jsbundle in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -546,7 +546,7 @@
 				CODE_SIGN_ENTITLEMENTS = zama_app/zama_app.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RN8SX72D5J;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = zama_app/Info.plist;
@@ -554,7 +554,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -579,14 +579,14 @@
 				CODE_SIGN_ENTITLEMENTS = zama_app/zama_app.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RN8SX72D5J;
 				INFOPLIST_FILE = zama_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
