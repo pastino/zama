@@ -23,7 +23,7 @@ const UseVoucher = async (req: Request, res: Response) => {
     }
 
     const subscriptionRepository = getRepository(Subscription);
-
+    //
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const sixMonthLater = new Date(moment(today).add(7, "months").format());
