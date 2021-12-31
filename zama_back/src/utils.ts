@@ -115,22 +115,14 @@ export const filteredSubscriptions = (subscriptions: Subscription[]) => {
   );
 };
 
-export const sendSms = ({ receivers, message }: any) => {
-  return axios
-    .post("https://apis.aligo.in/send/", null, {
-      params: {
-        key: process.env.ALIGO_API_KEY,
-        user_id: "joon5006",
-        sender: "01056843712",
-        receiver: receivers.join(","),
-        msg: message,
-      },
-    })
-    .then((res) => {
-      console.log(res);
-      res.data;
-    })
-    .catch((err) => {
-      console.log("err", err);
-    });
+export const sendSms = async ({ receivers, message }: any) => {
+  await axios.post("https://apis.aligo.in/send/", null, {
+    params: {
+      key: process.env.ALIGO_API_KEY,
+      user_id: "joon5006",
+      sender: "01056843712",
+      receiver: receivers.join(","),
+      msg: message,
+    },
+  });
 };

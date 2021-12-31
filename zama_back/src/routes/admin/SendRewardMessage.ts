@@ -651,17 +651,13 @@ const SendRewardMessage = async (req: Request, res: Response) => {
   ];
 
   const createVoucher = async () => {
-    try {
-      const voucherNumber = generateVoucherNum();
-      const voucherRepository = getRepository(Voucher);
-      await voucherRepository.save({
-        voucherNumber,
-        name: "6Month",
-      });
-      return voucherNumber;
-    } catch (e: any) {
-      throw new Error(e);
-    }
+    const voucherNumber = generateVoucherNum();
+    const voucherRepository = getRepository(Voucher);
+    await voucherRepository.save({
+      voucherNumber,
+      name: "6Month",
+    });
+    return voucherNumber;
   };
 
   for (let i = 0; i < data.length; i++) {
@@ -669,35 +665,31 @@ const SendRewardMessage = async (req: Request, res: Response) => {
       console.log(i, j, data[i]);
       const voucherNum = createVoucher();
       const messagehtml = `
-      안녕하세요! 자마ZAMA입니다.<br/>
-      <br/>
-      오랫동안 기다리셨던 자마ZAMA 어플이 드디어 서포트님들을 만날 준비를 하고 있습니다.<br/>
-      <br/>
-      와디즈 크라우드 펀딩으로 자마ZAMA의 첫걸음에 동참해주신 여러분께 깊은 감사를 드립니다.<br/>
-      <br/>
-      2022년 1월부터 자마ZAMA 앱에서 리워드를 사용하실 수 있습니다.<br/>
-      <br/>
-      처음인만큼 부족한 부분을 점검하기 위해 한달간은 테스트 기간으로 서포터님들께 무료로 제공하려고 합니다.<br/>
-      <br/>
-      구입해주신 6개월 계정권은 7개월 동안 이용하실 수 있습니다.<br/>
-      <br/>
-      자마ZAMA는 잠이 오는 이야기, 음악, 소리로 서포터님을 두근거리는 마음으로 찾아뵙겠습니다.<br/>
-      <br/>
-      자마코리아 김수진 드림.<br/>
-      <br/>
-      아래의 쿠폰번호를 zama 앱에서 입력하시면 컨텐츠를 자유롭게 이용하실 수 있습니다.
-      - 쿠폰번호: ${voucherNum}
+안녕하세요! 자마ZAMA입니다.
+오랫동안 기다리셨던 자마ZAMA 어플이 드디어 서포트님들을 만날 준비를 하고 있습니다.
+와디즈 크라우드 펀딩으로 자마ZAMA의 첫걸음에 동참해주신 여러분께 깊은 감사를 드립니다.
 
-      쿠폰사용 방법
-      1. 홈화면에의 우측 메뉴버튼 클릭
-      2. 프리미엄 회원 신청하기 버튼 클릭
-      3. "리워드 사용하기" 클릭
-      4. 쿠폰번호 입력 후 완료
-    
-      * 본 연락처는 개발자 연락처 입니다.<br/>
-      문의사항은 010-3949-7613으로 연락부탁드립니다.
-      <br/>
-      `;
+2022년 1월부터 자마ZAMA 앱에서 리워드를 사용하실 수 있습니다.
+처음인만큼 부족한 부분을 점검하기 위해 한달간은 테스트 기간으로 서포터님들께 무료로 제공하려고 합니다.
+구입해주신 6개월 계정권은 7개월 동안 이용하실 수 있습니다.
+
+자마ZAMA는 잠이 오는 이야기, 음악, 소리로 서포터님을 두근거리는 마음으로 찾아뵙겠습니다.
+
+자마코리아 김수진 드림.
+
+* 리워드 사용법 * 
+아래의 쿠폰번호를 zama 앱에서 입력하시면 컨텐츠를 자유롭게 이용하실 수 있습니다.
+- 쿠폰번호: ${voucherNum}
+
+쿠폰사용 방법
+1. 홈화면에의 우측 메뉴버튼 클릭
+2. 프리미엄 회원 신청하기 버튼 클릭
+3. "리워드 사용하기" 클릭
+4. 쿠폰번호 입력 후 완료
+
+* 본 연락처는 개발자 연락처 입니다.
+문의사항은 010-3949-7613으로 연락부탁드립니다.
+`;
 
       await sendSms({
         receivers: [data[i].phoneNum],
@@ -705,6 +697,10 @@ const SendRewardMessage = async (req: Request, res: Response) => {
       });
     }
   }
+
+  return res.status(200).send({
+    success: true,
+  });
 };
 
 export default SendRewardMessage;
