@@ -693,7 +693,12 @@ const SendRewardMessage = async (req: Request, res: Response) => {
       2. 프리미엄 회원 신청하기 버튼 클릭
       3. "리워드 사용하기" 클릭
       4. 쿠폰번호 입력 후 완료
+    
+      * 본 연락처는 개발자 연락처 입니다.<br/>
+      문의사항은 010-3949-7613으로 연락부탁드립니다.
+      <br/>
       `;
+
       await sendSms({
         receivers: [data[i].phoneNum],
         message: messagehtml,
