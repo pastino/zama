@@ -666,13 +666,25 @@ const SendRewardMessage = async (req: Request, res: Response) => {
 
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < data[i].count; j++) {
+      console.log(i, j, data[i]);
       const voucherNum = createVoucher();
       const messagehtml = `
-      ${data[i].name}님, 안녕하세요.
-      자마코리아 입니다.
-
-      먼저 zama 펀딩에 참여해 주셔서 진심으로 감사드립니다.
-
+      안녕하세요! 자마ZAMA입니다.<br/>
+      <br/>
+      오랫동안 기다리셨던 자마ZAMA 어플이 드디어 서포트님들을 만날 준비를 하고 있습니다.<br/>
+      <br/>
+      와디즈 크라우드 펀딩으로 자마ZAMA의 첫걸음에 동참해주신 여러분께 깊은 감사를 드립니다.<br/>
+      <br/>
+      2022년 1월부터 자마ZAMA 앱에서 리워드를 사용하실 수 있습니다.<br/>
+      <br/>
+      처음인만큼 부족한 부분을 점검하기 위해 한달간은 테스트 기간으로 서포터님들께 무료로 제공하려고 합니다.<br/>
+      <br/>
+      구입해주신 6개월 계정권은 7개월 동안 이용하실 수 있습니다.<br/>
+      <br/>
+      자마ZAMA는 잠이 오는 이야기, 음악, 소리로 서포터님을 두근거리는 마음으로 찾아뵙겠습니다.<br/>
+      <br/>
+      자마코리아 김수진 드림.<br/>
+      <br/>
       아래의 쿠폰번호를 zama 앱에서 입력하시면 컨텐츠를 자유롭게 이용하실 수 있습니다.
       - 쿠폰번호: ${voucherNum}
 
@@ -687,11 +699,6 @@ const SendRewardMessage = async (req: Request, res: Response) => {
         message: messagehtml,
       });
     }
-  }
-
-  try {
-  } catch (e) {
-    console.log(e);
   }
 };
 
