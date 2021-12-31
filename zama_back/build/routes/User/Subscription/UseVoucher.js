@@ -65,7 +65,7 @@ var UseVoucher = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 subscriptionRepository = typeorm_1.getRepository(Subscription_1.Subscription);
                 today = new Date();
                 today.setHours(0, 0, 0, 0);
-                sixMonthLater = new Date(moment_1.default(today).add(6, "months").format());
+                sixMonthLater = new Date(moment_1.default(today).add(7, "months").format());
                 sixMonthLater.setHours(24, 0, 0, 0);
                 return [4 /*yield*/, subscriptionRepository.save({
                         user: user,

@@ -648,6 +648,14 @@ const SendRewardMessage = async (req: Request, res: Response) => {
       tyep: "6개월 구독권 1계정",
       count: 3,
     },
+    {
+      id: 6962364,
+      name: "김수진",
+      email: "joon500006@gmail.com",
+      phoneNum: "01039497613",
+      tyep: "6개월 구독권 1계정",
+      count: 3,
+    },
   ];
 
   const createVoucher = async () => {
@@ -661,35 +669,52 @@ const SendRewardMessage = async (req: Request, res: Response) => {
   };
 
   for (let i = 0; i < data.length; i++) {
-    for (let j = 0; j < data[i].count; j++) {
-      console.log(i, j, data[i]);
-      const voucherNum = createVoucher();
-      const messagehtml = `
+    const messagehtml = `
 안녕하세요! 자마ZAMA입니다.
 오랫동안 기다리셨던 자마ZAMA 어플이 드디어 서포트님들을 만날 준비를 하고 있습니다.
 와디즈 크라우드 펀딩으로 자마ZAMA의 첫걸음에 동참해주신 여러분께 깊은 감사를 드립니다.
 
 2022년 1월부터 자마ZAMA 앱에서 리워드를 사용하실 수 있습니다.
 처음인만큼 부족한 부분을 점검하기 위해 한달간은 테스트 기간으로 서포터님들께 무료로 제공하려고 합니다.
-구입해주신 6개월 계정권은 7개월 동안 이용하실 수 있습니다.
+구입해주신 6개월 바우처를 사용하면 7개월 동안 이용하실 수 있습니다. 
+쿠폰번호는 신청하신 수량만큼 문자로 전달드리겠습니다.(2022년 1월 내 사용)
 
 자마ZAMA는 잠이 오는 이야기, 음악, 소리로 서포터님을 두근거리는 마음으로 찾아뵙겠습니다.
 
 자마코리아 김수진 드림.
 
-* 리워드 사용법 * 
+* 본 연락처는 개발자 연락처 입니다.
+문의사항은 010-3949-7613으로 연락부탁드립니다.
+`;
+    await sendSms({
+      receivers: [data[i].phoneNum],
+      message: messagehtml,
+    });
+
+    for (let j = 0; j < data[i].count; j++) {
+      console.log(i, j, data[i]);
+      const voucherNum = await createVoucher();
+      const messagehtml = `
+안녕하세요! 자마ZAMA입니다.
+
+앱을 다운받으신 후 아래 쿠폰을 이용하여 사용 부탁드립니다. 
+
+* 쿠폰 사용법 *
 아래의 쿠폰번호를 zama 앱에서 입력하시면 컨텐츠를 자유롭게 이용하실 수 있습니다.
 - 쿠폰번호: ${voucherNum}
 
+android: https://play.google.com/store/apps/details?id=com.zama_app
+ios: https://apps.apple.com/kr/app/zama-sleep/id1599709356
+
 쿠폰사용 방법
-1. 홈화면에의 우측 메뉴버튼 클릭
+1. 홈화면의 우측 메뉴버튼 클릭
 2. 프리미엄 회원 신청하기 버튼 클릭
 3. "리워드 사용하기" 클릭
 4. 쿠폰번호 입력 후 완료
 
 * 본 연락처는 개발자 연락처 입니다.
 문의사항은 010-3949-7613으로 연락부탁드립니다.
-`;
+  `;
 
       await sendSms({
         receivers: [data[i].phoneNum],

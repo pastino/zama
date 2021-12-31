@@ -26,7 +26,7 @@ const UseVoucher = async (req: Request, res: Response) => {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const sixMonthLater = new Date(moment(today).add(6, "months").format());
+    const sixMonthLater = new Date(moment(today).add(7, "months").format());
     sixMonthLater.setHours(24, 0, 0, 0);
 
     await subscriptionRepository.save({
