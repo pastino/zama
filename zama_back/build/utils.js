@@ -97,7 +97,7 @@ var sendSms = function (_a) {
         params: {
             key: process.env.ALIGO_API_KEY,
             user_id: "joon5006",
-            sender: "01039497613",
+            sender: "01056843712",
             receiver: receivers.join(","),
             msg: message,
         },
