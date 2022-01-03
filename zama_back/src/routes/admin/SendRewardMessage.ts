@@ -640,22 +640,6 @@ const SendRewardMessage = async (req: Request, res: Response) => {
       tyep: "6개월 구독권 1계정",
       count: 1,
     },
-    {
-      id: 6962364,
-      name: "김테스",
-      email: "joon500006@gmail.com",
-      phoneNum: "01056843712",
-      tyep: "6개월 구독권 1계정",
-      count: 3,
-    },
-    {
-      id: 6962364,
-      name: "김수진",
-      email: "joon500006@gmail.com",
-      phoneNum: "01039497613",
-      tyep: "6개월 구독권 1계정",
-      count: 1,
-    },
   ];
 
   const createVoucher = async () => {
@@ -675,7 +659,7 @@ const SendRewardMessage = async (req: Request, res: Response) => {
 오랫동안 기다리셨던 자마 ZAMA 어플이 드디어 서포트님들에게 선보이게 되었습니다.
 와디즈 크라우드 펀딩으로 자마 ZAMA의 첫걸음에 동참해주신 여러분께 깊은 감사를 드립니다.
 
-오늘(2020년 1월 3일)부터 자마 ZAMA 앱에서 리워드를 사용하실 수 있습니다.
+오늘(2022년 1월 3일)부터 자마 ZAMA 앱에서 리워드를 사용하실 수 있습니다.
 처음인만큼 부족한 부분을 점검하기 위해 한달간은 테스트 기간으로 서포터님들께 무료로 제공하려고 합니다.
 
 구입해주신 6개월 바우처를 사용하면 7개월 동안 이용하실 수 있습니다. 
@@ -706,7 +690,7 @@ const SendRewardMessage = async (req: Request, res: Response) => {
 
 - 쿠폰번호: ${voucherNum}
 
-(3개월 이내 사용 2020년 3월 31일까지)
+(3개월 이내 사용 2022년 3월 31일까지)
 
 android: https://play.google.com/store/apps/details?id=com.zama_app
 ios: https://apps.apple.com/kr/app/zama-sleep/id1599709356
