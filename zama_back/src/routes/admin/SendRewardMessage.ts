@@ -669,6 +669,7 @@ const SendRewardMessage = async (req: Request, res: Response) => {
   };
 
   for (let i = 0; i < data.length; i++) {
+    console.log(data[i]);
     const messagehtml = `
 안녕하세요! 자마ZAMA입니다.
 오랫동안 기다리셨던 자마 ZAMA 어플이 드디어 서포트님들에게 선보이게 되었습니다.
@@ -693,15 +694,18 @@ const SendRewardMessage = async (req: Request, res: Response) => {
     });
 
     for (let j = 0; j < data[i].count; j++) {
+      console.log(j);
       const voucherNum = await createVoucher();
       const messagehtml = `
 안녕하세요! 자마ZAMA입니다.
 
 앱을 다운받으신 후 아래 쿠폰을 이용하여 사용 부탁드립니다. 
 
-* 쿠폰 사용법 *
+* 쿠폰 발급 내용 *
 아래의 쿠폰번호를 zama 앱에서 입력하시면 컨텐츠를 자유롭게 이용하실 수 있습니다.
+
 - 쿠폰번호: ${voucherNum}
+
 (3개월 이내 사용 2020년 3월 31일까지)
 
 android: https://play.google.com/store/apps/details?id=com.zama_app
