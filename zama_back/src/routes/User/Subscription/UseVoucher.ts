@@ -23,7 +23,7 @@ const UseVoucher = async (req: Request, res: Response) => {
     }
 
     const subscriptionRepository = getRepository(Subscription);
-    //
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const sixMonthLater = new Date(moment(today).add(7, "months").format());
@@ -38,8 +38,9 @@ const UseVoucher = async (req: Request, res: Response) => {
 
     await voucherRepository.update(
       { id: existingVoucher?.id },
-      { available: false }
+      { available: false, user }
     );
+
     return res.status(200).send({ success: true });
   } catch (e: any) {
     res.status(400).json({ message: e.message });
