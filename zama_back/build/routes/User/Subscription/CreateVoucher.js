@@ -50,7 +50,7 @@ var CreateVoucher = function (req, res) { return __awaiter(void 0, void 0, void 
                 console.log(voucherNumber);
                 return [4 /*yield*/, voucherRepository.save({
                         voucherNumber: voucherNumber,
-                        name: "6Month",
+                        name: "1Month",
                     })];
             case 1:
                 _a.sent();

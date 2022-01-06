@@ -10,7 +10,7 @@ const CreateVoucher = async (req: Request, res: Response) => {
     console.log(voucherNumber);
     await voucherRepository.save({
       voucherNumber,
-      name: "6Month",
+      name: "1Month",
     });
     return res.status(200).send({ success: true });
   } catch (e: any) {

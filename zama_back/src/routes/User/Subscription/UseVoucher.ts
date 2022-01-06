@@ -11,7 +11,7 @@ const UseVoucher = async (req: Request, res: Response) => {
 
     const voucherRepository = getRepository(Voucher);
 
-    const existingVoucher = await voucherRepository.findOne({
+    const existingVoucher: any = await voucherRepository.findOne({
       where: { voucherNumber },
       relations: ["user"],
     });
@@ -26,15 +26,27 @@ const UseVoucher = async (req: Request, res: Response) => {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const sixMonthLater = new Date(moment(today).add(7, "months").format());
-    sixMonthLater.setHours(24, 0, 0, 0);
 
-    await subscriptionRepository.save({
-      user,
-      startDate: today,
-      endDate: sixMonthLater,
-      name: "6Month",
-    });
+    if (existingVoucher?.name === "6Month") {
+      const sixMonthLater = new Date(moment(today).add(7, "months").format());
+      sixMonthLater.setHours(24, 0, 0, 0);
+
+      await subscriptionRepository.save({
+        user,
+        startDate: today,
+        endDate: sixMonthLater,
+        name: "6Month",
+      });
+    } else {
+      const oneMonthLater = new Date(moment(today).add(1, "months").format());
+      oneMonthLater.setHours(24, 0, 0, 0);
+      await subscriptionRepository.save({
+        user,
+        startDate: today,
+        endDate: oneMonthLater,
+        name: "1Month",
+      });
+    }
 
     await voucherRepository.update(
       { id: existingVoucher?.id },
