@@ -1,5 +1,7 @@
+import Contents from "../Contents";
+
 const Songs = () => {
-  return <div>1231</div>;
+  return <Contents division={"Song"} />;
 };
 
 export default Songs;

@@ -8,34 +8,72 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import useWindowSize from "src/hooks/useWindowSize";
-import { HEADER_HEIGHT } from "src/styles/sizes";
+import { Pagination } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "src/redux";
 
 const ContentsTable = ({ division }) => {
-  const { height } = useWindowSize();
-  const [audios, setAudios] = useState([]);
-  const { getStories } = useAdministratorAPI();
+  const size = 12;
+
+  const dispatch = useDispatch();
+
+  const { getContents } = useAdministratorAPI();
+  const { storyList, songList, asmrList } = useSelector(
+    (state: State) => state.contents
+  );
+
+  const { audios, totalCount, page } =
+    division === "Story"
+      ? storyList
+      : division === "Song"
+      ? songList
+      : division === "ASMR"
+      ? asmrList
+      : { audios: [], totalCount: 0, page: 1 };
 
   const handleGetAudios = async () => {
     try {
-      const { success, audios } = await getStories(division);
-      if (success) {
-        setAudios(audios);
-      }
+      await getContents({
+        division,
+        page,
+        size,
+      });
     } catch (e) {
       console.log(e);
     }
   };
 
+  const handlePageChange = (_, value) => {
+    switch (division) {
+      case "Story":
+        dispatch({
+          type: "SET_STORY",
+          payload: { storyList: { ...storyList, page: value } },
+        });
+        break;
+      case "Song":
+        dispatch({
+          type: "SET_SONG",
+          payload: { songList: { ...songList, page: value } },
+        });
+        break;
+      case "ASMR":
+        dispatch({
+          type: "SET_ASMR",
+          payload: { asmrList: { ...asmrList, page: value } },
+        });
+        break;
+    }
+  };
+
   useEffect(() => {
     handleGetAudios();
-  }, []);
+  }, [page]);
 
   return (
     <div>
       <TableContainer
         style={{
-          height: height - HEADER_HEIGHT - 20,
           padding: "10px 10px 50px 10px",
         }}
         component={Paper}
@@ -77,6 +115,15 @@ const ContentsTable = ({ division }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 30 }}>
+        <Pagination
+          count={Math.ceil(totalCount / size)}
+          page={page}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+        />
+      </div>
     </div>
   );
 };

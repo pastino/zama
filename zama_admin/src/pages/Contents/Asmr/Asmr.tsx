@@ -1,5 +1,7 @@
+import Contents from "../Contents";
+
 const Asmr = () => {
-  return <div>1231</div>;
+  return <Contents division={"ASMR"} />;
 };
 
 export default Asmr;

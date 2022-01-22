@@ -1,6 +1,7 @@
 import {
   Button,
   FormControl,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
@@ -9,12 +10,13 @@ import {
 import { useState } from "react";
 import useAdministratorAPI from "src/api/useAdministratorAPI";
 import styles from "src/styles/styles";
+import getBlobDuration from "get-blob-duration";
 
 const CreateContent = ({ handleModal, division }) => {
   const [image, setImage] = useState(null);
   const [imageFile, setImageFile] = useState("");
-  const [audio, setAudio] = useState(null);
-  const [audioFile, setaudioFile] = useState("");
+
+  const [audioFile, setaudioFile] = useState({ name: "" });
   const [free, setFree] = useState("No");
   const [voice, setVoice] = useState("남");
   const [title, setTitle] = useState("");
@@ -41,17 +43,37 @@ const CreateContent = ({ handleModal, division }) => {
     setImageFile(event.target.files[0]);
   };
 
-  const handleChangeAudio = (event) => {
+  const handleChangeAudio = async (event) => {
     let reader = new FileReader();
-    reader.onload = function (event: any) {
-      setAudio(event.target.result);
-    };
+    reader.onload = function (event: any) {};
     reader.readAsDataURL(event.target.files[0]);
     setaudioFile(event.target.files[0]);
+
+    try {
+      const duration = await getBlobDuration(event.target.files[0]);
+      setTime(Math.round(Number(duration)));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const handleCreateContent = () => {
-    console.log(imageFile, audioFile, free, voice, title, time);
+  const contentValidator = () => {
+    if (
+      !imageFile ||
+      !audioFile ||
+      !division ||
+      !free ||
+      !voice ||
+      !title ||
+      !time
+    ) {
+      alert("모든 항목을 채워주세요.");
+      return false;
+    }
+    return true;
+  };
+
+  const appendFormData = () => {
     const formData: any = new FormData();
     formData.append("thumbnail", imageFile);
     formData.append("file", audioFile);
@@ -60,7 +82,22 @@ const CreateContent = ({ handleModal, division }) => {
     formData.append("voice", voice);
     formData.append("title", title);
     formData.append("time", time);
-    createContent(formData);
+    return formData;
+  };
+
+  const handleCreateContent = async () => {
+    const success = contentValidator();
+    if (!success) return;
+
+    try {
+      const formData: any = appendFormData();
+      await createContent(formData, division);
+
+      handleModal();
+    } catch (e) {
+      console.log(e);
+      alert("컨텐츠 생성에 실패하였습니다.");
+    }
   };
 
   return (
@@ -100,11 +137,17 @@ const CreateContent = ({ handleModal, division }) => {
           </Select>
         </FormControl>
         <TextField
-          label="Audio Time"
-          id="outlined-basic"
+          label="Time"
+          id="outlined-start-adornment"
+          disabled={true}
           style={{ marginTop: 20 }}
+          value={time}
           type="number"
-          onChange={(e: any) => setTime(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">초</InputAdornment>
+            ),
+          }}
         />
         <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }}>
           <li
@@ -158,7 +201,6 @@ const CreateContent = ({ handleModal, division }) => {
               </div>
             )}
           </li>
-
           <li
             onClick={handleAudioSelect}
             style={{
@@ -177,16 +219,23 @@ const CreateContent = ({ handleModal, division }) => {
               cursor: "pointer",
             }}
           >
-            <div
-              style={{
-                fontSize: 20,
-                marginBottom: 5,
-                color: styles.DARK_GRAY_COLOR,
-              }}
-            >
-              +
-            </div>
-            <div>오디오 업로드</div>
+            {audioFile?.name ? (
+              <div style={{ width: 100 }}>{audioFile?.name}</div>
+            ) : (
+              <>
+                <div
+                  style={{
+                    fontSize: 20,
+                    marginBottom: 5,
+                    color: styles.DARK_GRAY_COLOR,
+                  }}
+                >
+                  +
+                </div>
+                <div>오디오 업로드</div>
+              </>
+            )}
+
             <input
               type="file"
               id="audio"

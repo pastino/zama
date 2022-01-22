@@ -4,12 +4,20 @@ import Router from "./router/Router";
 import { useCookies } from "react-cookie";
 import { ToastContainer } from "react-toastify";
 import { Button, FormGroup, TextField } from "@mui/material";
+//redux
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from "./redux";
+//apis
+import useAdministratorAPI from "./api/useAdministratorAPI";
+//hooks
+import useWindowSize from "./hooks/useWindowSize";
 //styles
 import GlobalStyles from "./styles/GlobalStyles";
 import styled from "styled-components";
 import styles from "./styles/styles";
-import useAdministratorAPI from "./api/useAdministratorAPI";
-import useWindowSize from "./hooks/useWindowSize";
+
+export const store = createStore(rootReducer);
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("콘텐츠");
@@ -55,6 +63,7 @@ const App = () => {
   };
 
   return (
+    // <Provider store={store}>
     <div style={{ display: "flex", flexDirection: "row", height: "100%" }}>
       {cookies?.token ? (
         <Router
@@ -122,6 +131,7 @@ const App = () => {
       <ToastContainer style={{ fontSize: 15 }} />
       <GlobalStyles />
     </div>
+    // </Provider>
   );
 };
 

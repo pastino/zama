@@ -1,5 +1,4 @@
 import { Modal, Box } from "@mui/material";
-import Button from "@mui/material/Button";
 import CreateContent from "./CreateContent";
 
 const CreateContentModal = ({ isVisible, division, handleModal }) => {

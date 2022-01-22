@@ -1,2 +1,2 @@
-import Contents from "./Contents";
-export default Contents;
+import Story from "./Stories";
+export default Story;
