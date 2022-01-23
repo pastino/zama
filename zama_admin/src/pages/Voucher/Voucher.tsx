@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -8,26 +9,42 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Pagination } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "src/redux";
+import useVoucherAPI from "src/api/useVoucherAPI";
 import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
-import CreateContentModal from "src/commons/CreateContentModal";
-import { Button } from "@mui/material";
-import ModifyContentModal from "./ModifyContentModal";
-import useContentAPI from "src/api/useContentAPI";
+import moment from "moment";
+import CreateVoucherModal from "./CreateVoucherModal";
 
-const ContentsTable = ({ division }) => {
-  const size = 12;
-  const dispatch = useDispatch();
-  const { getContents, deleteContents } = useContentAPI();
-
-  const [checked, setChecked] = useState<number[]>([]);
+const Voucher = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [modifyModal, setModifyModal] = useState(false);
+  const [vouchers, setVouchers] = useState([]);
+  const [checked, setChecked] = useState<number[]>([]);
+  const size = 12;
+  const [totalCount, setTotalCount] = useState(0);
+  const [page, setPage] = useState(1);
 
-  const { storyList, songList, asmrList } = useSelector(
-    (state: State) => state.contents
-  );
+  const { getVouchers, createVoucher } = useVoucherAPI();
+
+  const handleGetVouchers = async () => {
+    const { vouchers, totalCount } = await getVouchers({ page, size });
+    setVouchers(vouchers);
+    setTotalCount(totalCount);
+  };
+
+  const handleCreateVoucher = async (type) => {
+    try {
+      await createVoucher(type);
+      handleGetVouchers();
+      setIsVisible(!isVisible);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleDeleteAudios = () => {};
+
+  const handlePageChange = (_, value) => {
+    setPage(value);
+  };
 
   const handleCheck = (id: number) => {
     if (checked.includes(id)) {
@@ -38,94 +55,36 @@ const ContentsTable = ({ division }) => {
     }
   };
 
-  const { audios, totalCount, page } =
-    division === "Story"
-      ? storyList
-      : division === "Song"
-      ? songList
-      : division === "ASMR"
-      ? asmrList
-      : { audios: [], totalCount: 0, page: 1 };
-
-  const handleGetAudios = async () => {
-    try {
-      await getContents({
-        division,
-        page,
-        size,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const handleDeleteAudios = async () => {
-    try {
-      await deleteContents(checked, division);
-      setChecked([]);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const clickModifyBtn = async () => {
-    setModifyModal(!modifyModal);
-  };
-
-  const handlePageChange = (_, value) => {
-    switch (division) {
-      case "Story":
-        dispatch({
-          type: "SET_STORY",
-          payload: { storyList: { ...storyList, page: value } },
-        });
-        break;
-      case "Song":
-        dispatch({
-          type: "SET_SONG",
-          payload: { songList: { ...songList, page: value } },
-        });
-        break;
-      case "ASMR":
-        dispatch({
-          type: "SET_ASMR",
-          payload: { asmrList: { ...asmrList, page: value } },
-        });
-        break;
-    }
-  };
+  useEffect(() => {
+    handleGetVouchers();
+  }, []);
 
   useEffect(() => {
-    handleGetAudios();
+    handleGetVouchers();
   }, [page]);
 
   return (
-    <main>
+    <main style={{ marginBottom: 30 }}>
       <section
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
           marginRight: 30,
+          marginTop: 20,
+          marginBottom: 10,
         }}
       >
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <Button
+          {/* <Button
             onClick={handleDeleteAudios}
             style={{ width: 100, marginRight: 10 }}
             disabled={!checked.length}
             variant="contained"
           >
             삭제
-          </Button>
-          <Button
-            onClick={clickModifyBtn}
-            style={{ width: 100, marginRight: 10 }}
-            disabled={checked.length !== 1}
-            variant="contained"
-          >
-            수정
-          </Button>
+          </Button> */}
+
           <Button
             onClick={() => setIsVisible(!isVisible)}
             style={{ width: 100 }}
@@ -144,20 +103,18 @@ const ContentsTable = ({ division }) => {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Select</StyledTableCell>
+              {/* <StyledTableCell>Select</StyledTableCell> */}
               <StyledTableCell>No.</StyledTableCell>
-              <StyledTableCell align="left">Title</StyledTableCell>
-              <StyledTableCell align="left">file</StyledTableCell>
-              <StyledTableCell align="left">thumbnail</StyledTableCell>
-              <StyledTableCell align="left">Free</StyledTableCell>
-              <StyledTableCell align="left">Voice</StyledTableCell>
-              <StyledTableCell align="left">Time</StyledTableCell>
+              <StyledTableCell align="left">name</StyledTableCell>
+              <StyledTableCell align="left">voucherNumber</StyledTableCell>
+              <StyledTableCell align="left">available</StyledTableCell>
+              <StyledTableCell align="left">createAt</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {audios.map((row: any) => (
+            {vouchers.map((row: any) => (
               <StyledTableRow key={row.id}>
-                <StyledTableCell component="th" scope="row" align="left">
+                {/* <StyledTableCell component="th" scope="row" align="left">
                   <div
                     style={{ cursor: "pointer" }}
                     onClick={() => handleCheck(row.id)}
@@ -168,27 +125,21 @@ const ContentsTable = ({ division }) => {
                       <ImCheckboxUnchecked size={18} />
                     )}
                   </div>
-                </StyledTableCell>
+                </StyledTableCell> */}
                 <StyledTableCell component="th" scope="row" align="left">
                   {row.id}
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
-                  {row.title}
+                  {row.name}
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
-                  <a href={row.file}>Audio File</a>
+                  {row.voucherNumber}
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
-                  <a href={row.thumbnail}>{row.thumbnail}</a>
+                  {row.available ? "사용가능" : "사용완료"}
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
-                  {row.free ? "Yes" : "No"}
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  {row.voiceGender}
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  {row.time}
+                  {moment(row.createAt).format("YYYY-MM-DD")}
                 </StyledTableCell>
               </StyledTableRow>
             ))}
@@ -204,16 +155,10 @@ const ContentsTable = ({ division }) => {
           shape="rounded"
         />
       </div>
-      <CreateContentModal
+      <CreateVoucherModal
         isVisible={isVisible}
+        handleCreate={handleCreateVoucher}
         handleModal={() => setIsVisible(!isVisible)}
-        division={division}
-      />
-      <ModifyContentModal
-        content={audios.filter((audio) => audio.id === checked[0])[0]}
-        isVisible={modifyModal}
-        handleModal={clickModifyBtn}
-        division={division}
       />
     </main>
   );
@@ -239,4 +184,4 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default ContentsTable;
+export default Voucher;

@@ -12,17 +12,18 @@ import useContentAPI from "src/api/useContentAPI";
 import styles from "src/styles/styles";
 import getBlobDuration from "get-blob-duration";
 
-const CreateContent = ({ handleModal, division }) => {
+const ModifyContent = ({ content, handleModal, division }) => {
   const [image, setImage] = useState(null);
+  const [initImage, setInitImage] = useState(content?.thumbnail);
   const [imageFile, setImageFile] = useState("");
+  const defaultAudioName = "기존 Audio File.*";
+  const [audioFile, setaudioFile] = useState({ name: defaultAudioName });
+  const [free, setFree] = useState(content?.free ? "Yes" : "No");
+  const [voice, setVoice] = useState(content?.voiceGender);
+  const [title, setTitle] = useState(content?.title);
+  const [time, setTime] = useState<number>(content?.time);
 
-  const [audioFile, setaudioFile] = useState({ name: "" });
-  const [free, setFree] = useState("No");
-  const [voice, setVoice] = useState("남");
-  const [title, setTitle] = useState("");
-  const [time, setTime] = useState<number>(0);
-
-  const { createContent } = useContentAPI();
+  const { modifyContent, uploadFile } = useContentAPI();
 
   const handleImageSelect = () => {
     const element = document.getElementById("image");
@@ -41,6 +42,7 @@ const CreateContent = ({ handleModal, division }) => {
     };
     reader.readAsDataURL(event.target.files[0]);
     setImageFile(event.target.files[0]);
+    setInitImage(null);
   };
 
   const handleChangeAudio = async (event) => {
@@ -58,41 +60,52 @@ const CreateContent = ({ handleModal, division }) => {
   };
 
   const contentValidator = () => {
-    if (
-      !imageFile ||
-      !audioFile ||
-      !division ||
-      !free ||
-      !voice ||
-      !title ||
-      !time
-    ) {
+    if (!division || !free || !voice || !title || !time) {
       alert("모든 항목을 채워주세요.");
       return false;
     }
     return true;
   };
 
-  const appendFormData = () => {
-    const formData: any = new FormData();
-    formData.append("thumbnail", imageFile);
-    formData.append("file", audioFile);
-    formData.append("division", division);
-    formData.append("free", free === "Yes" ? true : false);
-    formData.append("voice", voice);
-    formData.append("title", title);
-    formData.append("time", time);
-    return formData;
+  const fileUpload = async () => {
+    const image = !imageFile ? null : imageFile;
+    const audio = audioFile?.name === defaultAudioName ? null : audioFile;
+
+    let imageLocation = "";
+    let audioLocation = "";
+
+    if (image) {
+      const formData: any = new FormData();
+      formData.append("thumbnail", imageFile);
+      const { location } = await uploadFile(formData);
+      imageLocation = location;
+    }
+
+    if (audio) {
+      const formData: any = new FormData();
+      formData.append("file", audioFile);
+      const { location } = await uploadFile(formData);
+      audioLocation = location;
+    }
+    return { imageLocation, audioLocation };
   };
 
   const handleCreateContent = async () => {
     const success = contentValidator();
     if (!success) return;
-
+    const { imageLocation, audioLocation } = await fileUpload();
+    console.log(imageLocation, audioLocation);
     try {
-      const formData: any = appendFormData();
-      await createContent(formData, division);
-
+      const params = {
+        id: content?.id,
+        imageLocation: imageLocation[0] || content?.thumbnail,
+        audioLocation: audioLocation[0] || content?.file,
+        free,
+        voice,
+        title,
+        time,
+      };
+      await modifyContent({ params, division });
       handleModal();
     } catch (e) {
       console.log(e);
@@ -109,7 +122,11 @@ const CreateContent = ({ handleModal, division }) => {
       }}
     >
       <ul style={{ display: "flex", marginTop: 20, flexDirection: "column" }}>
-        <TextField label="Title" onChange={(e) => setTitle(e.target.value)} />
+        <TextField
+          label="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <FormControl fullWidth style={{ marginTop: 20 }}>
           <InputLabel id="demo-simple-select-label">Free</InputLabel>
           <Select
@@ -192,14 +209,21 @@ const CreateContent = ({ handleModal, division }) => {
                 opacity: 0,
               }}
             />
-            {image && (
+            {image ? (
               <div style={{ position: "absolute" }}>
                 <img
                   src={image}
                   style={{ borderRadius: 5, width: 100, height: 100 }}
                 />
               </div>
-            )}
+            ) : initImage ? (
+              <div style={{ position: "absolute" }}>
+                <img
+                  src={initImage}
+                  style={{ borderRadius: 5, width: 100, height: 100 }}
+                />
+              </div>
+            ) : null}
           </li>
           <li
             onClick={handleAudioSelect}
@@ -273,4 +297,4 @@ const CreateContent = ({ handleModal, division }) => {
   );
 };
 
-export default CreateContent;
+export default ModifyContent;

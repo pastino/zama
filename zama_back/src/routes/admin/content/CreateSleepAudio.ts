@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { SleepAudio } from "../../entities/SleepAudio";
-import { User } from "../../entities/User";
+import { SleepAudio } from "../../../entities/SleepAudio";
+import { User } from "../../../entities/User";
 
 const CreateSleepAudio = async (req: Request, res: Response) => {
   try {

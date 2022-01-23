@@ -11,6 +11,7 @@ import { useCookies } from "react-cookie";
 //stlyes
 import styles from "../styles/styles";
 import styled from "styled-components";
+import Voucher from "src/pages/Voucher";
 
 interface Props {
   currentPage: string;
@@ -68,6 +69,8 @@ const Router: FunctionComponent<Props> = ({
           <Route path="/contents/stories" exact component={Stories} />
           <Route path="/contents/songs" exact component={Songs} />
           <Route path="/contents/asmr" exact component={Asmr} />
+
+          <Route path="/voucher/list" exact component={Voucher} />
           <Redirect from="*" to="/" />
         </Switch>
       </div>

@@ -18,8 +18,10 @@ const VoucherInput = ({goBack}) => {
 
   const handleUseVoucher = async () => {
     try {
-      await useVoucher(value);
-      goBack();
+      const {success} = await useVoucher(value);
+      if (success) {
+        goBack();
+      }
     } catch (e) {
       console.log(e);
     }

@@ -44,7 +44,6 @@ export default function useAuthAPI() {
     terms,
   }: LoginByKakao) => {
     try {
-      console.log(123123, terms);
       const res: any = await postHandler('/auth/login/kakao', {
         kakaoId,
         nickname,

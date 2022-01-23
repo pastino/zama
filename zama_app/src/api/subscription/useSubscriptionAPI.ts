@@ -1,3 +1,4 @@
+import {onToastMessage} from '@/redux/interation/interactionSlice';
 import {setSubscription} from '@/redux/subscription/subscriptionReducer';
 import {useDispatch} from 'react-redux';
 import useAPI from '../useAPI';
@@ -40,8 +41,17 @@ export default function useSubscriptionAPI() {
   const useVoucher = async code => {
     try {
       const res: any = await postHandler('/voucher/use', {code});
+
+      if (!res?.data?.success) {
+        dispatch(
+          onToastMessage({
+            toastMessageText: res?.data?.message,
+          }),
+        );
+      }
       getSubscription();
-      return res.data;
+
+      return res?.data;
     } catch (error: any) {
       const errorMessage = error?.response?.data?.errorMessage;
       console.log(errorMessage);

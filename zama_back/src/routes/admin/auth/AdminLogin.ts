@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { Administrator } from "../../entities/Administrator";
+import { Administrator } from "../../../entities/Administrator";
 import bcrypt from "bcryptjs";
-import { generateToken } from "../../utils";
+import { generateToken } from "../../../utils";
 
 const LoginAdmin = async (req: Request, res: Response) => {
   try {

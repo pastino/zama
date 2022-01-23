@@ -6,11 +6,11 @@ import morgan from "morgan";
 import { createConnection } from "typeorm";
 import connectionOptions from "./ormconfig";
 import { authenticateJwt } from "./passport";
-import { uploadMiddleware } from "./uploadMeditation";
+import { uploadController, uploadMiddleware } from "./uploadMeditation";
 //apis
 import SignUpByEmail from "./routes/User/Auth/SignUp/SignUpByEmail";
 import Users from "./routes/User/Users";
-import CreateSleepAudio from "./routes/admin/CreateSleepAudio";
+import CreateSleepAudio from "./routes/admin/content/CreateSleepAudio";
 import LoginByKakao from "./routes/User/Auth/Login/LoginByKakao";
 import LoginByApple from "./routes/User/Auth/Login/LoginByApple";
 import SendCertNumByEmail from "./routes/User/Auth/SignUp/SendCertNumByEmail";
@@ -33,10 +33,13 @@ import ChangePassword from "./routes/User/Auth/Find/ChangePassword";
 import GetNotices from "./routes/Etc/GetNotices";
 import GetVersion from "./routes/Etc/GetVersion";
 import GiveSubscription from "./routes/User/Subscription/GiveSubscription";
-import LoginAdmin from "./routes/admin/AdminLogin";
-import CreateAdmin from "./routes/admin/CreateAdmin";
-import GetAudios from "./routes/admin/GetAudios";
+import LoginAdmin from "./routes/admin/auth/AdminLogin";
+import CreateAdmin from "./routes/admin/auth/CreateAdmin";
+import GetAudios from "./routes/admin/content/GetAudios";
 import SendRewardMessage from "./routes/admin/SendRewardMessage";
+import DeleteContents from "./routes/admin/content/DeleteContents";
+import ModifySleepAudio from "./routes/admin/content/ModifySleepAudio";
+import GetVouchers from "./routes/admin/voucher/getVouchers";
 
 const app = express();
 const PORT = 5002;
@@ -98,8 +101,17 @@ app.get("/version", GetVersion);
 app.post("/admin/login", LoginAdmin);
 app.post("/admin/signUp", CreateAdmin);
 app.get("/admin/audios", GetAudios);
+
 app.post("/admin/content", uploadMiddleware, CreateSleepAudio);
+app.put("/admin/content", ModifySleepAudio);
+app.post("/admin/delete/contents", DeleteContents);
+
+app.get("/admin/voucher", GetVouchers);
+
 app.post("/admin/reward", SendRewardMessage);
+
+//upload file
+app.post("/api/upload", uploadMiddleware, uploadController);
 
 createConnection(connectionOptions)
   .then(() => {

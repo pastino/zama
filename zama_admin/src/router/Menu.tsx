@@ -3,9 +3,10 @@ import { useHistory } from "react-router-dom";
 //libs
 import { useCookies } from "react-cookie";
 //styles
+import { MdAudiotrack } from "react-icons/md";
+import { RiCoupon2Fill } from "react-icons/ri";
 import styled from "styled-components";
 import styles from "../styles/styles";
-import { IoCalendarOutline } from "react-icons/io5";
 import { MENU_WIDTH } from "../styles/sizes";
 
 interface Props {
@@ -28,47 +29,48 @@ const Menu: FunctionComponent<Props> = ({
       title: "콘텐츠",
       route: "/contents",
       open: false,
+      icon: () => (
+        <MdAudiotrack
+          size={18}
+          color={currentPage === "contents" ? "white" : RIGHT_GRAY_COLOR}
+        />
+      ),
       pages: [
         {
           title: "스토리",
           route: "/stories",
           open: false,
-          icon: () => (
-            <IoCalendarOutline
-              size={14}
-              color={currentPage === "contents" ? "white" : RIGHT_GRAY_COLOR}
-            />
-          ),
         },
         {
           title: "음악",
           route: "/songs",
           open: false,
-          icon: () => (
-            <IoCalendarOutline
-              size={14}
-              color={currentPage === "contents" ? "white" : RIGHT_GRAY_COLOR}
-            />
-          ),
         },
         {
           title: "ASMR",
           route: "/asmr",
           open: false,
-          icon: () => (
-            <IoCalendarOutline
-              size={14}
-              color={currentPage === "contents" ? "white" : RIGHT_GRAY_COLOR}
-            />
-          ),
         },
       ],
+    },
+
+    {
+      title: "바우처",
+      route: "/voucher",
+      open: false,
       icon: () => (
-        <IoCalendarOutline
-          size={17}
+        <RiCoupon2Fill
+          size={18}
           color={currentPage === "contents" ? "white" : RIGHT_GRAY_COLOR}
         />
       ),
+      pages: [
+        {
+          title: "바우처",
+          route: "/list",
+          open: false,
+        },
+      ],
     },
   ];
 
@@ -77,6 +79,7 @@ const Menu: FunctionComponent<Props> = ({
   }
 
   const handleClickMenu = (path, title) => {
+    console.log(path);
     history.push({
       pathname: path,
     });
@@ -92,6 +95,12 @@ const Menu: FunctionComponent<Props> = ({
             <MenuItemWrapper>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <div
+                  onClick={() =>
+                    handleClickMenu(
+                      item.route + item.pages[0]?.route,
+                      item.pages[0]?.title
+                    )
+                  }
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -112,7 +121,6 @@ const Menu: FunctionComponent<Props> = ({
                       }
                       style={{ marginTop: 7 }}
                     >
-                      <Icon>{page.icon()}</Icon>
                       <PageTitle current={currentPage === page.title}>
                         {page.title}
                       </PageTitle>
@@ -158,7 +166,7 @@ const Logo = styled.div`
 const MenuContainer = styled.ul`
   display: flex;
   flex-direction: column;
-  margin: 50px 0 0 40px;
+  margin: 10px 0 0 40px;
 `;
 
 const MenuItemWrapper = styled.div`
@@ -166,8 +174,8 @@ const MenuItemWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
-  height: 40px;
+  margin-top: 40px;
+
   cursor: pointer;
 `;
 

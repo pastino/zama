@@ -37,6 +37,15 @@ const UseVoucher = async (req: Request, res: Response) => {
         endDate: sixMonthLater,
         name: "6Month",
       });
+    } else if (existingVoucher?.name === "3Month") {
+      const thirdMonthLater = new Date(moment(today).add(3, "months").format());
+      thirdMonthLater.setHours(24, 0, 0, 0);
+      await subscriptionRepository.save({
+        user,
+        startDate: today,
+        endDate: thirdMonthLater,
+        name: "3Month",
+      });
     } else {
       const oneMonthLater = new Date(moment(today).add(1, "months").format());
       oneMonthLater.setHours(24, 0, 0, 0);

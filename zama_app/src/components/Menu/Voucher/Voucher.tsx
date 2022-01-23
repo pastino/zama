@@ -35,7 +35,12 @@ const Voucher = ({navigation: {goBack, openDrawer}, route}) => {
         <Text style={{fontSize: 28, lineHeight: 35, fontWeight: '700'}}>
           리워드{'\n'}사용하기
         </Text>
-        <VoucherInput goBack={goBack} />
+        <VoucherInput
+          goBack={() => {
+            goBack();
+            openDrawer();
+          }}
+        />
       </View>
     </LinearGradient>
   );

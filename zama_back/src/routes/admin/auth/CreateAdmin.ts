@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { Administrator } from "../../entities/Administrator";
+import { Administrator } from "../../../entities/Administrator";
 import bcrypt from "bcryptjs";
 
 const CreateAdmin = async (req: Request, res: Response) => {
