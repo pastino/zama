@@ -37,28 +37,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var SleepAudio_1 = require("../../entities/SleepAudio");
+var SleepAudio_1 = require("../../../entities/SleepAudio");
 var GetAudios = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var division, sleepAudioRepository, audios, e_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, division, page, size, sleepAudioRepository, _b, audios, totalCount, e_1;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                division = req.query.division;
+                _c.trys.push([0, 2, , 3]);
+                _a = req.query, division = _a.division, page = _a.page, size = _a.size;
                 sleepAudioRepository = typeorm_1.getRepository(SleepAudio_1.SleepAudio);
-                return [4 /*yield*/, sleepAudioRepository.find({
+                return [4 /*yield*/, sleepAudioRepository.findAndCount({
                         where: { division: division },
                         relations: ["creator"],
+                        skip: page - 1,
+                        take: size,
+                        order: {
+                            id: "DESC",
+                        },
                     })];
             case 1:
-                audios = _a.sent();
-                console.log(audios);
+                _b = _c.sent(), audios = _b[0], totalCount = _b[1];
                 return [2 /*return*/, res.status(200).send({
                         success: true,
                         audios: audios,
+                        totalCount: totalCount,
                     })];
             case 2:
-                e_1 = _a.sent();
+                e_1 = _c.sent();
                 res.status(400).json({ message: e_1.message });
                 throw new Error(e_1);
             case 3: return [2 /*return*/];
@@ -66,4 +71,4 @@ var GetAudios = function (req, res) { return __awaiter(void 0, void 0, void 0, f
     });
 }); };
 exports.default = GetAudios;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0QXVkaW9zLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL3JvdXRlcy9hZG1pbi9HZXRBdWRpb3MudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxtQ0FBd0M7QUFDeEMsd0RBQXVEO0FBRXZELElBQU0sU0FBUyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFHckMsUUFBUSxHQUNWLEdBQUcsZUFETyxDQUNOO2dCQUVQLG9CQUFvQixHQUFHLHVCQUFhLENBQUMsdUJBQVUsQ0FBQyxDQUFDO2dCQUVyRCxxQkFBTSxvQkFBb0IsQ0FBQyxJQUFJLENBQUM7d0JBQzlCLEtBQUssRUFBRSxFQUFFLFFBQVEsVUFBQSxFQUFFO3dCQUNuQixTQUFTLEVBQUUsQ0FBQyxTQUFTLENBQUM7cUJBQ3ZCLENBQUMsRUFBQTs7Z0JBSkUsTUFBTSxHQUNWLFNBR0U7Z0JBQ0osT0FBTyxDQUFDLEdBQUcsQ0FBQyxNQUFNLENBQUMsQ0FBQztnQkFDcEIsc0JBQU8sR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUM7d0JBQzFCLE9BQU8sRUFBRSxJQUFJO3dCQUNiLE1BQU0sUUFBQTtxQkFDUCxDQUFDLEVBQUM7OztnQkFFSCxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLE9BQU8sRUFBRSxHQUFDLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQztnQkFDN0MsTUFBTSxJQUFJLEtBQUssQ0FBQyxHQUFDLENBQUMsQ0FBQzs7OztLQUV0QixDQUFDO0FBRUYsa0JBQWUsU0FBUyxDQUFDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0QXVkaW9zLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL3JvdXRlcy9hZG1pbi9jb250ZW50L0dldEF1ZGlvcy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLG1DQUF3QztBQUN4QywyREFBMEQ7QUFFMUQsSUFBTSxTQUFTLEdBQUcsVUFBTyxHQUFZLEVBQUUsR0FBYTs7Ozs7O2dCQUc5QyxLQUNPLEdBQUcsTUFEcUIsRUFBdEIsUUFBUSxjQUFBLEVBQUUsSUFBSSxVQUFBLEVBQUUsSUFBSSxVQUFBLENBQ2xCO2dCQUVQLG9CQUFvQixHQUFHLHVCQUFhLENBQUMsdUJBQVUsQ0FBQyxDQUFDO2dCQUNyQixxQkFBTSxvQkFBb0IsQ0FBQyxZQUFZLENBQUM7d0JBQ3hFLEtBQUssRUFBRSxFQUFFLFFBQVEsVUFBQSxFQUFFO3dCQUNuQixTQUFTLEVBQUUsQ0FBQyxTQUFTLENBQUM7d0JBQ3RCLElBQUksRUFBRSxJQUFJLEdBQUcsQ0FBQzt3QkFDZCxJQUFJLEVBQUUsSUFBSTt3QkFDVixLQUFLLEVBQUU7NEJBQ0wsRUFBRSxFQUFFLE1BQU07eUJBQ1g7cUJBQ0YsQ0FBQyxFQUFBOztnQkFSSSxLQUE0QixTQVFoQyxFQVJLLE1BQU0sUUFBQSxFQUFFLFVBQVUsUUFBQTtnQkFVekIsc0JBQU8sR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUM7d0JBQzFCLE9BQU8sRUFBRSxJQUFJO3dCQUNiLE1BQU0sUUFBQTt3QkFDTixVQUFVLFlBQUE7cUJBQ1gsQ0FBQyxFQUFDOzs7Z0JBRUgsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsR0FBQyxDQUFDLE9BQU8sRUFBRSxDQUFDLENBQUM7Z0JBQzdDLE1BQU0sSUFBSSxLQUFLLENBQUMsR0FBQyxDQUFDLENBQUM7Ozs7S0FFdEIsQ0FBQztBQUVGLGtCQUFlLFNBQVMsQ0FBQyJ9

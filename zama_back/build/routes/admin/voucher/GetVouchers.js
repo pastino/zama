@@ -37,25 +37,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var WhiteNoise_1 = require("../../entities/WhiteNoise");
-var GetWhiteNoise = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var whiteNoiseRepository, whiteNoise, e_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+var Voucher_1 = require("../../../entities/Voucher");
+var GetVouchers = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, page, size, voucherRepository, _b, vouchers, totalCount, e_1;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                whiteNoiseRepository = typeorm_1.getRepository(WhiteNoise_1.WhiteNoise);
-                return [4 /*yield*/, whiteNoiseRepository.find()];
+                _c.trys.push([0, 2, , 3]);
+                _a = req.query, page = _a.page, size = _a.size;
+                voucherRepository = typeorm_1.getRepository(Voucher_1.Voucher);
+                return [4 /*yield*/, voucherRepository.findAndCount({
+                        skip: page - 1,
+                        take: size,
+                        order: {
+                            id: "DESC",
+                        },
+                    })];
             case 1:
-                whiteNoise = _a.sent();
-                return [2 /*return*/, res.status(200).send({ whiteNoise: whiteNoise })];
+                _b = _c.sent(), vouchers = _b[0], totalCount = _b[1];
+                return [2 /*return*/, res.status(200).send({
+                        success: true,
+                        vouchers: vouchers,
+                        totalCount: totalCount,
+                    })];
             case 2:
-                e_1 = _a.sent();
+                e_1 = _c.sent();
                 res.status(400).json({ message: e_1.message });
                 throw new Error(e_1);
             case 3: return [2 /*return*/];
         }
     });
 }); };
-exports.default = GetWhiteNoise;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0V2hpdGVOb2lzZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9yb3V0ZXMvV2hpdGVOb2lzZS9HZXRXaGl0ZU5vaXNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQ0EsbUNBQXdDO0FBQ3hDLHdEQUF1RDtBQUV2RCxJQUFNLGFBQWEsR0FBRyxVQUFPLEdBQVksRUFBRSxHQUFhOzs7Ozs7Z0JBRTlDLG9CQUFvQixHQUFHLHVCQUFhLENBQUMsdUJBQVUsQ0FBQyxDQUFDO2dCQUVyRCxxQkFBTSxvQkFBb0IsQ0FBQyxJQUFJLEVBQUUsRUFBQTs7Z0JBRDdCLFVBQVUsR0FDZCxTQUFpQztnQkFFbkMsc0JBQU8sR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxVQUFVLFlBQUEsRUFBRSxDQUFDLEVBQUM7OztnQkFFNUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsR0FBQyxDQUFDLE9BQU8sRUFBRSxDQUFDLENBQUM7Z0JBQzdDLE1BQU0sSUFBSSxLQUFLLENBQUMsR0FBQyxDQUFDLENBQUM7Ozs7S0FFdEIsQ0FBQztBQUVGLGtCQUFlLGFBQWEsQ0FBQyJ9
+exports.default = GetVouchers;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0Vm91Y2hlcnMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvcm91dGVzL2FkbWluL3ZvdWNoZXIvR2V0Vm91Y2hlcnMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxtQ0FBd0M7QUFDeEMscURBQW9EO0FBRXBELElBQU0sV0FBVyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFHaEQsS0FDTyxHQUFHLE1BRFcsRUFBWixJQUFJLFVBQUEsRUFBRSxJQUFJLFVBQUEsQ0FDUjtnQkFFUCxpQkFBaUIsR0FBRyx1QkFBYSxDQUFDLGlCQUFPLENBQUMsQ0FBQztnQkFDbEIscUJBQU0saUJBQWlCLENBQUMsWUFBWSxDQUFDO3dCQUNsRSxJQUFJLEVBQUUsSUFBSSxHQUFHLENBQUM7d0JBQ2QsSUFBSSxFQUFFLElBQUk7d0JBQ1YsS0FBSyxFQUFFOzRCQUNMLEVBQUUsRUFBRSxNQUFNO3lCQUNYO3FCQUNGLENBQUMsRUFBQTs7Z0JBTkksS0FBeUIsU0FNN0IsRUFOSyxRQUFRLFFBQUEsRUFBRSxVQUFVLFFBQUE7Z0JBUTNCLHNCQUFPLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDO3dCQUMxQixPQUFPLEVBQUUsSUFBSTt3QkFDYixRQUFRLEVBQUUsUUFBUTt3QkFDbEIsVUFBVSxZQUFBO3FCQUNYLENBQUMsRUFBQzs7O2dCQUVILEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsT0FBTyxFQUFFLEdBQUMsQ0FBQyxPQUFPLEVBQUUsQ0FBQyxDQUFDO2dCQUM3QyxNQUFNLElBQUksS0FBSyxDQUFDLEdBQUMsQ0FBQyxDQUFDOzs7O0tBRXRCLENBQUM7QUFFRixrQkFBZSxXQUFXLENBQUMifQ==

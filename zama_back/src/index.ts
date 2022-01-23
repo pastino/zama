@@ -39,7 +39,7 @@ import GetAudios from "./routes/admin/content/GetAudios";
 import SendRewardMessage from "./routes/admin/SendRewardMessage";
 import DeleteContents from "./routes/admin/content/DeleteContents";
 import ModifySleepAudio from "./routes/admin/content/ModifySleepAudio";
-import GetVouchers from "./routes/admin/voucher/getVouchers";
+import GetVouchers from "./routes/admin/voucher/GetVouchers";
 
 const app = express();
 const PORT = 5002;

@@ -37,25 +37,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var WhiteNoise_1 = require("../../entities/WhiteNoise");
-var GetWhiteNoise = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var whiteNoiseRepository, whiteNoise, e_1;
+var SleepAudio_1 = require("../../../entities/SleepAudio");
+var DeleteContents = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var deleteIds, sleepAudioRepository, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                whiteNoiseRepository = typeorm_1.getRepository(WhiteNoise_1.WhiteNoise);
-                return [4 /*yield*/, whiteNoiseRepository.find()];
+                deleteIds = req.body.deleteIds;
+                sleepAudioRepository = typeorm_1.getRepository(SleepAudio_1.SleepAudio);
+                return [4 /*yield*/, sleepAudioRepository.delete({
+                        id: typeorm_1.In(deleteIds),
+                    })];
             case 1:
-                whiteNoise = _a.sent();
-                return [2 /*return*/, res.status(200).send({ whiteNoise: whiteNoise })];
+                _a.sent();
+                return [2 /*return*/, res.status(200).send({
+                        success: true,
+                    })];
             case 2:
                 e_1 = _a.sent();
                 res.status(400).json({ message: e_1.message });
-                throw new Error(e_1);
+                return [2 /*return*/, res.status(200).send({
+                        success: false,
+                    })];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-exports.default = GetWhiteNoise;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0V2hpdGVOb2lzZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9yb3V0ZXMvV2hpdGVOb2lzZS9HZXRXaGl0ZU5vaXNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQ0EsbUNBQXdDO0FBQ3hDLHdEQUF1RDtBQUV2RCxJQUFNLGFBQWEsR0FBRyxVQUFPLEdBQVksRUFBRSxHQUFhOzs7Ozs7Z0JBRTlDLG9CQUFvQixHQUFHLHVCQUFhLENBQUMsdUJBQVUsQ0FBQyxDQUFDO2dCQUVyRCxxQkFBTSxvQkFBb0IsQ0FBQyxJQUFJLEVBQUUsRUFBQTs7Z0JBRDdCLFVBQVUsR0FDZCxTQUFpQztnQkFFbkMsc0JBQU8sR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxVQUFVLFlBQUEsRUFBRSxDQUFDLEVBQUM7OztnQkFFNUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsR0FBQyxDQUFDLE9BQU8sRUFBRSxDQUFDLENBQUM7Z0JBQzdDLE1BQU0sSUFBSSxLQUFLLENBQUMsR0FBQyxDQUFDLENBQUM7Ozs7S0FFdEIsQ0FBQztBQUVGLGtCQUFlLGFBQWEsQ0FBQyJ9
+exports.default = DeleteContents;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRGVsZXRlQ29udGVudHMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvcm91dGVzL2FkbWluL2NvbnRlbnQvRGVsZXRlQ29udGVudHMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxtQ0FBNEM7QUFDNUMsMkRBQTBEO0FBRTFELElBQU0sY0FBYyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFHM0MsU0FBUyxHQUNWLEdBQUcsZUFETyxDQUNOO2dCQUVQLG9CQUFvQixHQUFHLHVCQUFhLENBQUMsdUJBQVUsQ0FBQyxDQUFDO2dCQUV2RCxxQkFBTSxvQkFBb0IsQ0FBQyxNQUFNLENBQUM7d0JBQ2hDLEVBQUUsRUFBRSxZQUFFLENBQUMsU0FBUyxDQUFDO3FCQUNsQixDQUFDLEVBQUE7O2dCQUZGLFNBRUUsQ0FBQztnQkFFSCxzQkFBTyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQzt3QkFDMUIsT0FBTyxFQUFFLElBQUk7cUJBQ2QsQ0FBQyxFQUFDOzs7Z0JBRUgsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxPQUFPLEVBQUUsR0FBQyxDQUFDLE9BQU8sRUFBRSxDQUFDLENBQUM7Z0JBQzdDLHNCQUFPLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDO3dCQUMxQixPQUFPLEVBQUUsS0FBSztxQkFDZixDQUFDLEVBQUM7Ozs7S0FFTixDQUFDO0FBRUYsa0JBQWUsY0FBYyxDQUFDIn0=
