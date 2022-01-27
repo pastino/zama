@@ -3,7 +3,7 @@ import axios from 'axios';
 import {State} from '@/redux/rootReducer';
 import {useSelector} from 'react-redux';
 
-export const appVersion = '0.0.3';
+export const appVersion = '0.0.4';
 
 export default function useAPI() {
   const API_URL = 'http://3.34.216.81:5002';

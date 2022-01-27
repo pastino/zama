@@ -5,7 +5,6 @@ export default function useVoucherAPI() {
 
   const getVouchers = async ({ page, size }) => {
     try {
-      console.log(page, size);
       const { data } = await getHandler("/admin/voucher", {
         page,
         size,

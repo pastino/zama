@@ -1,7 +1,8 @@
 import React, {FunctionComponent} from 'react';
 import {Text, View} from 'react-native';
 // commons
-import {IoniconsIcons} from '@/commons/Icons/RnIcons';
+import {IoniconsIcons, MaterialIcons} from '@/commons/Icons/RnIcons';
+
 import TouchableOpacity from '@/commons/TouchableOpacity';
 // components
 import ProgressBar from './ProgressBar';
@@ -13,7 +14,7 @@ import {useSelector} from 'react-redux';
 // type
 import {TimeData} from '../Player';
 // styles
-import {WHITE} from '@/styles/colors';
+import {RIGTH_GRAY, WHITE} from '@/styles/colors';
 import {SCREEN_WIDTH} from '@/styles/sizes';
 
 interface Props {
@@ -33,10 +34,21 @@ const FullScreenController: FunctionComponent<Props> = ({
   onSlidingStart,
   onSlidingComplete,
 }) => {
-  const {modalVisible, playList, continuePlay, playing, playingNum} =
-    useSelector((state: State) => state.playerReducer);
-  const {handlePlay, handlePause, handleNextEvent, handlePrevEvent} =
-    usePlayerHandle();
+  const {
+    modalVisible,
+    playList,
+    continuePlay,
+    playing,
+    playingNum,
+    repeatState,
+  } = useSelector((state: State) => state.playerReducer);
+  const {
+    handlePlay,
+    handlePause,
+    handleNextEvent,
+    handlePrevEvent,
+    handleRepeatState,
+  } = usePlayerHandle();
 
   return (
     <View
@@ -63,12 +75,39 @@ const FullScreenController: FunctionComponent<Props> = ({
           <Text style={{color: WHITE}}>{timeData.durationString}</Text>
         </View>
       </View>
-      <View style={{alignItems: 'center', marginTop: 20}}>
+      <View
+        style={{
+          width: SCREEN_WIDTH,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginTop: 20,
+          paddingHorizontal: 20,
+        }}>
         <View
           style={{
+            flex: 0.3,
+            justifyContent: 'center',
+          }}>
+          {repeatState === 'normal' ? (
+            <TouchableOpacity onPress={handleRepeatState}>
+              <MaterialIcons name={'repeat'} color={RIGTH_GRAY} size={30} />
+            </TouchableOpacity>
+          ) : repeatState === 'totalRepeat' ? (
+            <TouchableOpacity onPress={handleRepeatState}>
+              <MaterialIcons name={'repeat'} color={WHITE} size={30} />
+            </TouchableOpacity>
+          ) : repeatState === 'oneRepeat' ? (
+            <TouchableOpacity onPress={handleRepeatState}>
+              <MaterialIcons name={'repeat-one'} color={WHITE} size={30} />
+            </TouchableOpacity>
+          ) : null}
+        </View>
+        <View
+          style={{
+            flex: 0.6,
             flexDirection: 'row',
             justifyContent: 'space-between',
-            width: SCREEN_WIDTH * 0.6,
           }}>
           <TouchableOpacity onPress={handlePrevEvent}>
             <IoniconsIcons name={'play-back'} color={WHITE} size={40} />

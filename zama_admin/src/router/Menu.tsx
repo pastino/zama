@@ -79,7 +79,6 @@ const Menu: FunctionComponent<Props> = ({
   }
 
   const handleClickMenu = (path, title) => {
-    console.log(path);
     history.push({
       pathname: path,
     });

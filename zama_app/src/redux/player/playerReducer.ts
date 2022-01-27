@@ -10,12 +10,15 @@ export interface PlayList {
   division: string;
 }
 
+type RepeatStateType = 'normal' | 'totalRepeat' | 'oneRepeat';
+
 export interface PlayerState {
   playing: boolean;
   playingNum: number;
   playList: PlayList[];
   continuePlay: boolean;
   modalVisible: boolean;
+  repeatState: RepeatStateType;
 }
 
 const playerSlice = createSlice({
@@ -26,6 +29,7 @@ const playerSlice = createSlice({
     playList: [],
     continuePlay: false,
     modalVisible: false,
+    repeatState: 'normal',
   } as PlayerState,
   reducers: {
     setResetPlayer(state, action) {
@@ -59,6 +63,22 @@ const playerSlice = createSlice({
       state.playing = action.payload.playing;
       state.playingNum = action.payload.playingNum;
     },
+    setRepeatState(state, action) {
+      let repeat;
+      switch (state.repeatState) {
+        case 'normal':
+          repeat = 'totalRepeat';
+          break;
+        case 'totalRepeat':
+          repeat = 'oneRepeat';
+          break;
+        case 'oneRepeat':
+          repeat = 'normal';
+          break;
+      }
+
+      state.repeatState = repeat;
+    },
   },
 });
 
@@ -71,5 +91,6 @@ export const {
   setContinuePlay,
   setModalVisible,
   setFirstPlay,
+  setRepeatState,
 } = playerSlice.actions;
 export default playerSlice.reducer;

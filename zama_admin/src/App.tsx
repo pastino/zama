@@ -61,9 +61,8 @@ const App = () => {
       console.log(e);
     }
   };
-
+  console.log(cookies?.token);
   return (
-    // <Provider store={store}>
     <div style={{ display: "flex", flexDirection: "row", height: "100%" }}>
       {cookies?.token ? (
         <Router
@@ -131,7 +130,6 @@ const App = () => {
       <ToastContainer style={{ fontSize: 15 }} />
       <GlobalStyles />
     </div>
-    // </Provider>
   );
 };
 

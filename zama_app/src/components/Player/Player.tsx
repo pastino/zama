@@ -6,7 +6,7 @@ import BottomMiniPlayer from './BottomScreen/BottomMiniPlayer';
 // commons
 import ModalContainer from '@/commons/Modals/Container/ModalContainer';
 import Tag from '@/commons/Tag';
-// import TouchableOpacity from '@/commons/TouchableOpacity';
+
 // hooks
 import usePlayerHandle from '@/hooks/usePlayerHandle';
 // libs
@@ -44,8 +44,14 @@ const Player = () => {
   };
   const [data, setData] = useState(initData);
 
-  const {modalVisible, playList, continuePlay, playing, playingNum} =
-    useSelector((state: State) => state.playerReducer);
+  const {
+    modalVisible,
+    playList,
+    continuePlay,
+    playing,
+    playingNum,
+    repeatState,
+  } = useSelector((state: State) => state.playerReducer);
 
   const {
     handleModal,
@@ -56,11 +62,18 @@ const Player = () => {
     handleSetPlayingNum,
   } = usePlayerHandle();
 
+  const playingNumRef = useRef<any>(0);
+
   const {id, title, duration, artwork, url, artist, division} =
-    playList[playingNum];
+    playList[playingNumRef.current];
 
   const intervalRef = useRef<any>(null);
-  const playingNumRef = useRef(0);
+
+  const playStateRef = useRef<any>(repeatState);
+
+  useEffect(() => {
+    playStateRef.current = repeatState;
+  }, [repeatState]);
 
   const getInformations = async () => {
     const position = await TrackPlayer.getPosition();
@@ -68,8 +81,9 @@ const Player = () => {
     const currentTrack = await TrackPlayer.getCurrentTrack();
     const durationString = transformTimes(Math.round(duration));
     const currentPosition = Number(position);
-
+    playingNumRef.current = Number(currentTrack);
     const currentPositionString = transformTimes(currentPosition);
+
     setData({
       position: currentPosition,
       duration,
@@ -78,11 +92,19 @@ const Player = () => {
     });
 
     if (
-      currentTrack &&
-      Number(currentTrack) > 0 &&
-      Number(currentTrack) !== playingNumRef.current
+      Number(duration) > 0 &&
+      Math.ceil(Number(duration)) <= Math.ceil(position)
     ) {
-      handleSetPlayingNum(Number(currentTrack));
+      if (playStateRef.current === 'oneRepeat') {
+        console.log('oneRepeat', playingNumRef.current);
+        TrackPlayer.seekTo(0);
+      } else if (
+        playStateRef.current === 'totalRepeat' &&
+        playingNumRef.current === playList.length - 1
+      ) {
+        await TrackPlayer.skip(String(0));
+        handlePlay();
+      }
     }
   };
 
@@ -95,7 +117,8 @@ const Player = () => {
 
   const onSeek = async (seek: number) => {
     await TrackPlayer.seekTo(seek);
-    intervalRef.current = setInterval(() => getInformations(), 500);
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => getInformations(), 300);
   };
 
   const onSlidingStart = async (e: any) => {
@@ -105,7 +128,7 @@ const Player = () => {
   useEffect(() => {
     handleSetupPlayer();
     handleInitSetAudio(playList);
-    intervalRef.current = setInterval(() => getInformations(), 1000);
+    intervalRef.current = setInterval(() => getInformations(), 300);
     return () => {
       clearInterval(intervalRef.current);
       setData({

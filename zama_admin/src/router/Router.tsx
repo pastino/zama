@@ -49,6 +49,10 @@ const Router: FunctionComponent<Props> = ({
             onClick={() => {
               removeCookie("token");
               removeCookie("super");
+              setCookie("token", "", {
+                path: "/",
+              });
+              setCookie("super", "", { path: "/" });
             }}
             style={{ fontSize: 12, marginRight: 30, cursor: "pointer" }}
           >

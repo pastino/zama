@@ -37,6 +37,7 @@ const SleepBasket = () => {
           division: division,
         });
       }
+
       return audioArr;
     } else {
       const sortedFreeAudios = basketAudios.filter(audio => audio.free);
@@ -60,6 +61,7 @@ const SleepBasket = () => {
 
   const handleBasketTotalAudio = () => {
     const audio = audibleContents();
+
     handleClickContent(audio);
   };
 

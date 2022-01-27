@@ -12,6 +12,7 @@ import {
   setPlay,
   setPlayingNum,
   setPlayList,
+  setRepeatState,
 } from '@/redux/player/playerReducer';
 import {State} from '@/redux/rootReducer';
 
@@ -19,10 +20,9 @@ export default function usePlayerHandle() {
   const dispatch = useDispatch();
 
   const continuePlayRef = useRef<any>(null);
-
   const state = useSelector((state: State) => state.playerReducer);
 
-  const {modalVisible, continuePlay, playList, playingNum} = state;
+  const {modalVisible, continuePlay, playList, playingNum, repeatState} = state;
 
   const handleClickContent = (playList: PlayList[]) => {
     dispatch(setPlayList({playList}));
@@ -59,29 +59,47 @@ export default function usePlayerHandle() {
   };
 
   const handleNextEvent = async () => {
-    if (playList.length === playingNum + 1) {
-      if (continuePlay) {
-        handleSetPlayingNum(1);
-        await TrackPlayer.skip(String(1));
+    const currentTrack = await TrackPlayer.getCurrentTrack();
+
+    if (repeatState === 'oneRepeat') {
+      if (Number(currentTrack) === 0) {
+        setTimeout(async () => {
+          await TrackPlayer.skip('0');
+          handlePlay();
+        }, 1000);
+      } else {
+        setTimeout(async () => {
+          console.log('oneRepeat', 1);
+          await TrackPlayer.skip(String(Number(currentTrack) - 1));
+          handlePlay();
+        }, 1000);
+      }
+    } else if (repeatState === 'totalRepeat') {
+      if (Number(currentTrack) === playList.length - 1) {
+        await TrackPlayer.skip(String(0));
+        handlePlay();
+      } else {
+        await TrackPlayer.skip(String(Number(currentTrack) + 1));
+        handlePlay();
       }
     } else {
-      handleSetPlayingNum(playingNum + 1);
-      await TrackPlayer.skipToNext();
+      if (Number(currentTrack) === playList.length - 1) {
+        null;
+      } else {
+        await TrackPlayer.skip(String(Number(currentTrack) + 1));
+        handlePlay();
+      }
     }
-    handlePlay();
   };
 
   const handlePrevEvent = async () => {
-    if (playingNum === 0) {
-      if (continuePlay) {
-        handleSetPlayingNum(playList.length);
-        await TrackPlayer.skip(String(playList.length));
-      }
+    const currentTrack = await TrackPlayer.getCurrentTrack();
+    if (Number(currentTrack) === 0) {
+      null;
     } else {
-      handleSetPlayingNum(playingNum - 1);
-      await TrackPlayer.skipToPrevious();
+      await TrackPlayer.skip(String(Number(currentTrack) - 1));
+      handlePlay();
     }
-    handlePlay();
   };
 
   const handleRemoteNextEvent = async () => {
@@ -108,6 +126,10 @@ export default function usePlayerHandle() {
       handleSetPlayingNum(Number(currentTrack) - 1);
       await TrackPlayer.skip(String(Number(currentTrack) - 1));
     }
+  };
+
+  const handleRepeatState = () => {
+    dispatch(setRepeatState({}));
   };
 
   const handleContinuePlay = () => {
@@ -224,5 +246,6 @@ export default function usePlayerHandle() {
     firstTrackFlag,
     handleRemoteNextEvent,
     handleRemotePreveEvent,
+    handleRepeatState,
   };
 }
