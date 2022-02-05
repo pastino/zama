@@ -1,52 +1,44 @@
 import React, {useMemo} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 // common
 import TouchableOpacity from '@/commons/TouchableOpacity';
-import {IoniconsIcons} from '@/commons/Icons/RnIcons';
 import {isIphoneX} from 'react-native-iphone-x-helper';
 // styles
-import * as colors from '@/styles/colors';
-import {typography} from '@/styles/typography';
-
-const HomeIcon = ({isFocused}) => {
-  return (
-    <View style={{alignItems: 'center', opacity: isFocused ? 1 : 0.7}}>
-      <IoniconsIcons
-        name={isFocused ? 'home' : 'home-outline'}
-        color={colors.DARK_PURPLE}
-        size={25}
-      />
-      <Text
-        style={[
-          typography.f10,
-
-          isFocused ? typography.bold : typography.normal,
-          {
-            color: colors.DARK_PURPLE,
-          },
-        ]}>
-        홈
-      </Text>
-    </View>
-  );
-};
+import Icon from '@/styles/ui/Icon';
+import {BOTTOM_TAB_HEIGHT} from '@/styles/sizes';
 
 const SleepBasket = ({isFocused}) => {
   return (
     <View style={{alignItems: 'center', opacity: isFocused ? 1 : 0.7}}>
-      <IoniconsIcons
-        name={isFocused ? 'basket' : 'basket-outline'}
-        color={colors.DARK_PURPLE}
-        size={25}
+      <Icon
+        iconName={isFocused ? 'playlist-on' : 'playlist-off'}
+        width={25}
+        height={25}
       />
-      <Text
-        style={[
-          typography.f10,
-          isFocused ? typography.bold : typography.normal,
-          {color: colors.DARK_PURPLE},
-        ]}>
-        잠바구니
-      </Text>
+    </View>
+  );
+};
+
+const HomeIcon = ({isFocused}) => {
+  return (
+    <View style={{alignItems: 'center', opacity: isFocused ? 1 : 0.7}}>
+      <Icon
+        iconName={isFocused ? 'home-on' : 'home-off'}
+        width={25}
+        height={25}
+      />
+    </View>
+  );
+};
+
+const MyPage = ({isFocused}) => {
+  return (
+    <View style={{alignItems: 'center', opacity: isFocused ? 1 : 0.7}}>
+      <Icon
+        iconName={isFocused ? 'my-page-on' : 'my-page-off'}
+        width={25}
+        height={25}
+      />
     </View>
   );
 };
@@ -65,6 +57,7 @@ function BottomTabIcon({
         {routeName === 'SleepBasket' ? (
           <SleepBasket isFocused={isFocused} />
         ) : null}
+        {routeName === 'MyPage' ? <MyPage isFocused={isFocused} /> : null}
       </View>
     ),
     [routeName, isFocused],
@@ -115,8 +108,8 @@ export default function BottomTabButton({state, descriptors, navigation}) {
               paddingVertical: 10,
               alignItems: 'center',
               justifyContent: 'center',
-              borderTopWidth: 1,
-              borderTopColor: colors.DIVIDER_BORDER_COLOR,
+              backgroundColor: 'black',
+              height: BOTTOM_TAB_HEIGHT,
             }}>
             <BottomTabIcon routeName={route.name} isFocused={isFocused} />
           </TouchableOpacity>

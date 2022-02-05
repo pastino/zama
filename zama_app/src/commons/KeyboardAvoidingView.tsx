@@ -27,9 +27,7 @@ function KeyboardAvoidingViewComponent({
       style={[{flex: 1}, style]}
       behavior={behavior}
       enabled={Platform.OS === 'ios'}
-      keyboardVerticalOffset={
-        isIphoneX() ? keyboardVerticalOffset + 44 : keyboardVerticalOffset
-      }>
+      keyboardVerticalOffset={keyboardVerticalOffset}>
       {isNoScrollView ? (
         <>{children}</>
       ) : (

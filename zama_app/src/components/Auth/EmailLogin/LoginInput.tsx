@@ -8,7 +8,7 @@ import {Controller} from 'react-hook-form';
 // utils
 import validator from '@/utils/validator';
 // styles
-import {MIDDLE_GRAY, DARK_PURPLE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
 
 interface Props {
@@ -27,6 +27,7 @@ const LoginInput: FunctionComponent<Props> = ({
   navigation,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const BORDER_RADIUS = 20;
 
   return (
     <View
@@ -50,16 +51,18 @@ const LoginInput: FunctionComponent<Props> = ({
               maxLength={20}
               style={{
                 width: LOGIN_BUTTON_WIDTH,
-                borderRadius: LOGIN_BUTTON_WIDTH / 2,
+                borderRadius: BORDER_RADIUS,
                 borderWidth: 2,
-                borderColor: DARK_PURPLE,
+                borderColor: colors.DARK_PURPLE,
+                backgroundColor: colors.TRANSPARENT_WHITE,
               }}
               labelTextStyle={{
                 fontSize: 15,
                 fontWeight: '700',
                 marginBottom: 10,
+                color: 'white',
               }}
-              inputStyle={{paddingLeft: 30}}
+              inputStyle={{paddingLeft: 30, color: colors.PURPLE}}
               errorTextStyle={{marginLeft: 10}}
             />
           )}
@@ -83,23 +86,23 @@ const LoginInput: FunctionComponent<Props> = ({
               maxLength={20}
               style={{
                 width: LOGIN_BUTTON_WIDTH,
-                borderRadius: LOGIN_BUTTON_WIDTH / 2,
+                borderRadius: BORDER_RADIUS,
                 borderWidth: 2,
-                borderColor: DARK_PURPLE,
+                borderColor: colors.DARK_PURPLE,
+                backgroundColor: colors.TRANSPARENT_WHITE,
               }}
               labelTextStyle={{
                 fontSize: 15,
                 fontWeight: '700',
                 marginBottom: 10,
+                color: 'white',
               }}
               button={
                 <TouchableOpacity
                   onPress={() => setShowPassword(prev => !prev)}
-                  style={{padding: 5}}>
-                  {/* <Icon iconName={showPassword ? 'eye' : 'eye-off'} /> */}
-                </TouchableOpacity>
+                  style={{padding: 5}}></TouchableOpacity>
               }
-              inputStyle={{paddingLeft: 30}}
+              inputStyle={{paddingLeft: 30, color: colors.PURPLE}}
               errorTextStyle={{marginLeft: 10}}
             />
           )}
@@ -113,7 +116,7 @@ const LoginInput: FunctionComponent<Props> = ({
           onPress={() => navigation.navigate('FindPassword')}>
           <Text
             style={{
-              color: MIDDLE_GRAY,
+              color: colors.WHITE,
               marginTop: 25,
               textDecorationLine: 'underline',
             }}>

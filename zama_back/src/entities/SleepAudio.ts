@@ -8,7 +8,9 @@ import {
   ManyToOne,
   JoinTable,
   OneToMany,
+  AfterLoad,
 } from "typeorm";
+import { getSongColor } from "../utils";
 import { AudioBasketMapping } from "./AudioBasketMapping";
 import { Category } from "./Category";
 import { Division, DivisionEnum } from "./Types";
@@ -64,6 +66,13 @@ export class SleepAudio {
 
   @Column({ nullable: true, default: null })
   order: number;
+
+  public color: string;
+
+  @AfterLoad()
+  public setColor() {
+    this.color = getSongColor(this.id);
+  }
 
   @CreateDateColumn()
   createAt: Date;

@@ -25,7 +25,7 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
 } from '@/styles/sizes';
-import {TRANSPARENT_DARK} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {IoniconsIcons} from '@/commons/Icons/RnIcons';
 
 export interface TimeData {
@@ -42,7 +42,7 @@ const Player = () => {
     positionString: '00:00',
     durationString: '00:00',
   };
-  const [data, setData] = useState(initData);
+  const [data, setData] = useState<any>(initData);
 
   const {
     modalVisible,
@@ -173,7 +173,7 @@ const Player = () => {
           <View
             style={{
               flex: 1,
-              backgroundColor: TRANSPARENT_DARK,
+              backgroundColor: colors.TRANSPARENT_DARK,
             }}>
             <View
               style={{

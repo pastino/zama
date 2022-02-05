@@ -18,11 +18,11 @@ import {logIn} from '@/redux/user/userSlice';
 import useAuthAPI from '@/api/user/useAuthAPI';
 // libs
 import {useForm} from 'react-hook-form';
+import {isIphoneX} from 'react-native-iphone-x-helper';
 // styles
 import styled from 'styled-components/native';
-import {DARK_PURPLE, WHITE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
-import {isIphoneX} from 'react-native-iphone-x-helper';
 
 interface TermTypes {
   title: string;
@@ -37,9 +37,7 @@ const EmailSignup = ({navigation}) => {
   const [agreeTermModal, setAgreeTermModal] = useState(false);
   const [focusName, setFocusName] = useState('');
 
-  const [loading, setLoading] = useState(false);
-
-  const {control, register, setValue, watch, handleSubmit, errors} = useForm();
+  const {control, watch, handleSubmit, errors} = useForm();
   const {name, email, certNum, password, passwordConfirm} = watch();
 
   const {signUpByEmailAPI} = useAuthAPI();
@@ -61,12 +59,10 @@ const EmailSignup = ({navigation}) => {
       setAgreeTermModal(true);
     } catch (error) {
       console.log(error);
-      setLoading(false);
     }
   };
 
   const handleConfirmAgreeTerms = async term => {
-    setLoading(true);
     try {
       const result = await signUpByEmailAPI(name, email, password, term);
       if (result.success) {
@@ -96,24 +92,28 @@ const EmailSignup = ({navigation}) => {
   }, [errors]);
 
   return (
-    <Container>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.DARK_PURPLE}}>
       <HeaderBasic previousBtn={true} title={'회원가입'} goBack={goBack} />
       <KeyboardAvoidingView
         style={{
-          backgroundColor: WHITE,
+          backgroundColor: colors.DARK_PURPLE,
         }}
         bottomComponent={
           <View
-            style={{alignItems: 'center', marginBottom: !isIphoneX() ? 30 : 0}}>
+            style={{
+              alignItems: 'center',
+              paddingBottom: !isIphoneX() ? 30 : 20,
+              marginTop: 20,
+            }}>
             <Button
               onPress={handleSubmit(handleSignUp)}
               style={{
                 width: LOGIN_BUTTON_WIDTH,
                 height: BUTTON_HEIGHT,
-                backgroundColor: DARK_PURPLE,
+                backgroundColor: colors.PURPLE,
               }}
-              textStyle={{color: WHITE}}>
-              <Text>회원가입</Text>
+              textStyle={{color: colors.WHITE}}>
+              <Text>완료</Text>
             </Button>
           </View>
         }>
@@ -134,13 +134,8 @@ const EmailSignup = ({navigation}) => {
         navigation={navigation}
         handleMoveToTerm={handleMoveToTerm}
       />
-      <SafeAreaView />
-    </Container>
+    </SafeAreaView>
   );
 };
-
-const Container = styled.View`
-  flex: 1;
-`;
 
 export default EmailSignup;

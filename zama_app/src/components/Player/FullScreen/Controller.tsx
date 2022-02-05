@@ -14,7 +14,7 @@ import {useSelector} from 'react-redux';
 // type
 import {TimeData} from '../Player';
 // styles
-import {RIGTH_GRAY, WHITE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {SCREEN_WIDTH} from '@/styles/sizes';
 
 interface Props {
@@ -71,8 +71,8 @@ const FullScreenController: FunctionComponent<Props> = ({
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-          <Text style={{color: WHITE}}>{timeData.positionString}</Text>
-          <Text style={{color: WHITE}}>{timeData.durationString}</Text>
+          <Text style={{color: colors.WHITE}}>{timeData.positionString}</Text>
+          <Text style={{color: colors.WHITE}}>{timeData.durationString}</Text>
         </View>
       </View>
       <View
@@ -91,15 +91,23 @@ const FullScreenController: FunctionComponent<Props> = ({
           }}>
           {repeatState === 'normal' ? (
             <TouchableOpacity onPress={handleRepeatState}>
-              <MaterialIcons name={'repeat'} color={RIGTH_GRAY} size={30} />
+              <MaterialIcons
+                name={'repeat'}
+                color={colors.RIGTH_GRAY}
+                size={30}
+              />
             </TouchableOpacity>
           ) : repeatState === 'totalRepeat' ? (
             <TouchableOpacity onPress={handleRepeatState}>
-              <MaterialIcons name={'repeat'} color={WHITE} size={30} />
+              <MaterialIcons name={'repeat'} color={colors.WHITE} size={30} />
             </TouchableOpacity>
           ) : repeatState === 'oneRepeat' ? (
             <TouchableOpacity onPress={handleRepeatState}>
-              <MaterialIcons name={'repeat-one'} color={WHITE} size={30} />
+              <MaterialIcons
+                name={'repeat-one'}
+                color={colors.WHITE}
+                size={30}
+              />
             </TouchableOpacity>
           ) : null}
         </View>
@@ -110,19 +118,23 @@ const FullScreenController: FunctionComponent<Props> = ({
             justifyContent: 'space-between',
           }}>
           <TouchableOpacity onPress={handlePrevEvent}>
-            <IoniconsIcons name={'play-back'} color={WHITE} size={40} />
+            <IoniconsIcons name={'play-back'} color={colors.WHITE} size={40} />
           </TouchableOpacity>
           {playing ? (
             <TouchableOpacity onPress={handlePause}>
-              <IoniconsIcons name={'pause'} color={WHITE} size={40} />
+              <IoniconsIcons name={'pause'} color={colors.WHITE} size={40} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity onPress={handlePlay}>
-              <IoniconsIcons name={'play'} color={WHITE} size={40} />
+              <IoniconsIcons name={'play'} color={colors.WHITE} size={40} />
             </TouchableOpacity>
           )}
           <TouchableOpacity onPress={handleNextEvent}>
-            <IoniconsIcons name={'play-forward'} color={WHITE} size={40} />
+            <IoniconsIcons
+              name={'play-forward'}
+              color={colors.WHITE}
+              size={40}
+            />
           </TouchableOpacity>
         </View>
       </View>

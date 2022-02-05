@@ -17,7 +17,7 @@ import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
 import {useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
 // styles
-import {WHITE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {PURPLE_COLOR} from '@/components/Home/gradientColorArr';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
 
@@ -30,16 +30,20 @@ const MainStack = () => {
 
   const {playList} = useSelector((state: State) => state.playerReducer);
 
-  const {getHomeContentsSubCateAPI, getSleepBasketAudio} = useContentAPI();
+  const {getHomeContentsSubCateAPI, getSleepBasketAudio, getHomeAudioTopTen} =
+    useContentAPI();
   const {getSubscription} = useSubscriptionAPI();
 
   const MainStack = createStackNavigator();
 
-  const preLoading = async () => {
+  const preLoading = () => {
     try {
-      await getHomeContentsSubCateAPI();
-      await getSleepBasketAudio();
-      await getSubscription();
+      Promise.all([
+        getHomeAudioTopTen(),
+        getHomeContentsSubCateAPI(),
+        getSleepBasketAudio(),
+        getSubscription(),
+      ]);
     } catch (e) {
       console.log(e);
       setNetworkError(true);
@@ -68,7 +72,7 @@ const MainStack = () => {
 
   const basicOptions = {
     cardStyle: {
-      backgroundColor: WHITE,
+      backgroundColor: colors.WHITE,
     },
     ...TransitionPresets.SlideFromRightIOS,
   };

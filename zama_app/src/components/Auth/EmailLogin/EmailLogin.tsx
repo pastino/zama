@@ -6,6 +6,8 @@ import HeaderBasic from '@/commons/Header/HeaderBasic';
 import KeyboardAvoidingView from '@/commons/KeyboardAvoidingView';
 import LoginInput from './LoginInput';
 import Button from '@/commons/Buttons/Button';
+// libs
+import {isIphoneX} from 'react-native-iphone-x-helper';
 // apis
 import useAuthAPI from '@/api/user/useAuthAPI';
 // redux
@@ -13,10 +15,8 @@ import {useDispatch} from 'react-redux';
 import {logIn} from '@/redux/user/userSlice';
 import {onToastMessage} from '@/redux/interation/interactionSlice';
 // styles
-import styled from 'styled-components/native';
-import {DARK_PURPLE, WHITE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH} from '@/styles/sizes';
-import {isIphoneX} from 'react-native-iphone-x-helper';
 
 const EmailLogin = ({navigation}) => {
   const {goBack} = navigation;
@@ -24,7 +24,6 @@ const EmailLogin = ({navigation}) => {
   const {email, password} = watch();
 
   const [focusName, setFocusName] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -33,17 +32,14 @@ const EmailLogin = ({navigation}) => {
   const handleLogin = async () => {
     Keyboard.dismiss();
     try {
-      setLoading(true);
       const result = await loginByEmailAPI(email, password);
       if (result.success) {
         dispatch(logIn({user: result.user, token: result.token}));
       } else {
         dispatch(onToastMessage({toastMessageText: result.message}));
       }
-      setLoading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false);
     }
   };
 
@@ -54,7 +50,7 @@ const EmailLogin = ({navigation}) => {
   }, [errors]);
 
   return (
-    <Container>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.DARK_PURPLE}}>
       <HeaderBasic
         previousBtn={true}
         title={'이메일로 로그인'}
@@ -62,7 +58,7 @@ const EmailLogin = ({navigation}) => {
       />
       <KeyboardAvoidingView
         style={{
-          backgroundColor: WHITE,
+          backgroundColor: colors.DARK_PURPLE,
           flex: 1,
         }}
         bottomComponent={
@@ -76,7 +72,8 @@ const EmailLogin = ({navigation}) => {
               style={{
                 width: LOGIN_BUTTON_WIDTH,
                 height: BUTTON_HEIGHT,
-                backgroundColor: DARK_PURPLE,
+                backgroundColor: colors.PURPLE,
+                marginBottom: 20,
               }}>
               로그인
             </Button>
@@ -90,14 +87,8 @@ const EmailLogin = ({navigation}) => {
           navigation={navigation}
         />
       </KeyboardAvoidingView>
-      <SafeAreaView />
-    </Container>
+    </SafeAreaView>
   );
 };
-
-const Container = styled.View`
-  flex: 1;
-  flex-grow: 1;
-`;
 
 export default EmailLogin;

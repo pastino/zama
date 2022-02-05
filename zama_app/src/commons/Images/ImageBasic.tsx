@@ -1,17 +1,20 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useState} from 'react';
+import {View} from 'react-native';
 //libs
 import Image from 'react-native-fast-image';
 //tools
 import {checkUrlForm} from '@/utils/tools';
 //styles
-import styled from 'styled-components/native';
-import {TRANSPARENT_DARK} from '@/styles/colors';
+import colors from '@/styles/colors';
+import Icon from '@/styles/ui/Icon';
 
 interface Props {
   path: any;
   width: number;
   height: number;
-  isFiltered?: boolean;
+  coveredWidth?: number;
+  corverdHeight?: number;
+  borderRadius?: number;
   styles?: any;
   resizeMode?: 'cover' | 'contain' | 'stretch' | 'center' | undefined;
 }
@@ -20,34 +23,47 @@ const ImageBasic: FunctionComponent<Props> = ({
   path,
   width,
   height,
-  isFiltered = false,
+  coveredWidth,
+  corverdHeight,
   styles,
+  borderRadius = 0,
   resizeMode = 'cover',
+  ...props
 }) => {
   const refinedPath = checkUrlForm(path);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(!path);
+
   return (
-    <>
+    <View style={{position: 'relative'}}>
       <Image
         source={refinedPath ? {uri: path} : path}
-        style={[styles, {width, height}]}
+        style={[styles, {width, height, borderRadius, zIndex: 0}]}
         resizeMode={resizeMode}
+        onLoadStart={() => setIsLoading(true)}
+        onLoadEnd={() => setIsLoading(false)}
+        onError={() => setIsError(true)}
+        {...props}
       />
-      {isFiltered ? <CorverdFilterView width={width} height={height} /> : null}
-    </>
+
+      {isLoading && (
+        <View
+          style={[
+            styles,
+            {
+              width: coveredWidth ?? width,
+              height: corverdHeight ?? height,
+              position: 'absolute',
+              backgroundColor: colors.RIGHT_PURPLE,
+              borderRadius,
+              zIndex: 1,
+            },
+          ]}
+        />
+      )}
+    </View>
   );
 };
-
-interface SizeProps {
-  width: number;
-  height: number;
-}
-
-const CorverdFilterView = styled.View<SizeProps>`
-  position: absolute;
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
-  background-color: ${TRANSPARENT_DARK};
-  border-radius: 10px;
-`;
 
 export default ImageBasic;

@@ -10,7 +10,7 @@ import moment from 'moment';
 import {useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
 // styles
-import {DARK_PURPLE} from '@/styles/colors';
+import colors from '@/styles/colors';
 
 const MenuList = ({navigation, title, routeName}) => {
   return (
@@ -77,7 +77,7 @@ const DrawerContent = ({navigation}) => {
             }
             style={{
               borderRadius: 5,
-              backgroundColor: DARK_PURPLE,
+              backgroundColor: colors.DARK_PURPLE,
               height: 45,
               marginBottom: 30,
             }}
@@ -88,7 +88,7 @@ const DrawerContent = ({navigation}) => {
           <View
             style={{
               borderRadius: 5,
-              backgroundColor: DARK_PURPLE,
+              backgroundColor: colors.DARK_PURPLE,
               marginBottom: 30,
               justifyContent: 'center',
               paddingHorizontal: 20,

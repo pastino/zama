@@ -14,7 +14,7 @@ import {transformTimes} from '@/utils/tools';
 import {useDispatch} from 'react-redux';
 import {onToastMessage} from '@/redux/interation/interactionSlice';
 // styles
-import {MIDDLE_GRAY, RIGTH_GRAY, DARK_PURPLE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {INPUT_HEIGHT, LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
 
 interface Props {
@@ -37,6 +37,7 @@ const SignupInput: FunctionComponent<Props> = ({
   setSuccessCert,
 }) => {
   const LIMIT_TIME = 60 * 5;
+  const BORDER_RADIUS = 20;
   const [showPassword, setShowPassword] = useState(false);
   const [successSendCertNum, setSuccessSendCertNum] = useState(false);
 
@@ -125,7 +126,7 @@ const SignupInput: FunctionComponent<Props> = ({
           control={control}
           render={({onChange, value}) => (
             <Input
-              label="이름"
+              label="이름을 입력해주세요."
               onChangeText={text => onChange(text)}
               value={value}
               placeholder="홍길동"
@@ -135,17 +136,19 @@ const SignupInput: FunctionComponent<Props> = ({
               maxLength={20}
               style={{
                 width: LOGIN_BUTTON_WIDTH,
-                borderRadius: LOGIN_BUTTON_WIDTH / 2,
+                borderRadius: 20,
                 textAling: 'center',
+                backgroundColor: colors.TRANSPARENT_WHITE,
                 borderWidth: 1,
-                borderColor: DARK_PURPLE,
+                borderColor: colors.DARK_PURPLE,
               }}
               labelTextStyle={{
                 fontSize: 15,
+                color: 'white',
                 fontWeight: '700',
                 marginBottom: 10,
               }}
-              inputStyle={{paddingLeft: 20, fontSize: 14}}
+              inputStyle={{paddingLeft: 20, fontSize: 14, color: colors.PURPLE}}
               errorTextStyle={{marginLeft: 10}}
             />
           )}
@@ -153,13 +156,13 @@ const SignupInput: FunctionComponent<Props> = ({
           rules={validator.name}
           defaultValue={''}
         />
-        <View style={{marginVertical: 10}} />
+        <View style={{marginVertical: 15}} />
         <Controller
           control={control}
           render={({onChange, value}) => (
             <View style={{justifyContent: 'space-between'}}>
               <Input
-                label="이메일"
+                label="이메일을 입력해주세요."
                 onChangeText={text => onChange(text)}
                 value={value}
                 editable={!successCert}
@@ -170,20 +173,22 @@ const SignupInput: FunctionComponent<Props> = ({
                 maxLength={40}
                 style={{
                   width: LOGIN_BUTTON_WIDTH / 1.5,
-                  borderRadius: LOGIN_BUTTON_WIDTH / 2,
+                  borderRadius: BORDER_RADIUS,
                   textAling: 'center',
+                  backgroundColor: colors.TRANSPARENT_WHITE,
                   borderWidth: 1,
-                  borderColor: DARK_PURPLE,
+                  borderColor: colors.DARK_PURPLE,
                 }}
                 labelTextStyle={{
                   fontSize: 15,
                   fontWeight: '700',
                   marginBottom: 10,
+                  color: 'white',
                 }}
                 inputStyle={{
                   paddingLeft: 20,
                   fontSize: 14,
-                  color: successCert ? RIGTH_GRAY : 'black',
+                  color: colors.PURPLE,
                 }}
                 errorTextStyle={{marginLeft: 10}}
                 button={
@@ -199,7 +204,9 @@ const SignupInput: FunctionComponent<Props> = ({
                     containerStyles={{
                       width: SCREEN_WIDTH / 4,
                       height: INPUT_HEIGHT,
-                      backgroundColor: successCert ? MIDDLE_GRAY : DARK_PURPLE,
+                      backgroundColor: successCert
+                        ? colors.MIDDLE_GRAY
+                        : colors.PURPLE,
                     }}
                     textStyles={{color: 'white', fontSize: 12}}
                   />
@@ -213,7 +220,7 @@ const SignupInput: FunctionComponent<Props> = ({
         />
         {successSendCertNum && !successCert && (
           <>
-            <View style={{marginVertical: 10}} />
+            <View style={{marginVertical: 7}} />
             <Controller
               control={control}
               render={({onChange, value}) => (
@@ -229,10 +236,11 @@ const SignupInput: FunctionComponent<Props> = ({
                     maxLength={6}
                     style={{
                       width: LOGIN_BUTTON_WIDTH / 1.5,
-                      borderRadius: LOGIN_BUTTON_WIDTH / 2,
+                      borderRadius: BORDER_RADIUS,
+                      backgroundColor: colors.TRANSPARENT_WHITE,
                       textAling: 'center',
                       borderWidth: 1,
-                      borderColor: DARK_PURPLE,
+                      borderColor: colors.DARK_PURPLE,
                     }}
                     labelTextStyle={{
                       fontSize: 15,
@@ -243,6 +251,7 @@ const SignupInput: FunctionComponent<Props> = ({
                       paddingLeft: 20,
                       fontSize: 14,
                       paddingRight: 70,
+                      color: colors.PURPLE,
                     }}
                     errorTextStyle={{marginLeft: 10}}
                     time={
@@ -251,7 +260,7 @@ const SignupInput: FunctionComponent<Props> = ({
                           position: 'absolute',
                           right: 15,
                           bottom: (INPUT_HEIGHT - 20) / 2,
-                          color: MIDDLE_GRAY,
+                          color: colors.WHITE,
                         }}>
                         {transformTimes(validTime)}
                       </Text>
@@ -264,7 +273,7 @@ const SignupInput: FunctionComponent<Props> = ({
                         containerStyles={{
                           width: SCREEN_WIDTH / 4,
                           height: INPUT_HEIGHT,
-                          backgroundColor: DARK_PURPLE,
+                          backgroundColor: colors.PURPLE,
                         }}
                         textStyles={{color: 'white', fontSize: 12}}
                       />
@@ -279,7 +288,7 @@ const SignupInput: FunctionComponent<Props> = ({
           </>
         )}
 
-        <View style={{marginVertical: 10}} />
+        <View style={{marginVertical: 15}} />
         <Controller
           control={control}
           render={({onChange, value}) => (
@@ -295,25 +304,27 @@ const SignupInput: FunctionComponent<Props> = ({
               maxLength={20}
               style={{
                 width: LOGIN_BUTTON_WIDTH,
-                borderRadius: LOGIN_BUTTON_WIDTH / 2,
+                borderRadius: BORDER_RADIUS,
+                backgroundColor: colors.TRANSPARENT_WHITE,
                 textAling: 'center',
                 borderWidth: 1,
-                borderColor: DARK_PURPLE,
+                borderColor: colors.DARK_PURPLE,
               }}
               labelTextStyle={{
+                color: 'white',
                 fontSize: 15,
                 fontWeight: '700',
                 marginBottom: 10,
               }}
-              inputStyle={{paddingLeft: 20, fontSize: 14}}
-              errorTextStyle={{marginLeft: 10}}
+              inputStyle={{paddingLeft: 20, fontSize: 14, color: colors.PURPLE}}
+              errorTextStyle={{marginLeft: 10, color: 'white'}}
             />
           )}
           name="password"
           rules={validator.password}
           defaultValue={''}
         />
-        <View style={{marginVertical: 10}} />
+        <View style={{marginVertical: 15}} />
         <Controller
           control={control}
           render={({onChange, value}) => (
@@ -329,18 +340,20 @@ const SignupInput: FunctionComponent<Props> = ({
               maxLength={20}
               style={{
                 width: LOGIN_BUTTON_WIDTH,
-                borderRadius: LOGIN_BUTTON_WIDTH / 2,
+                borderRadius: BORDER_RADIUS,
+                backgroundColor: colors.TRANSPARENT_WHITE,
                 textAling: 'center',
                 borderWidth: 1,
-                borderColor: DARK_PURPLE,
+                borderColor: colors.DARK_PURPLE,
               }}
               labelTextStyle={{
                 fontSize: 15,
                 fontWeight: '700',
                 marginBottom: 10,
+                color: 'white',
               }}
-              inputStyle={{paddingLeft: 20, fontSize: 14}}
-              errorTextStyle={{marginLeft: 10}}
+              inputStyle={{paddingLeft: 20, fontSize: 14, color: colors.PURPLE}}
+              errorTextStyle={{marginLeft: 10, color: 'white'}}
             />
           )}
           name="passwordConfirm"

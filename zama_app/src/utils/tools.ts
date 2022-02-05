@@ -8,10 +8,19 @@ export const checkUrlForm = (str: string) => {
 };
 
 export const transformTimes = (t: number) => {
+  if (!t) return;
   if (t && t < 3600) {
     return moment().startOf('day').seconds(t).format('mm:ss');
   }
   return moment().startOf('day').seconds(t).format('H:mm:ss');
+};
+
+export const transformStringTimes = (t: number) => {
+  if (!t) return;
+  if (t && t < 3600) {
+    return moment().startOf('day').seconds(t).format('m분');
+  }
+  return moment().startOf('day').seconds(t).format('H시간 m분');
 };
 
 export const timeConverter = time => {

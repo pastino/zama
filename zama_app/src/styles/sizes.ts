@@ -8,7 +8,7 @@ import {
 
 export const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export const HEADER_HEIGHT = isIphoneX() ? 90 : 70;
+export const HEADER_HEIGHT = isIphoneX() ? 85 : 85;
 
 export const SCREEN_HEIGHT =
   Platform.OS === 'ios' && isIphoneX()
@@ -30,7 +30,7 @@ export const ABSOLUTE_BOTTOM_ZERO =
   Platform.OS === 'ios' && isIphoneX() ? getBottomSpace() : 0;
 
 // 네비게이션 탭바 높이
-export const BOTTOM_TAB_HEIGHT = Platform.OS === 'ios' && isIphoneX() ? 69 : 69;
+export const BOTTOM_TAB_HEIGHT = isIphoneX() ? 80 : 69;
 export const BOTTOM_TAB_PADDING_BOTTOM =
   Platform.OS === 'ios' && isIphoneX() ? 25 : 10;
 
@@ -43,10 +43,10 @@ export const TAP_SCREEN_HEIGHT =
 export const INPUT_HEIGHT = 48;
 
 // 버튼 높이
-export const BUTTON_HEIGHT = 48;
+export const BUTTON_HEIGHT = 50;
 
 // 로그인 버튼 넓이
-export const LOGIN_BUTTON_WIDTH = SCREEN_WIDTH * 0.8;
+export const LOGIN_BUTTON_WIDTH = SCREEN_WIDTH - 40;
 
 // 양쪽 사이트 패딩
 export const SIDE_PADDING = 20;

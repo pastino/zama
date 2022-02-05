@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react';
 import {Text, View} from 'react-native';
 import TouchableOpacity from '@/commons/TouchableOpacity';
 // styles
-import {PASTEL} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {SCREEN_WIDTH} from '@/styles/sizes';
 
 interface Props {
@@ -33,7 +33,7 @@ const ButtonContainer: FunctionComponent<Props> = ({
             {
               width: SCREEN_WIDTH * 0.8,
               height: (SCREEN_WIDTH * 0.8) / 5.5,
-              backgroundColor: PASTEL,
+              backgroundColor: colors.PASTEL,
               justifyContent: 'center',
               alignItems: 'center',
               borderRadius: 10,

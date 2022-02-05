@@ -10,7 +10,7 @@ import {setRewardModal} from '@/redux/interation/interactionSlice';
 import {State} from '@/redux/rootReducer';
 // styles
 import {FULL_SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
-import {PURPLE} from '@/styles/colors';
+import colors from '@/styles/colors';
 
 const RewardModal = ({}) => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const RewardModal = ({}) => {
     <ModalContainer isVisible={openRewardModal} close={handleModal}>
       <View
         style={{
-          backgroundColor: PURPLE,
+          backgroundColor: colors.PURPLE,
           width: SCREEN_WIDTH,
           height: FULL_SCREEN_HEIGHT,
         }}>

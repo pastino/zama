@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Platform} from 'react-native';
+import {Image, Platform, Text, View} from 'react-native';
 // commons
 import LoginButton from '@/commons/Buttons/LoginButton';
 import HorizontalSmallDivider from '@/commons/Divider/HorizontalSmallDivider';
@@ -19,30 +19,56 @@ import {
 // apis
 import useAuthAPI from '@/api/user/useAuthAPI';
 // styles
-import {MIDDLE_GRAY, WHITE, YELLOW} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {SCREEN_WIDTH} from '@styles/sizes';
 import styled from 'styled-components/native';
+import Button from '@/commons/Buttons/Button';
 
 const Auth = ({navigation}) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [kakaoId, setKakaoId] = useState<number>(0);
   const [kakaoInfo, setKakaoInfo] = useState<any>(null);
   const [appleEmail, setAppleEmail] = useState('');
   const [agreeTermModal, setAgreeTermModal] = useState(false);
 
-  const KAKAO_BUTTON_INFO = {
-    buttonText: '카카오로 로그인하기',
-    kakaoIcon: require('@/assets/images/kakaoLogo.png'),
-    backColor: YELLOW,
-  };
-
-  const {buttonText, kakaoIcon, backColor} = KAKAO_BUTTON_INFO;
+  const LOGIN_BUTTON = [
+    {
+      text: '카카오로 로그인',
+      icon: require('@/assets/images/kakaoLogo.png'),
+      handleClick: () => handleKakaoLogin(),
+      components: function () {
+        return (
+          <LoginButton
+            handleClick={this.handleClick}
+            text={this.text}
+            iconPath={this.icon}
+            backgroundColor={colors.YELLOW}
+            style={{marginBottom: 15}}
+          />
+        );
+      },
+    },
+    {
+      text: 'Apple로 로그인',
+      icon: require('@/assets/images/appleLogo.png'),
+      handleClick: () => handleAppleLogin(),
+      components: function () {
+        return (
+          <LoginButton
+            handleClick={this.handleClick}
+            text={this.text}
+            iconPath={this.icon}
+            backgroundColor={colors.WHITE}
+            style={{marginBottom: 20}}
+          />
+        );
+      },
+    },
+  ];
 
   const dispatch = useDispatch();
   const {loginByKakaoAPI, loginByAppleAPI} = useAuthAPI();
 
   const handleKakaoLogin = async () => {
-    setIsLoading(true);
     try {
       await KakaoLogins.login([
         KAKAO_AUTH_TYPES.Talk,
@@ -67,7 +93,6 @@ const Auth = ({navigation}) => {
       }
       dispatch(logIn({token, user}));
     } catch (e) {
-      setIsLoading(false);
       console.log(e);
     }
   };
@@ -113,7 +138,6 @@ const Auth = ({navigation}) => {
 
   const finishLogin = ({success, token, user, message}) => {
     if (success) {
-      console.log(success, token, user, message);
       dispatch(logIn({token, user}));
       dispatch(setOpenUsePurposeServey({}));
     } else {
@@ -123,8 +147,6 @@ const Auth = ({navigation}) => {
 
   const handleConfirmAgreeTerms = async terms => {
     try {
-      console.log(123, kakaoInfo);
-
       if (kakaoId) {
         const {success, token, user, message} = await loginByKakaoAPI({
           kakaoId,
@@ -165,40 +187,24 @@ const Auth = ({navigation}) => {
     <ScreenWrapper>
       <Logo>
         <Image
-          source={require('@assets/images/logo/text_zama.png')}
+          source={require('@assets/images/zama_text_logo.png')}
           resizeMode={'contain'}
-          style={{width: SCREEN_WIDTH}}
-        />
-        <Image
-          source={require('@assets/images/logo/text_kids.png')}
-          resizeMode={'contain'}
-          style={{width: SCREEN_WIDTH, marginTop: 13}}
+          style={{width: SCREEN_WIDTH * 0.5}}
         />
       </Logo>
       <LoginFooter>
-        <LoginButton
-          handleClick={handleKakaoLogin}
-          text={buttonText}
-          iconPath={kakaoIcon}
-          backgroundColor={backColor}
-          style={{marginBottom: 10}}
-        />
-        {Platform.OS === 'ios' && (
-          <LoginButton
-            handleClick={handleAppleLogin}
-            text={'애플로 로그인하기'}
-            iconPath={require('@/assets/images/appleLogo.png')}
-            backgroundColor={WHITE}
-            style={{marginBottom: 10}}
-          />
-        )}
+        {LOGIN_BUTTON.map(obj => (
+          <View key={obj.text} style={{flexDirection: 'column'}}>
+            {obj.components()}
+          </View>
+        ))}
         <EmailLoginWrapper>
           <TextTouchable onPress={() => navigation.navigate('EmailLogin')}>
             <TextInput>이메일로 로그인하기</TextInput>
           </TextTouchable>
-          <HorizontalSmallDivider color={MIDDLE_GRAY} />
+          <HorizontalSmallDivider color={'black'} />
           <TextTouchable onPress={() => navigation.navigate('EmailSignup')}>
-            <TextInput>이메일로 가입하기</TextInput>
+            <TextInput>아직 회원이 아닌가요?</TextInput>
           </TextTouchable>
         </EmailLoginWrapper>
       </LoginFooter>
@@ -218,18 +224,20 @@ const ScreenWrapper = styled.SafeAreaView`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  background-color: ${colors.PURPLE};
 `;
 
 const Logo = styled.View`
-  flex: 1;
+  flex: 0.4;
   height: auto;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 10px;
 `;
 
 const LoginFooter = styled.View`
-  margin-bottom: 60px;
+  flex: 0.6;
+  margin-top: 80px;
 `;
 
 const EmailLoginWrapper = styled.View`
@@ -241,7 +249,7 @@ const EmailLoginWrapper = styled.View`
 const TextTouchable = styled.TouchableNativeFeedback``;
 
 const TextInput = styled.Text`
-  color: ${MIDDLE_GRAY};
+  color: black;
 `;
 
 export default Auth;

@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
 import {logOut} from '@/redux/user/userSlice';
 // styles
-import {DARK_PURPLE, MIDDLE_GRAY} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {SCREEN_WIDTH} from '@/styles/sizes';
 
 const MyAccount = ({navigation}) => {
@@ -62,7 +62,7 @@ const MyAccount = ({navigation}) => {
                   onPress={() => navigation.navigate('Subscription')}
                   style={{
                     borderRadius: 5,
-                    backgroundColor: DARK_PURPLE,
+                    backgroundColor: colors.DARK_PURPLE,
                     height: 45,
                     marginTop: 20,
                   }}
@@ -74,7 +74,7 @@ const MyAccount = ({navigation}) => {
               <View
                 style={{
                   borderRadius: 5,
-                  backgroundColor: DARK_PURPLE,
+                  backgroundColor: colors.DARK_PURPLE,
                   justifyContent: 'center',
                   paddingHorizontal: 20,
                   paddingVertical: 15,

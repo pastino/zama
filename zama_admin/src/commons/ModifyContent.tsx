@@ -60,10 +60,18 @@ const ModifyContent = ({ content, handleModal, division }) => {
   };
 
   const contentValidator = () => {
-    if (!division || !free || !voice || !title || !time) {
-      alert("모든 항목을 채워주세요.");
-      return false;
+    if (division === "Stroy") {
+      if (!division || !free || !voice || !title || !time) {
+        alert("모든 항목을 채워주세요.");
+        return false;
+      }
+    } else {
+      if (!division || !free || !title || !time) {
+        alert("모든 항목을 채워주세요.");
+        return false;
+      }
     }
+
     return true;
   };
 

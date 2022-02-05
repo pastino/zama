@@ -10,14 +10,8 @@ import usePlayerHandle from '@/hooks/usePlayerHandle';
 // styles
 import {SCREEN_WIDTH} from '@/styles/sizes';
 import styled from 'styled-components/native';
-import {
-  DIVIDER_BORDER_COLOR,
-  MIDDLE_GRAY,
-  TRANSPARENT_DARK,
-  WHITE,
-} from '@/styles/colors';
+import colors from '@/styles/colors';
 import useContentAPI from '@/api/content/useContentAPI';
-import useSleepBasket from '@/hooks/useSleepBasket';
 
 type Size = 'big' | 'middle' | 'small';
 
@@ -37,7 +31,7 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
             width: appliedSize,
             height: imageHeight,
             borderRadius: 10,
-            backgroundColor: DIVIDER_BORDER_COLOR,
+            backgroundColor: colors.DIVIDER_BORDER_COLOR,
           }}
         />
         <View
@@ -46,7 +40,7 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
             borderRadius: 5,
             height: 15,
             marginTop: 10,
-            backgroundColor: DIVIDER_BORDER_COLOR,
+            backgroundColor: colors.DIVIDER_BORDER_COLOR,
           }}
         />
         <View
@@ -55,7 +49,7 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
             borderRadius: 5,
             height: 15,
             marginTop: 3,
-            backgroundColor: DIVIDER_BORDER_COLOR,
+            backgroundColor: colors.DIVIDER_BORDER_COLOR,
           }}
         />
       </View>
@@ -66,12 +60,9 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
   const [onLoadEnd, setOnLoadEnd] = useState(false);
   const {handleClickContent} = usePlayerHandle();
   const {inBasketAudio} = useContentAPI();
-  const {sleepBasketClick} = useSleepBasket();
 
   const handleInBasketAudio = async () => {
     try {
-      sleepBasketClick(id, division);
-      await inBasketAudio(id);
     } catch (e) {
       console.log(e);
     }
@@ -100,7 +91,7 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
               width: appliedSize,
               height: imageHeight,
               borderRadius: 10,
-              backgroundColor: DIVIDER_BORDER_COLOR,
+              backgroundColor: colors.DIVIDER_BORDER_COLOR,
               zIndex: 1,
             }}
           />
@@ -123,13 +114,13 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
                 width: 30,
                 height: 30,
                 borderRadius: 15,
-                backgroundColor: TRANSPARENT_DARK,
+                backgroundColor: colors.TRANSPARENT_DARK,
                 justifyContent: 'center',
                 alignItems: 'center',
                 left: 13,
                 bottom: 13,
               }}>
-              <IoniconsIcons name={'bookmark'} size={20} color={WHITE} />
+              <IoniconsIcons name={'bookmark'} size={20} color={colors.WHITE} />
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -148,7 +139,7 @@ const Title = styled.Text`
 
 const Creator = styled.Text`
   margin-top: 3px;
-  color: ${MIDDLE_GRAY};
+  color: ${colors.MIDDLE_GRAY};
   font-size: 14px;
 `;
 

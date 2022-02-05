@@ -6,7 +6,7 @@ import TouchableOpacity from '@/commons/TouchableOpacity';
 // styles
 import {BOTTOM_TAB_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
 import styled from 'styled-components/native';
-import {BRIGHT_GRAY, WHITE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
 import {bottomTabInfo} from '@/navigation/TabNavigation';
@@ -69,11 +69,11 @@ const BottomMiniPlayer: FunctionComponent<Props> = ({
             }}>
             {playing ? (
               <TouchableOpacity onPress={handlePause}>
-                <IoniconsIcons name={'pause'} color={WHITE} size={30} />
+                <IoniconsIcons name={'pause'} color={colors.WHITE} size={30} />
               </TouchableOpacity>
             ) : (
               <TouchableOpacity onPress={handlePlay}>
-                <IoniconsIcons name={'play'} color={WHITE} size={30} />
+                <IoniconsIcons name={'play'} color={colors.WHITE} size={30} />
               </TouchableOpacity>
             )}
           </View>
@@ -108,14 +108,14 @@ const TitleContainer = styled.View<ContainerProp>`
 `;
 
 const Title = styled.Text`
-  color: ${WHITE};
+  color: ${colors.WHITE};
   font-weight: 600;
   font-size: 17px;
   margin-left: 20px;
 `;
 
 const Artist = styled.Text`
-  color: ${BRIGHT_GRAY};
+  color: ${colors.BRIGHT_GRAY};
   font-weight: 600;
   font-size: 14px;
   margin-left: 20px;

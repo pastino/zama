@@ -6,7 +6,6 @@ import ButtonComp from './ButtonContainer';
 import styled from 'styled-components/native';
 import {SCREEN_WIDTH} from '@/styles/sizes';
 import * as mixins from '@styles/mixins';
-import {MIDDLE_GRAY} from '@/styles/colors';
 
 interface Props {
   handleClick: () => void;

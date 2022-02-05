@@ -19,20 +19,12 @@ import {
 } from '@/redux/interation/interactionSlice';
 // hooks
 import usePlayerHandle from '@/hooks/usePlayerHandle';
-import useSleepBasket from '@/hooks/useSleepBasket';
+
 // tools
 import {transformTimes} from '@/utils/tools';
 // styles
 import {SCREEN_WIDTH} from '@/styles/sizes';
-import {
-  BRIGHT_GRAY,
-  DARK_PURPLE,
-  DIVIDER_BORDER_COLOR,
-  PURPLE,
-  RIGTH_GRAY,
-  TRANSPARENT_DARK,
-  WHITE,
-} from '@/styles/colors';
+import colors from '@/styles/colors';
 import * as mixins from '@/styles/mixins';
 import ReportSendModal from '../Modals/ReportSendModal';
 
@@ -54,7 +46,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
             width: appliedSize,
             height,
             borderRadius: 10,
-            backgroundColor: DIVIDER_BORDER_COLOR,
+            backgroundColor: colors.DIVIDER_BORDER_COLOR,
           }}
         />
         <View
@@ -63,7 +55,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
             borderRadius: 5,
             height: 15,
             marginTop: 10,
-            backgroundColor: DIVIDER_BORDER_COLOR,
+            backgroundColor: colors.DIVIDER_BORDER_COLOR,
           }}
         />
         <View
@@ -72,7 +64,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
             borderRadius: 5,
             height: 15,
             marginTop: 3,
-            backgroundColor: DIVIDER_BORDER_COLOR,
+            backgroundColor: colors.DIVIDER_BORDER_COLOR,
           }}
         />
       </View>
@@ -95,7 +87,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
   const [onLoadEnd, setOnLoadEnd] = useState(false);
   const {handleClickContent} = usePlayerHandle();
   const {inBasketAudio} = useContentAPI();
-  const {sleepBasketClick} = useSleepBasket();
+
   const [reportVisible, setReportVisible] = useState(false);
 
   const {subscriptions}: any = useSelector(
@@ -110,12 +102,8 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
   const handleInBasketAudio = async () => {
     try {
       if (isLike) {
-        sleepBasketClick(id, division);
-        await inBasketAudio(id);
       } else {
         if (subscription || free) {
-          sleepBasketClick(id, division);
-          await inBasketAudio(id);
         } else {
           dispatch(setSubscriptionModal({openSubscriptionModal: true}));
         }
@@ -161,11 +149,11 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
               width: appliedSize,
               height,
               borderRadius: RODIUS,
-              backgroundColor: DIVIDER_BORDER_COLOR,
+              backgroundColor: colors.DIVIDER_BORDER_COLOR,
               zIndex: 1,
             }}
             loadingIconSize={30}
-            loadingIconColor={RIGTH_GRAY}
+            loadingIconColor={colors.RIGTH_GRAY}
           />
         )}
         <View style={{position: 'relative'}}>
@@ -187,7 +175,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
                   width: 30,
                   height: 30,
                   borderRadius: 15,
-                  backgroundColor: TRANSPARENT_DARK,
+                  backgroundColor: colors.TRANSPARENT_DARK,
                   justifyContent: 'center',
                   alignItems: 'center',
                   right: 13,
@@ -196,7 +184,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
                 <IoniconsIcons
                   name={isLike ? 'basket' : 'basket-outline'}
                   size={20}
-                  color={WHITE}
+                  color={colors.WHITE}
                 />
               </View>
             </TouchableWithoutFeedback>
@@ -211,7 +199,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
                     paddingVertical: 7,
                     borderRadius: 5,
                     backgroundColor:
-                      voiceGender === '여' ? PURPLE : DARK_PURPLE,
+                      voiceGender === '여' ? colors.PURPLE : colors.DARK_PURPLE,
                     justifyContent: 'center',
                     alignItems: 'center',
                   },
@@ -240,7 +228,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
               bottom: 0,
               borderBottomLeftRadius: RODIUS,
               borderBottomRightRadius: RODIUS,
-              backgroundColor: TRANSPARENT_DARK,
+              backgroundColor: colors.TRANSPARENT_DARK,
             }}>
             <View
               style={{
@@ -275,7 +263,7 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
               <Text
                 style={{
                   fontSize: 12,
-                  color: BRIGHT_GRAY,
+                  color: colors.BRIGHT_GRAY,
                 }}>
                 {transformTimes(data.time)}
               </Text>

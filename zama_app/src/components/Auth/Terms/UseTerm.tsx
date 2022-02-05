@@ -1,5 +1,4 @@
 import HeaderBasic from '@/commons/Header/HeaderBasic';
-import {DARK_GRAY} from '@/styles/colors';
 import React from 'react';
 import {View, Text, SafeAreaView} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';

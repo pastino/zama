@@ -10,7 +10,7 @@ import Contact from '@/components/Menu/Contact';
 import SubscriptionModal from '@/commons/Modals/SubscriptionModal';
 import Info from '@/components/Menu/Info';
 // styles
-import {WHITE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import NoticeDetail from '@/components/Menu/Notice/NoticeDetail';
 import RewardModal from '@/commons/Modals/ RewardModal';
 import Subscription from '@/components/Menu/Subscription';
@@ -23,7 +23,7 @@ const RootStack = createStackNavigator();
 const MenuStack = createStackNavigator();
 const basicOptions = {
   cardStyle: {
-    backgroundColor: WHITE,
+    backgroundColor: colors.WHITE,
   },
   ...TransitionPresets.SlideFromRightIOS,
 };

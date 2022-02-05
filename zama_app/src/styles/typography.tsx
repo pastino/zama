@@ -1,5 +1,5 @@
 import {StyleSheet, Platform} from 'react-native';
-import * as colors from './colors';
+import colors from './colors';
 
 const baseOptions = {
   color: colors.FONT,

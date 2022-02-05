@@ -16,7 +16,7 @@ const GetHomeAudioSubCate = async (req: Request, res: Response) => {
     const recoData: SleepAudio[] | [] | undefined = await sleepAudioRepository
       .createQueryBuilder("sleepAudio")
       .innerJoinAndSelect("sleepAudio.creator", "creator")
-      .where({ recoFlag: true })
+      .where({ id: 11 })
       .getMany();
 
     const myBasketAudio: AudioBasketMapping[] | [] =

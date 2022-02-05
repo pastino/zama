@@ -1,8 +1,8 @@
 import React from 'react';
 import {Linking, Platform, View, Text} from 'react-native';
-// styles
-import * as colors from '@styles/colors';
 import BottomModalCard from './BottomModalCard';
+// styles
+import colors from '@/styles/colors';
 
 interface Props {
   updateInfo: {

@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react';
 import {Text, View} from 'react-native';
 import TouchableOpacity from '@/commons/TouchableOpacity';
 // styles
-import {RIGTH_GRAY} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {IoniconsIcons} from '../Icons/RnIcons';
 
 interface Props {
@@ -27,7 +27,7 @@ const CheckBoxButton: FunctionComponent<Props> = ({
         <IoniconsIcons
           name={'checkbox'}
           size={25}
-          color={check ? 'black' : RIGTH_GRAY}
+          color={check ? 'black' : colors.RIGTH_GRAY}
         />
 
         <Text style={{paddingLeft: 10, fontSize: 14}}>{title}</Text>

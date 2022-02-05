@@ -1,11 +1,29 @@
 // apis
-import {setHomeContents, setBasketAudios} from '@/redux/audio/audioSlice';
+import {
+  setHomeContents,
+  setBasketAudios,
+  setTopTenAudios,
+  updateBasketAudio,
+} from '@/redux/audio/audioSlice';
 import {useDispatch} from 'react-redux';
 import useAPI from '../useAPI';
 
 export default function useContentAPI() {
   const {getHandler, postHandler, deleteHandler, putHandler} = useAPI();
   const dispatch = useDispatch();
+
+  const getAudios = async ({division, take, page}) => {
+    try {
+      const res: any = await getHandler('/audios', {division, take, page});
+
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      console.log(errorMessage);
+      throw error;
+    }
+  };
+
   const getHomeContentsAPI = async () => {
     try {
       const res: any = await getHandler('/home/contents');
@@ -37,6 +55,25 @@ export default function useContentAPI() {
     }
   };
 
+  const getHomeAudioTopTen = async () => {
+    try {
+      const res: any = await getHandler('/home/contents/top-ten');
+      const {success, audios} = res.data;
+      if (success) {
+        dispatch(
+          setTopTenAudios({
+            topTenAudios: audios,
+          }),
+        );
+      }
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      console.log(errorMessage);
+      throw error;
+    }
+  };
+
   const getSleepBasketAudio = async () => {
     try {
       const res: any = await getHandler('/sleep/basket');
@@ -56,10 +93,10 @@ export default function useContentAPI() {
     }
   };
 
-  const inBasketAudio = async (audioId: number) => {
+  const inBasketAudio = async (audio, isLike) => {
     try {
-      const res: any = await postHandler('/sleep/basket', {audioId});
-      getSleepBasketAudio();
+      dispatch(updateBasketAudio({audio, isLike}));
+      const res: any = await postHandler('/sleep/basket', {audioId: audio.id});
       return res.data;
     } catch (error: any) {
       const errorMessage = error?.response?.data?.errorMessage;
@@ -69,8 +106,10 @@ export default function useContentAPI() {
   };
 
   return {
+    getAudios,
     getHomeContentsAPI,
     getHomeContentsSubCateAPI,
+    getHomeAudioTopTen,
     getSleepBasketAudio,
     inBasketAudio,
   };

@@ -6,7 +6,8 @@ import {useSelector} from 'react-redux';
 export const appVersion = '0.0.4';
 
 export default function useAPI() {
-  const API_URL = 'http://3.34.216.81:5002';
+  const API_URL = 'http://d6da-221-141-228-118.ngrok.io';
+  //'http://3.34.216.81:5002';
 
   const {token} = useSelector((state: State) => state.usersReducer);
 

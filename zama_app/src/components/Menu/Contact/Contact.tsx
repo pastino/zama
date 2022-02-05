@@ -10,7 +10,7 @@ import useContactAPI from '@/api/etc/useContactAPI';
 // libs
 import LinearGradient from 'react-native-linear-gradient';
 // commons
-import {RIGTH_GRAY} from '@/styles/colors';
+import colors from '@/styles/colors';
 
 const Contact = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -78,7 +78,7 @@ const Contact = ({navigation}) => {
                   height: 50,
                   borderWidth: 1,
                   borderRadius: 5,
-                  borderColor: RIGTH_GRAY,
+                  borderColor: colors.RIGTH_GRAY,
                   paddingHorizontal: 10,
                   backgroundColor: 'white',
                 }}
@@ -96,7 +96,7 @@ const Contact = ({navigation}) => {
                   textAlignVertical: 'top',
                   borderWidth: 1,
                   borderRadius: 5,
-                  borderColor: RIGTH_GRAY,
+                  borderColor: colors.RIGTH_GRAY,
                   padding: 10,
                   backgroundColor: 'white',
                 }}

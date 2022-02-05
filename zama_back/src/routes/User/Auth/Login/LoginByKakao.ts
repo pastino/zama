@@ -9,7 +9,7 @@ const LoginByKakao = async (req: Request, res: Response) => {
     const terms = req.body.terms;
     const email = req.body.email;
     const nickName = req.body.nickname;
-    console.log(nickName);
+
     const userRepository = getRepository(User);
 
     const userArr: User[] | undefined = await userRepository.find({

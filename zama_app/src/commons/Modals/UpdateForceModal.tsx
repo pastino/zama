@@ -1,9 +1,8 @@
 import React from 'react';
 import {Linking, Platform, View, Text} from 'react-native';
-import {BackHandler} from 'react-native';
 import RNExitApp from 'react-native-exit-app';
 // styles
-import * as colors from '@styles/colors';
+import colors from '@/styles/colors';
 import BottomModalCard from './BottomModalCard';
 
 interface Props {

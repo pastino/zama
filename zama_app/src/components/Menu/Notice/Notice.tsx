@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 // commons
 import HeaderBasic from '@/commons/Header/HeaderBasic';
 import useNoticeAPI from '@/api/etc/useNoticeAPI';
-import {MIDDLE_GRAY, RIGTH_GRAY_MORE} from '@/styles/colors';
+import colors from '@/styles/colors';
 
 const Notice = ({navigation}) => {
   const {navigate, goBack, openDrawer} = navigation;
@@ -68,12 +68,12 @@ const Notice = ({navigation}) => {
                   paddingTop: 20,
                   paddingBottom: 20,
                   borderTopWidth: index === 0 ? 1 : 0,
-                  borderTopColor: RIGTH_GRAY_MORE,
-                  borderBottomColor: RIGTH_GRAY_MORE,
+                  borderTopColor: colors.RIGTH_GRAY_MORE,
+                  borderBottomColor: colors.RIGTH_GRAY_MORE,
                   borderBottomWidth: 1,
                 }}>
                 <View style={{paddingHorizontal: 20}}>
-                  <Text style={{fontWeight: '500', color: MIDDLE_GRAY}}>
+                  <Text style={{fontWeight: '500', color: colors.MIDDLE_GRAY}}>
                     {notice?.title}
                   </Text>
                 </View>

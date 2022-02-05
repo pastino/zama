@@ -3,15 +3,21 @@ import {SafeAreaView, ScrollView, Text, View} from 'react-native';
 // commons
 import HeaderBasic from '@/commons/Header/HeaderBasic';
 import NoCheckedSelectBtn from '@/commons/Buttons/NoCheckedSelectBtn';
-// styles
-import styled from 'styled-components/native';
-import useAuthAPI from '@/api/user/useAuthAPI';
-import {MIDDLE_GRAY, DARK_PURPLE, WHITE} from '@/styles/colors';
-import Button from '@/commons/Buttons/Button';
-import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
+// redux
 import {State} from '@/redux/rootReducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {setCloseUsePurposeServey} from '@/redux/interation/interactionSlice';
+// styles
+import useAuthAPI from '@/api/user/useAuthAPI';
+import colors from '@/styles/colors';
+import Button from '@/commons/Buttons/Button';
+import {
+  BUTTON_HEIGHT,
+  LOGIN_BUTTON_WIDTH,
+  SCREEN_WIDTH,
+  SIDE_PADDING,
+} from '@/styles/sizes';
+import Icon from '@/styles/ui/Icon';
 
 const Servey = ({navigation: {navigate}}) => {
   const [serveyList, setServeyList] = useState<any>([]);
@@ -63,77 +69,22 @@ const Servey = ({navigation: {navigate}}) => {
   }, []);
 
   return (
-    <Container>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.DARK_PURPLE}}>
       <HeaderBasic
         previousBtn={true}
-        title={'가입완료'}
+        title={'어떤 목적으로 오셨나요?'}
         goBack={() => navigate('Home')}
       />
-      <ScrollView>
-        <Text
-          style={{
-            fontSize: 20,
-            marginLeft: 20,
-            fontWeight: '700',
-            marginTop: 20,
-          }}>
-          zama kids
-        </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            marginLeft: 20,
-            marginTop: 10,
-            fontWeight: '700',
-          }}>
-          서비스에 오신것을
-        </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            marginLeft: 20,
-            marginTop: 10,
-            fontWeight: '700',
-          }}>
-          환영합니다!
-        </Text>
-        <Text
-          style={{
-            fontSize: 15,
-            marginLeft: 20,
-            marginTop: 30,
-            color: MIDDLE_GRAY,
-          }}>
-          회원가입이 완료되었습니다.
-        </Text>
-        <Text
-          style={{
-            fontSize: 15,
-            marginLeft: 20,
-            marginTop: 10,
-            color: MIDDLE_GRAY,
-          }}>
-          더 나은 서비스를 제공할 수 있도록
-        </Text>
-        <Text
-          style={{
-            fontSize: 15,
-            marginLeft: 20,
-            marginTop: 10,
-            color: MIDDLE_GRAY,
-          }}>
-          사용목적을 알려주시면 감사하겠습니다.
-        </Text>
 
-        <Text style={{marginLeft: 20, marginTop: 30, fontWeight: '700'}}>
-          서비스 사용 목적
-        </Text>
-        <View style={{marginTop: 10}}>
+      <ScrollView style={{paddingHorizontal: SIDE_PADDING}}>
+        <Text style={{color: 'white'}}>자마에 오신것을 환영해요!🤗</Text>
+        <View style={{marginTop: 70}}>
           {serveyList.map((item, index) => (
-            <View key={item.id} style={{marginLeft: 20, paddingBottom: 10}}>
+            <View key={item.id} style={{paddingBottom: 10}}>
               <NoCheckedSelectBtn
                 index={index}
                 title={item?.purpose}
+                icon={<Icon iconName="baby" width={30} height={30} />}
                 check={item?.check}
                 handleCheck={handleSelectPurpose}
               />
@@ -154,21 +105,16 @@ const Servey = ({navigation: {navigate}}) => {
           style={{
             width: LOGIN_BUTTON_WIDTH,
             height: BUTTON_HEIGHT,
-            backgroundColor: DARK_PURPLE,
+            backgroundColor: colors.PURPLE,
           }}
-          textStyle={{color: WHITE}}
+          textStyle={{color: colors.WHITE}}
           loadingBlack>
           <Text>홈으로 가기</Text>
         </Button>
       </View>
       <SafeAreaView />
-    </Container>
+    </SafeAreaView>
   );
 };
-
-const Container = styled.View`
-  flex: 1;
-  justify-content: space-between;
-`;
 
 export default Servey;

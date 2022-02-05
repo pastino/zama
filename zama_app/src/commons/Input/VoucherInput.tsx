@@ -3,10 +3,11 @@ import {Text, View} from 'react-native';
 // components
 import Input from './Input';
 import Button from '../Buttons/Button';
-// styles
-import {MIDDLE_GRAY} from '@/styles/colors';
-import * as mixins from '@/styles/mixins';
+// apis
 import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
+// styles
+import colors from '@/styles/colors';
+import * as mixins from '@/styles/mixins';
 
 const VoucherInput = ({goBack}) => {
   const [value, setValue] = useState('');
@@ -30,7 +31,7 @@ const VoucherInput = ({goBack}) => {
   return (
     <View>
       <View style={{marginTop: 50}}>
-        <Text style={{marginBottom: 10, color: MIDDLE_GRAY}}>
+        <Text style={{marginBottom: 10, color: colors.MIDDLE_GRAY}}>
           리워드로 받으신 쿠폰번호를 입력해주세요
         </Text>
         <Input

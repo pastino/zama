@@ -5,9 +5,9 @@ import {isIphoneX} from 'react-native-iphone-x-helper';
 // commons
 import TouchableOpacity from '@/commons/TouchableOpacity';
 // styles
-import {HEADER_HEIGHT} from '@/styles/sizes';
+import {HEADER_HEIGHT, SIDE_PADDING} from '@/styles/sizes';
 import styled from 'styled-components/native';
-import {MIDDLE_GRAY} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {IoniconsIcons} from '../Icons/RnIcons';
 
 interface Props {
@@ -33,27 +33,30 @@ const HeaderBasic: FunctionComponent<Props> = ({
           flexDirection: 'row',
           alignItems: isIphoneX() ? 'flex-end' : 'center',
           paddingBottom: isIphoneX() ? 15 : 0,
-          borderBottomWidth: 0.5,
-          borderBottomColor: MIDDLE_GRAY,
+          paddingHorizontal: SIDE_PADDING,
+          backgroundColor: colors.DARK_PURPLE,
         },
         style,
       ]}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <View
+        style={{
+          flexDirection: 'column',
+        }}>
         {previousBtn && (
           <TouchableOpacity onPress={goBack}>
-            <PreviousBtnWrapper>
+            <View style={{marginLeft: -5}}>
               <IoniconsIcons
                 name={'chevron-back'}
-                size={26}
-                color={textStyle?.color || 'black'}
+                size={30}
+                color={textStyle?.color || 'white'}
               />
-            </PreviousBtnWrapper>
+            </View>
           </TouchableOpacity>
         )}
         {title && (
           <Text
             style={[
-              {marginLeft: 10, fontWeight: '500', fontSize: 17},
+              {fontWeight: '700', fontSize: 27, marginTop: 10, color: 'white'},
               textStyle,
             ]}>
             {title}
@@ -63,9 +66,5 @@ const HeaderBasic: FunctionComponent<Props> = ({
     </View>
   );
 };
-
-const PreviousBtnWrapper = styled.View`
-  margin-left: 20px;
-`;
 
 export default HeaderBasic;

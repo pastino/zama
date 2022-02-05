@@ -5,7 +5,7 @@ import ModalContainer from './Container/ModalContainer';
 // styles
 import {SCREEN_WIDTH} from '@/styles/sizes';
 import VerticalDivider from '../Divider/VerticalDivider';
-import {DIVIDER_BORDER_COLOR, RIGTH_GRAY} from '@/styles/colors';
+import colors from '@/styles/colors';
 
 interface Props {
   visible: boolean;
@@ -63,7 +63,7 @@ const NoticeModal: FunctionComponent<Props> = ({
                 justifyContent: 'center',
                 width: isCancel ? CONTAINER_WIDTH / 2 : CONTAINER_WIDTH,
                 borderLeftWidth: isCancel ? 1 : 0,
-                borderLeftColor: DIVIDER_BORDER_COLOR,
+                borderLeftColor: colors.DIVIDER_BORDER_COLOR,
               }}>
               <Text style={{textAlign: 'center'}}>확인</Text>
             </View>

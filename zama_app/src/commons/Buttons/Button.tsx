@@ -2,9 +2,8 @@ import React from 'react';
 import {View, Text} from 'react-native';
 // components
 import TouchableOpacity from '../TouchableOpacity';
-
 // styles
-import * as colors from '@/styles/colors';
+import colors from '@/styles/colors';
 import * as sizes from '@/styles//sizes';
 import {typography} from '@/styles/typography';
 

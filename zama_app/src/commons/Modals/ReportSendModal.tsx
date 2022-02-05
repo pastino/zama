@@ -9,7 +9,7 @@ import {State} from '@/redux/rootReducer';
 // styles
 import {SCREEN_WIDTH} from '@/styles/sizes';
 import VerticalDivider from '../Divider/VerticalDivider';
-import {DIVIDER_BORDER_COLOR} from '@/styles/colors';
+import colors from '@/styles/colors';
 
 const ReportSendModal = ({}) => {
   const CONTAINER_WIDTH = SCREEN_WIDTH * 0.7;
@@ -53,7 +53,7 @@ const ReportSendModal = ({}) => {
                 justifyContent: 'center',
                 width: CONTAINER_WIDTH / 2,
                 borderLeftWidth: 1,
-                borderLeftColor: DIVIDER_BORDER_COLOR,
+                borderLeftColor: colors.DIVIDER_BORDER_COLOR,
               }}>
               <Text style={{textAlign: 'center'}}>확인</Text>
             </View>

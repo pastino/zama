@@ -2,8 +2,9 @@ import React, {useState, useRef, useEffect} from 'react';
 import {View, TextInput} from 'react-native';
 import Label from './Label';
 import Error from './Error';
-import * as colors from '@styles/colors';
+// styles
 import * as sizes from '@styles/sizes';
+import colors from '@/styles/colors';
 import {typography} from '@styles/typography';
 
 interface Props {

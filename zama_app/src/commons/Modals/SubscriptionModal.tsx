@@ -19,11 +19,12 @@ import {
   setSubscriptionModal,
 } from '@/redux/interation/interactionSlice';
 import {State} from '@/redux/rootReducer';
+// apis
+import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
 // styles
 import {FULL_SCREEN_HEIGHT, SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
-import {PURPLE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import Button from '../Buttons/Button';
-import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
 
 const SubscriptionModal = ({}) => {
   const dispatch = useDispatch();
@@ -116,7 +117,7 @@ const SubscriptionModal = ({}) => {
     <ModalContainer isVisible={openSubscriptionModal} close={handleModal}>
       <View
         style={{
-          backgroundColor: PURPLE,
+          backgroundColor: colors.PURPLE,
           width: SCREEN_WIDTH,
           height: FULL_SCREEN_HEIGHT,
         }}>

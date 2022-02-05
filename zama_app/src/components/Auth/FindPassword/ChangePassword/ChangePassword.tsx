@@ -4,7 +4,7 @@ import HeaderBasic from '@/commons/Header/HeaderBasic';
 import Input from '@/commons/Input/Input';
 import {useForm, Controller} from 'react-hook-form';
 import {BUTTON_HEIGHT, LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
-import {DARK_PURPLE, RIGTH_GRAY} from '@/styles/colors';
+import colors from '@/styles/colors';
 import Button from '@/commons/Buttons/Button';
 import useAuthAPI from '@/api/user/useAuthAPI';
 import validator from '@/utils/validator';
@@ -33,7 +33,7 @@ const ChangePassword = ({navigation: {goBack, navigate}, route}) => {
   };
 
   return (
-    <>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.DARK_PURPLE}}>
       <HeaderBasic
         goBack={goBack}
         previousBtn
@@ -57,15 +57,21 @@ const ChangePassword = ({navigation: {goBack, navigate}, route}) => {
                   borderRadius: LOGIN_BUTTON_WIDTH / 2,
                   textAling: 'center',
                   borderWidth: 1,
-                  borderColor: DARK_PURPLE,
+                  borderColor: colors.DARK_PURPLE,
+                  backgroundColor: colors.TRANSPARENT_WHITE,
                 }}
                 labelTextStyle={{
                   fontSize: 15,
                   fontWeight: '700',
                   marginBottom: 10,
+                  color: 'white',
                 }}
-                inputStyle={{paddingLeft: 20, fontSize: 14}}
-                errorTextStyle={{marginLeft: 10}}
+                inputStyle={{
+                  paddingLeft: 20,
+                  fontSize: 14,
+                  color: colors.PURPLE,
+                }}
+                errorTextStyle={{marginLeft: 10, color: colors.WHITE}}
               />
             )}
             name="password"
@@ -89,15 +95,21 @@ const ChangePassword = ({navigation: {goBack, navigate}, route}) => {
                   borderRadius: LOGIN_BUTTON_WIDTH / 2,
                   textAling: 'center',
                   borderWidth: 1,
-                  borderColor: DARK_PURPLE,
+                  borderColor: colors.DARK_PURPLE,
+                  backgroundColor: colors.TRANSPARENT_WHITE,
                 }}
                 labelTextStyle={{
                   fontSize: 15,
                   fontWeight: '700',
                   marginBottom: 10,
+                  color: 'white',
                 }}
-                inputStyle={{paddingLeft: 20, fontSize: 14}}
-                errorTextStyle={{marginLeft: 10}}
+                inputStyle={{
+                  paddingLeft: 20,
+                  fontSize: 14,
+                  color: colors.PURPLE,
+                }}
+                errorTextStyle={{marginLeft: 10, color: 'white'}}
               />
             )}
             name="confirmPassword"
@@ -115,7 +127,7 @@ const ChangePassword = ({navigation: {goBack, navigate}, route}) => {
             style={{
               width: LOGIN_BUTTON_WIDTH,
               height: BUTTON_HEIGHT,
-              backgroundColor: email ? DARK_PURPLE : RIGTH_GRAY,
+              backgroundColor: email ? colors.PURPLE : colors.RIGTH_GRAY,
             }}>
             비밀번호 찾기
           </Button>
@@ -131,7 +143,7 @@ const ChangePassword = ({navigation: {goBack, navigate}, route}) => {
         text={'비밀번호 변경이 완료되었습니다.'}
       />
       <SafeAreaView />
-    </>
+    </SafeAreaView>
   );
 };
 

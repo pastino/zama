@@ -102,8 +102,6 @@ export const sendSecretMailToFind = (secret: number, adress: string) => {
 };
 
 export const audioClassifier = (data: any) => {
-  console.log(data);
-
   return data;
 };
 
@@ -125,4 +123,33 @@ export const sendSms = async ({ receivers, message }: any) => {
       msg: message,
     },
   });
+};
+
+export const getSongColor = (index: number) => {
+  const SONG_PINK = "#e1a5dd";
+  const SONG_PINK_DARK = "#d376e9";
+  const SONG_APRICOT = "#e58d93";
+  const SONG_PASTEL = "#a177f5";
+  const SONG_PURPLE = "#874dff";
+  const SONG_PURPLE_DARK = "#5d0fff";
+  const SONG_RED = "#dc1d8f";
+
+  switch (index % 7) {
+    case 0:
+      return SONG_PINK;
+    case 1:
+      return SONG_PURPLE;
+    case 2:
+      return SONG_PINK_DARK;
+    case 3:
+      return SONG_APRICOT;
+    case 4:
+      return SONG_PASTEL;
+    case 5:
+      return SONG_PURPLE_DARK;
+    case 6:
+      return SONG_RED;
+    default:
+      return SONG_PINK;
+  }
 };

@@ -1,14 +1,14 @@
 import React, {FunctionComponent, useState} from 'react';
 import {Text, View} from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 // commons
 import BottomModalCard from '@/commons/Modals/BottomModalCard';
 import BottomModalContainer from '@/commons/Modals/Container/BottomModalContainer';
 import CheckBoxButton from '@/commons/Buttons/CheckBoxButton';
 import VerticalDivider from '@/commons/Divider/VerticalDivider';
 // stylse
-import {RED, DARK_PURPLE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import {SCREEN_WIDTH} from '@/styles/sizes';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 export interface TermTypes {
   title: string;
@@ -123,7 +123,9 @@ const TermsAgree: FunctionComponent<Props> = ({
                 handleCheck={handleCheck}
               />
               {obj.requirement ? (
-                <Text style={{color: RED, fontSize: 12}}>&nbsp;(필수)</Text>
+                <Text style={{color: colors.RED, fontSize: 12}}>
+                  &nbsp;(필수)
+                </Text>
               ) : (
                 <Text style={{fontSize: 12}}>&nbsp;(선택)</Text>
               )}
@@ -138,7 +140,7 @@ const TermsAgree: FunctionComponent<Props> = ({
                 <Text
                   style={{
                     fontSize: 13,
-                    color: DARK_PURPLE,
+                    color: colors.DARK_PURPLE,
                     textDecorationLine: 'underline',
                   }}>
                   보러가기

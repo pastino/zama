@@ -1,4 +1,4 @@
-import {BRIGHT_GRAY, RIGTH_GRAY, WHITE} from '@/styles/colors';
+import colors from '@/styles/colors';
 import React from 'react';
 import Slider from 'react-native-slider';
 
@@ -16,8 +16,8 @@ const ProgressBar = ({
       onValueChange={onValueChange}
       onSlidingStart={onSlidingStart}
       onSlidingComplete={onSlidingComplete}
-      maximumTrackTintColor={BRIGHT_GRAY}
-      minimumTrackTintColor={WHITE}
+      maximumTrackTintColor={colors.BRIGHT_GRAY}
+      minimumTrackTintColor={colors.WHITE}
       thumbTintColor={'white'}
     />
   );

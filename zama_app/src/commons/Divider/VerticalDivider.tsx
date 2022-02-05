@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View} from 'react-native';
 // styles
-import {DIVIDER_BORDER_COLOR, DIVIDER_COLOR} from '@/styles/colors';
+import colors from '@/styles/colors';
 
 interface Props {
   width: number;
@@ -15,7 +15,7 @@ const VerticalDivider: FunctionComponent<Props> = ({width, style}) => {
         {
           width,
           height: 1,
-          borderTopColor: DIVIDER_BORDER_COLOR,
+          borderTopColor: colors.DIVIDER_BORDER_COLOR,
           borderTopWidth: 0.5,
         },
         style,

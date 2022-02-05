@@ -1,21 +1,26 @@
-export const PRIMARY = '#222';
-export const WHITE = '#ffffff';
-export const PURPLE = '#C2ADEC';
-export const MIDDLE_PURPLE = '#a48bbf';
-export const DARK_PURPLE = '#241257';
-export const BLUE_GREEN = '#003756';
-export const PASTEL = '#454eae';
-export const BLUE = '#00abfb';
-export const YELLOW = '#fee600';
-export const BRIGHT_GRAY = '#e0e0e0';
-export const RIGTH_GRAY = '#999999';
-export const RIGTH_GRAY_MORE = '#f1f0f0';
-
-export const MIDDLE_GRAY = '#555555';
-export const DARK_GRAY = '#121212';
-export const TRANSPARENT_DARK = 'rgba(0, 0, 0, 0.5)';
-export const DIVIDER_BORDER_COLOR = '#f1f0f0';
-export const DIVIDER_COLOR = '#e5e5e5';
-export const ORANGE = '#fd8e00';
-export const RED = '#f72e2e';
-export const FONT = '#222';
+export default {
+  PRIMARY: '#222',
+  WHITE: '#ffffff',
+  PURPLE: '#ddceff',
+  RIGHT_PURPLE: '#363362',
+  MIDDLE_PURPLE: '#daa3e7',
+  DARK_PURPLE: '#121032',
+  FILTER_PURPLE: '#874dff',
+  BLUE_GREEN: '#003756',
+  PASTEL: '#454eae',
+  BLUE: '#00abfb',
+  YELLOW: '#fae74d',
+  BRIGHT_GRAY: '#e0e0e0',
+  RIGTH_GRAY: '#999999',
+  RIGTH_GRAY_MORE: '#f1f0f0',
+  MIDDLE_GRAY: '#555555',
+  DARK_GRAY: '#121212',
+  TRANSPARENT_DARK: 'rgba(0, 0, 0, 0.5)',
+  TRANSPARENT_WHITE: 'rgba(255,255,255,0.2)',
+  TRANSPARENT_PERPLE: 'rgba(255,255,255,0.2)',
+  DIVIDER_BORDER_COLOR: '#f1f0f0',
+  DIVIDER_COLOR: '#e5e5e5',
+  ORANGE: '#fd8e00',
+  RED: '#f72e2e',
+  FONT: '#222',
+};

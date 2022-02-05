@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, SafeAreaView, Text, ScrollView} from 'react-native';
-// styles
-import * as colors from '@/styles/colors';
-import * as sizes from '@/styles//sizes';
-import {typography} from '@/styles//typography';
 import {IoniconsIcons} from '@/commons/Icons/RnIcons';
 import Button from '../Buttons/Button';
+// styles
+import * as sizes from '@/styles//sizes';
+import colors from '@/styles/colors';
+import {typography} from '@/styles//typography';
 
 interface Props {
   close?: any;

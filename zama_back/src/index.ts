@@ -40,6 +40,8 @@ import SendRewardMessage from "./routes/admin/SendRewardMessage";
 import DeleteContents from "./routes/admin/content/DeleteContents";
 import ModifySleepAudio from "./routes/admin/content/ModifySleepAudio";
 import GetVouchers from "./routes/admin/voucher/GetVouchers";
+import GetHomeTopTen from "./routes/SleepAudio/GetHomeTopTen";
+import GetAudio from "./routes/SleepAudio/GetAudios";
 
 const app = express();
 const PORT = 5002;
@@ -77,6 +79,9 @@ app.post("/subscription", GiveSubscription);
 //sleep
 app.get("/home/contents", GetHomeAudio);
 app.get("/home/contents/v2", GetHomeAudioSubCate);
+app.get("/home/contents/top-ten", GetHomeTopTen);
+app.get("/audios", GetAudio);
+
 // app.post("/sleep", uploadMiddleware, CreateSleepAudio);
 app.get("/sleep/basket", GetSleepBasket);
 app.post("/sleep/basket", SleepBasket);

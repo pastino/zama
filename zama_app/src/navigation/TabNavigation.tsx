@@ -8,8 +8,9 @@ import BottomTabButton from './BottomTabButton';
 import {View} from 'react-native';
 
 export const bottomTabInfo = [
-  {name: 'Home', component: Home},
   {name: 'SleepBasket', component: SleepBasket},
+  {name: 'Home', component: Home},
+  {name: 'MyPage', component: SleepBasket},
 ];
 
 export default function TabNavigation() {
