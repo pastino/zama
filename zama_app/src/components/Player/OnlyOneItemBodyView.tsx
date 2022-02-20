@@ -30,14 +30,7 @@ const OnlyOneItemBodyView = () => {
     }
 
     if (division === 'ASMR') {
-      return (
-        <ImageCardASMR
-          uri={
-            'https://zama-assets.s3.ap-northeast-2.amazonaws.com/images/1643687952587_bird.png'
-          }
-          size={IMAGE_SIZE}
-        />
-      );
+      return <ImageCardASMR uri={artwork} size={IMAGE_SIZE} />;
     }
     return <View />;
   };

@@ -15,6 +15,7 @@ import colors from '@/styles/colors';
 
 //TODO
 // ASMR 이미지 url변경. 현재 고정 url => 'https://zama-assets.s3.ap-northeast-2.amazonaws.com/images/1643687952587_bird.png'
+// 사용하지 않는 코드(파일)들 삭제하기
 
 // 의논이 필요한 사항
 // 내가 좋아하는 음악에 제목이 없음

@@ -30,7 +30,7 @@ const AudioCardASMR = ({data, width = SCREEN_WIDTH * 0.3}) => {
       }}
     />
   ) : (
-    <AudioCardContainer audio={data} isAvailable={true} division={'Story'}>
+    <AudioCardContainer audio={data} isAvailable={true}>
       <View>
         <View style={{position: 'relative'}}>
           <View
@@ -44,7 +44,7 @@ const AudioCardASMR = ({data, width = SCREEN_WIDTH * 0.3}) => {
             }}>
             <FastImage
               source={{
-                uri: 'https://zama-assets.s3.ap-northeast-2.amazonaws.com/images/1643687952587_bird.png',
+                uri: data.thumbnail,
               }}
               resizeMode={'contain'}
               style={{

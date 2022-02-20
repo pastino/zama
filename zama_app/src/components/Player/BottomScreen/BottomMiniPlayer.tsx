@@ -73,7 +73,7 @@ const BottomMiniPlayer: FunctionComponent<Props> = ({
           }}>
           <FastImage
             source={{
-              uri: 'https://zama-assets.s3.ap-northeast-2.amazonaws.com/images/1643687952587_bird.png',
+              uri: currentAudio?.artwork,
             }}
             style={{width: 20, height: 20}}
             resizeMode={'contain'}

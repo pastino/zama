@@ -63,7 +63,7 @@ const AudioCardMyLike = ({data, width = SCREEN_WIDTH * 0.32}) => {
           }}>
           <FastImage
             source={{
-              uri: 'https://zama-assets.s3.ap-northeast-2.amazonaws.com/images/1643687952587_bird.png',
+              uri: thumbnail,
             }}
             resizeMode={'contain'}
             style={{
