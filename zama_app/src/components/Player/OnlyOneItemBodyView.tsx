@@ -16,7 +16,6 @@ const OnlyOneItemBodyView = () => {
   const audio = playList[0];
 
   const {id, title, duration, artwork, url, color, division, artist} = audio;
-  console.log(division);
 
   const IMAGE_SIZE = SCREEN_WIDTH * 0.65;
 

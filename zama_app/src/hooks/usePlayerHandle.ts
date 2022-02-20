@@ -36,6 +36,7 @@ export default function usePlayerHandle() {
   const turnOnAudio = async playList => {
     await handleInitSetAudio(playList);
     await TrackPlayer.add(playList?.slice(0, 1));
+
     handlePlay();
     handleModal();
   };
@@ -62,6 +63,7 @@ export default function usePlayerHandle() {
       return index + 1;
     }
     if (repeatState === 'oneRepeat') {
+      console.log(repeatState, index);
       return index;
     }
     if (repeatState === 'totalRepeat') {
@@ -79,6 +81,7 @@ export default function usePlayerHandle() {
   };
 
   const setIndexOfPrevEvent = index => {
+    console.log(index, repeatState);
     if (repeatState === 'normal') {
       return index - 1;
     }
@@ -142,16 +145,13 @@ export default function usePlayerHandle() {
       handlePrevEvent();
     });
 
-    if (Platform.OS === 'ios') {
-      await TrackPlayer.addEventListener('playback-queue-ended', e => {
-        handleNextEvent();
-        console.log(`TrackPlayerEvent = ${JSON.stringify(e)}}`);
-      });
-    }
-
-    // await TrackPlayer.addEventListener('playback-track-changed', e => {
-    //   console.log(`playback-track-changed`);
-    // });
+    // if (Platform.OS === 'ios') {
+    //   await TrackPlayer.addEventListener('playback-queue-ended', e => {
+    //     console.log(1111);
+    //     handleNextEvent();
+    //     console.log(`TrackPlayerEvent = ${JSON.stringify(e)}}`);
+    //   });
+    // }
   };
 
   return {

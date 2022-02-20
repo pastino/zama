@@ -11,9 +11,6 @@ import colors from '@/styles/colors';
 const AudioView = ({navigation: {goBack}, route}) => {
   const division = route?.params.division;
 
-  // const {playList} = useSelector((state: State) => state.playerReducer);
-  console.log(division);
-
   const AudioList = () => {
     if (division === 'Story') {
       return <AudioViewStory />;

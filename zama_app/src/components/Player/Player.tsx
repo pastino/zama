@@ -95,13 +95,11 @@ const Player = () => {
       durationString,
     });
 
-    if (Platform.OS === 'android') {
-      if (
-        Number(duration) > 0 &&
-        Math.ceil(Number(duration)) <= Math.ceil(position)
-      ) {
-        handleNextEvent();
-      }
+    if (
+      Number(duration) > 0 &&
+      Math.ceil(Number(duration)) <= Math.ceil(position)
+    ) {
+      handleNextEvent();
     }
   };
 

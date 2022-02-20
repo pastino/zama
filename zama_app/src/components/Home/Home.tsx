@@ -12,6 +12,7 @@ import {State} from '@/redux/rootReducer';
 // styles
 import {BOTTOM_TAB_HEIGHT, SIDE_PADDING} from '@/styles/sizes';
 import colors from '@/styles/colors';
+import useVersionAPI from '@/api/etc/useVersionAPI';
 
 //TODO
 // ASMR 이미지 url변경. 현재 고정 url => 'https://zama-assets.s3.ap-northeast-2.amazonaws.com/images/1643687952587_bird.png'
@@ -29,6 +30,7 @@ const Home = ({navigation}) => {
   const {subscriptions}: any = useSelector(
     (state: State) => state.subscriptionReducer,
   );
+  const {getVersion} = useVersionAPI();
 
   const isSubscriber = subscriptions.length > 0;
 
@@ -42,7 +44,16 @@ const Home = ({navigation}) => {
     }, 2000);
   };
 
+  const handleVersionDataUpdate = async () => {
+    try {
+      await getVersion();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
+    handleVersionDataUpdate();
     handleHideSplashScreen();
   }, []);
 

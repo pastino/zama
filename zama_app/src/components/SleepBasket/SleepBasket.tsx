@@ -65,7 +65,6 @@ const SleepBasket = () => {
 
   const handleBasketTotalAudio = () => {
     const audio = audibleContents();
-    console.log('audio', audio);
     turnOnAudio(audio);
   };
 
@@ -77,7 +76,6 @@ const SleepBasket = () => {
         style={{backgroundColor: colors.DARK_PURPLE}}
         renderItem={({item, index}) => {
           const isRight = index % 2 === 1;
-
           return (
             <View
               key={item.id}
@@ -85,7 +83,8 @@ const SleepBasket = () => {
                 flex: 1,
                 paddingLeft: 20,
                 paddingRight: isRight ? 20 : 0,
-                marginTop: 20,
+                marginTop: index === 0 || index === 1 ? 20 : 0,
+                marginBottom: 20,
               }}>
               <AudioCardMyLike data={item} width={SCREEN_WIDTH / 2 - 30} />
             </View>

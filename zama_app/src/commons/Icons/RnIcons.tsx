@@ -3,6 +3,7 @@ import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export interface RnIconProps {
   name: string;
@@ -40,4 +41,12 @@ export const FontAwesomes: FunctionComponent<RnIconProps> = ({
   color,
 }) => {
   return <FontAwesome name={name} size={size} color={color} />;
+};
+
+export const AntDesigns: FunctionComponent<RnIconProps> = ({
+  name,
+  size,
+  color,
+}) => {
+  return <AntDesign name={name} size={size} color={color} />;
 };

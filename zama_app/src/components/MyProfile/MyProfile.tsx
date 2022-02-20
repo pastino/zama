@@ -48,7 +48,8 @@ const MyProfile = ({navigation: {navigate}}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: colors.DARK_PURPLE}}>
-      <View style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+      <View
+        style={{flex: 0.15, justifyContent: 'center', alignItems: 'center'}}>
         <Text
           style={{
             color: 'white',
@@ -61,7 +62,7 @@ const MyProfile = ({navigation: {navigate}}) => {
       </View>
       <View
         style={{
-          flex: 0.27,
+          flex: 0.32,
           alignItems: 'center',
         }}>
         <View
@@ -85,7 +86,7 @@ const MyProfile = ({navigation: {navigate}}) => {
           {user?.name ? `${user?.name}님` : ''}
         </Text>
       </View>
-      <View style={{flex: 0.53, marginTop: 20}}>
+      <View style={{flex: 0.58, marginTop: 20}}>
         <TouchableOpacity
           activeOpacity={1}
           onPress={() =>
@@ -105,7 +106,7 @@ const MyProfile = ({navigation: {navigate}}) => {
               style={{
                 width: '100%',
                 borderRadius: 20,
-                height: SCREEN_HEIGHT * 0.12,
+                height: SCREEN_HEIGHT * 0.1,
               }}
             />
             {isSubscriber ? (
@@ -167,11 +168,10 @@ const MyProfile = ({navigation: {navigate}}) => {
         </TouchableOpacity>
         <View style={{flex: 1, paddingHorizontal: SIDE_PADDING}}>
           {ITEM_LIST.map((item, index) => (
-            <View key={index} style={{flex: 0.3, marginTop: 15}}>
+            <View key={index} style={{marginTop: 15}}>
               <Button
                 onPress={item?.onPress}
                 style={{
-                  flex: 1,
                   width: '100%',
                   backgroundColor: 'rgba(255,255,255,0.2)',
                   alignItems: 'flex-start',
@@ -183,7 +183,18 @@ const MyProfile = ({navigation: {navigate}}) => {
               </Button>
             </View>
           ))}
-          <Text style={{textAlign: 'center', marginTop: 40, color: 'white'}}>
+        </View>
+        <View
+          style={{
+            flex: 0.18,
+            justifyContent: 'flex-end',
+            paddingBottom: 10,
+          }}>
+          <Text
+            style={{
+              textAlign: 'center',
+              color: 'white',
+            }}>
             Version {appVersion}
           </Text>
         </View>
