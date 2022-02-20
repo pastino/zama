@@ -62,7 +62,6 @@ app.use(authenticateJwt);
 //user
 app.get("/user", GetUserInfo);
 app.get("/users", Users);
-
 app.post("/auth/signup/email", SignUpByEmail);
 app.post("/auth/login/kakao", LoginByKakao);
 app.post("/auth/login/apple", LoginByApple);
@@ -106,13 +105,10 @@ app.get("/version", GetVersion);
 app.post("/admin/login", LoginAdmin);
 app.post("/admin/signUp", CreateAdmin);
 app.get("/admin/audios", GetAudios);
-
 app.post("/admin/content", uploadMiddleware, CreateSleepAudio);
 app.put("/admin/content", ModifySleepAudio);
 app.post("/admin/delete/contents", DeleteContents);
-
 app.get("/admin/voucher", GetVouchers);
-
 app.post("/admin/reward", SendRewardMessage);
 
 //upload file
