@@ -17,7 +17,7 @@ const StoryAudioCard = ({data, width = SCREEN_WIDTH * 0.32}) => {
   const {id, title, thumbnail, time, isLike, free} = data;
   const IMAGE_WIDTH = width;
   const IMAGE_HEIGHT = (IMAGE_WIDTH * 116) / 137;
-  const FOOTER_HEIGHT = 55;
+
   const {subscriptions}: any = useSelector(
     (state: State) => state.subscriptionReducer,
   );
@@ -26,7 +26,7 @@ const StoryAudioCard = ({data, width = SCREEN_WIDTH * 0.32}) => {
     <View
       style={{
         width: IMAGE_WIDTH,
-        height: IMAGE_HEIGHT + FOOTER_HEIGHT,
+        height: IMAGE_HEIGHT + 60,
         borderRadius: 20,
         backgroundColor: colors.RIGHT_PURPLE,
       }}
@@ -68,7 +68,6 @@ const StoryAudioCard = ({data, width = SCREEN_WIDTH * 0.32}) => {
         <View
           style={{
             width: IMAGE_WIDTH,
-            height: FOOTER_HEIGHT,
             borderBottomRightRadius: 20,
             borderBottomLeftRadius: 20,
             backgroundColor: colors.RIGHT_PURPLE,

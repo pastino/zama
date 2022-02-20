@@ -22,7 +22,7 @@ const AudioCardMyLike = ({data, width = SCREEN_WIDTH * 0.32}) => {
 
   const Container = ({children}) => {
     return (
-      <AudioCardContainer audio={data} isAvailable={true} division={'Story'}>
+      <AudioCardContainer audio={data} isAvailable={true}>
         <View style={{position: 'relative', width: IMAGE_WIDTH}}>
           {children}
           <View style={{position: 'absolute', right: 10, top: 10}}>
@@ -100,7 +100,7 @@ const AudioCardMyLike = ({data, width = SCREEN_WIDTH * 0.32}) => {
   }
 
   return (
-    <AudioCardContainer audio={data} isAvailable={true} division={'Story'}>
+    <AudioCardContainer audio={data} isAvailable={true}>
       <View style={{}}>
         <View style={{position: 'relative'}}>
           <ImageBasic

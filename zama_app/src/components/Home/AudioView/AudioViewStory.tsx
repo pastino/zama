@@ -96,7 +96,7 @@ const AudioViewStory = () => {
           <View>
             <View
               style={{
-                height: playList.length > 0 ? 50 : 0,
+                height: playList?.length > 0 ? 50 : 0,
               }}
             />
             {!isLastPage && <ActivityIndicator size={25} />}

@@ -1,21 +1,22 @@
 import React, {useEffect, useState} from 'react';
+import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {navigationRef} from './RootNavigation';
-import DrawerNavigation from './DrawerNavigation';
-import AuthStack from './AuthStack';
+import SplashScreen from 'react-native-splash-screen';
 import compareVersions from 'compare-versions';
+import {navigationRef} from './RootNavigation';
+import AuthStack from './AuthStack';
+import MainStack from './MainStack';
 // commons
 import ToastMessage from '@/commons/ToastMessage';
+import UpdateForceModal from '@/commons/Modals/UpdateForceModal';
+import UpdateSelectModal from '@/commons/Modals/UpdateSelectModal';
+// apis
+import useVersionAPI from '@/api/etc/useVersionAPI';
+import {appVersion} from '@/api/useAPI';
 // redux
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
 import {setCurrentRoute} from '@/redux/interation/interactionSlice';
-import useVersionAPI from '@/api/etc/useVersionAPI';
-import {appVersion} from '@/api/useAPI';
-import SplashScreen from 'react-native-splash-screen';
-import {View} from 'react-native';
-import UpdateForceModal from '@/commons/Modals/UpdateForceModal';
-import UpdateSelectModal from '@/commons/Modals/UpdateSelectModal';
 
 const Gate = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const Gate = () => {
   const [forceUpdateModal, setForseUpdateModal] = useState(false);
   const [selectUpdateModal, setSelectUpdateModal] = useState(false);
   const [updateContents, setUpdateContents] = useState('');
+
   const handleGetVersion = async () => {
     const result = await getVersion();
     checkAppVersion(result);
@@ -96,7 +98,7 @@ const Gate = () => {
             }),
           )
         }>
-        {token ? <DrawerNavigation /> : <AuthStack />}
+        {token ? <MainStack /> : <AuthStack />}
       </NavigationContainer>
       <ToastMessage />
     </>

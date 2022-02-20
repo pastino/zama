@@ -31,7 +31,7 @@ const AudioCardASMR = ({data, width = SCREEN_WIDTH * 0.3}) => {
     />
   ) : (
     <AudioCardContainer audio={data} isAvailable={true} division={'Story'}>
-      <View style={{marginRight: 20}}>
+      <View>
         <View style={{position: 'relative'}}>
           <View
             style={{

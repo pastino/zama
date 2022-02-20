@@ -1,38 +1,22 @@
-import {Platform, ToastAndroid} from 'react-native';
-import {useEffect, useRef} from 'react';
+import {
+  setModalVisible,
+  setPause,
+  setPlay,
+  setPlayList,
+  setRepeatState,
+} from '@/redux/player/playerReducer';
 //libs
 import TrackPlayer from 'react-native-track-player';
 //redux
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  PlayList,
-  setContinuePlay,
-  setModalVisible,
-  setPause,
-  setPlay,
-  setPlayingNum,
-  setPlayList,
-  setRepeatState,
-} from '@/redux/player/playerReducer';
 import {State} from '@/redux/rootReducer';
+import {Platform} from 'react-native';
 
 export default function usePlayerHandle() {
   const dispatch = useDispatch();
 
-  const continuePlayRef = useRef<any>(null);
   const state = useSelector((state: State) => state.playerReducer);
-
-  const {modalVisible, continuePlay, playList, playingNum, repeatState} = state;
-
-  const handleClickContent = (playList: PlayList[]) => {
-    dispatch(setPlayList({playList}));
-    handleSetPlayingNum(0);
-    handleModal();
-  };
-
-  const handleModal = () => {
-    dispatch(setModalVisible({modalVisible: !modalVisible}));
-  };
+  const {modalVisible, playList, repeatState} = state;
 
   const handlePlay = async () => {
     await TrackPlayer.play();
@@ -44,208 +28,140 @@ export default function usePlayerHandle() {
     dispatch(setPause({}));
   };
 
-  const lastTrackFlag = () => {
-    if (playList.length === playingNum && !continuePlay) {
-      return true;
-    }
-    return false;
+  const handleInitSetAudio = async playList => {
+    dispatch(setPlayList({playList}));
+    await TrackPlayer.reset();
   };
 
-  const firstTrackFlag = () => {
-    if (1 === playingNum && !continuePlay) {
-      return true;
-    }
-    return false;
+  const turnOnAudio = async playList => {
+    await handleInitSetAudio(playList);
+    await TrackPlayer.add(playList?.slice(0, 1));
+    handlePlay();
+    handleModal();
   };
 
-  const handleNextEvent = async () => {
+  const handleModal = () => {
+    dispatch(setModalVisible({modalVisible: !modalVisible}));
+  };
+
+  const getCurrentIndex = async (): Promise<number> => {
     const currentTrack = await TrackPlayer.getCurrentTrack();
-
-    if (repeatState === 'oneRepeat') {
-      if (Number(currentTrack) === 0) {
-        setTimeout(async () => {
-          await TrackPlayer.skip('0');
-          handlePlay();
-        }, 1000);
-      } else {
-        setTimeout(async () => {
-          console.log('oneRepeat', 1);
-          await TrackPlayer.skip(String(Number(currentTrack) - 1));
-          handlePlay();
-        }, 1000);
-      }
-    } else if (repeatState === 'totalRepeat') {
-      if (Number(currentTrack) === playList.length - 1) {
-        await TrackPlayer.skip(String(0));
-        handlePlay();
-      } else {
-        await TrackPlayer.skip(String(Number(currentTrack) + 1));
-        handlePlay();
-      }
-    } else {
-      if (Number(currentTrack) === playList.length - 1) {
-        null;
-      } else {
-        await TrackPlayer.skip(String(Number(currentTrack) + 1));
-        handlePlay();
-      }
-    }
+    return playList.findIndex(audio => audio.id === Number(currentTrack));
   };
 
-  const handlePrevEvent = async () => {
-    const currentTrack = await TrackPlayer.getCurrentTrack();
-    if (Number(currentTrack) === 0) {
-      null;
-    } else {
-      await TrackPlayer.skip(String(Number(currentTrack) - 1));
+  const setPlaying = async index => {
+    if (playList[index]) {
+      await TrackPlayer.reset();
+      await TrackPlayer.add([playList[index] as any]);
       handlePlay();
     }
   };
 
-  const handleRemoteNextEvent = async () => {
-    const currentTrack = await TrackPlayer.getCurrentTrack();
-    if (playList.length === Number(currentTrack)) {
-      if (continuePlayRef.current) {
-        handleSetPlayingNum(1);
-        await TrackPlayer.skip(String(1));
+  const setIndexOfNextEvent = index => {
+    if (repeatState === 'normal') {
+      return index + 1;
+    }
+    if (repeatState === 'oneRepeat') {
+      return index;
+    }
+    if (repeatState === 'totalRepeat') {
+      if (playList?.length - 1 === index) {
+        return 0;
       }
-    } else {
-      handleSetPlayingNum(Number(currentTrack) + 1);
-      await TrackPlayer.skip(String(Number(currentTrack) + 1));
+      return index + 1;
     }
   };
 
-  const handleRemotePreveEvent = async () => {
-    const currentTrack = await TrackPlayer.getCurrentTrack();
-    if (Number(currentTrack) === 1) {
-      if (continuePlayRef.current) {
-        handleSetPlayingNum(playList.length);
-        await TrackPlayer.skip(String(playList.length));
-      }
-    } else {
-      handleSetPlayingNum(Number(currentTrack) - 1);
-      await TrackPlayer.skip(String(Number(currentTrack) - 1));
+  const handleNextEvent = async () => {
+    const index = await getCurrentIndex();
+    const settedIndex = setIndexOfNextEvent(index);
+    setPlaying(settedIndex);
+  };
+
+  const setIndexOfPrevEvent = index => {
+    if (repeatState === 'normal') {
+      return index - 1;
     }
+    if (repeatState === 'oneRepeat') {
+      return index;
+    }
+    if (repeatState === 'totalRepeat') {
+      if (index === 0) {
+        return playList?.length - 1;
+      }
+      return index - 1;
+    }
+  };
+
+  const handlePrevEvent = async () => {
+    const index = await getCurrentIndex();
+    const settedIndex = setIndexOfPrevEvent(index);
+    setPlaying(settedIndex);
   };
 
   const handleRepeatState = () => {
     dispatch(setRepeatState({}));
   };
 
-  const handleContinuePlay = () => {
-    dispatch(setContinuePlay({continuePlay: !continuePlay}));
-  };
-
-  const handleSetPlayingNum = playingNum => {
-    dispatch(setPlayingNum({playingNum}));
-  };
-
-  useEffect(() => {
-    continuePlayRef.current = continuePlay;
-  }, [continuePlay]);
-
   const handleSetupPlayer = async () => {
     await TrackPlayer.setupPlayer({});
-    if (Platform.OS === 'android') {
-      await TrackPlayer.updateOptions({
-        stopWithApp: true,
-        capabilities: [
-          TrackPlayer.CAPABILITY_PLAY,
-          TrackPlayer.CAPABILITY_PAUSE,
-          // TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-          // TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-          // TrackPlayer.CAPABILITY_SEEK_TO,
-        ],
-        compactCapabilities: [
-          TrackPlayer.CAPABILITY_PLAY,
-          TrackPlayer.CAPABILITY_PAUSE,
-          // TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-          // TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-          // TrackPlayer.CAPABILITY_SEEK_TO,
-        ],
-        notificationCapabilities: [
-          TrackPlayer.CAPABILITY_PLAY,
-          TrackPlayer.CAPABILITY_PAUSE,
-          // TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-          // TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-          // TrackPlayer.CAPABILITY_SEEK_TO,
-        ],
-        // icon: require('@assets/images/logo_text.png'),
-      });
-      await TrackPlayer.addEventListener('remote-play', () => {
-        handlePlay();
-      });
-      await TrackPlayer.addEventListener('remote-pause', () => {
-        handlePause();
-      });
-      await TrackPlayer.addEventListener('remote-next', () => {
-        handleRemoteNextEvent();
-      });
-      await TrackPlayer.addEventListener('remote-previous', () => {
-        handleRemotePreveEvent();
-      });
-      // await TrackPlayer.addEventListener('remote-seek', (seek) => {
-      //   onSeek(seek.position);
-      // });
-    } else {
-      await TrackPlayer.updateOptions({
-        stopWithApp: true,
-        capabilities: [
-          TrackPlayer.CAPABILITY_PLAY,
-          TrackPlayer.CAPABILITY_PAUSE,
-          // TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-          // TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-        ],
-        compactCapabilities: [
-          TrackPlayer.CAPABILITY_PLAY,
-          TrackPlayer.CAPABILITY_PAUSE,
-          // TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-          // TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-        ],
-        notificationCapabilities: [
-          TrackPlayer.CAPABILITY_PLAY,
-          TrackPlayer.CAPABILITY_PAUSE,
-          // TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-          // TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-        ],
-        // icon: require('@assets/images/logo_text.png'),
-      });
-      await TrackPlayer.addEventListener('remote-play', () => {
-        handlePlay();
-      });
-      await TrackPlayer.addEventListener('remote-pause', () => {
-        handlePause();
-      });
-      await TrackPlayer.addEventListener('remote-next', () => {
-        handleRemoteNextEvent();
-      });
-      await TrackPlayer.addEventListener('remote-previous', () => {
-        handleRemotePreveEvent();
+
+    await TrackPlayer.updateOptions({
+      stopWithApp: true,
+      capabilities: [
+        TrackPlayer.CAPABILITY_PLAY,
+        TrackPlayer.CAPABILITY_PAUSE,
+        TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+      ],
+      compactCapabilities: [
+        TrackPlayer.CAPABILITY_PLAY,
+        TrackPlayer.CAPABILITY_PAUSE,
+        TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+      ],
+      notificationCapabilities: [
+        TrackPlayer.CAPABILITY_PLAY,
+        TrackPlayer.CAPABILITY_PAUSE,
+        TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+      ],
+      // icon: require('@assets/images/logo_text.png'),
+    });
+    await TrackPlayer.addEventListener('remote-play', () => {
+      handlePlay();
+    });
+    await TrackPlayer.addEventListener('remote-pause', () => {
+      handlePause();
+    });
+
+    await TrackPlayer.addEventListener('remote-next', () => {
+      handleNextEvent();
+    });
+    await TrackPlayer.addEventListener('remote-previous', () => {
+      handlePrevEvent();
+    });
+
+    if (Platform.OS === 'ios') {
+      await TrackPlayer.addEventListener('playback-queue-ended', e => {
+        handleNextEvent();
+        console.log(`TrackPlayerEvent = ${JSON.stringify(e)}}`);
       });
     }
-  };
 
-  const handleInitSetAudio = async playList => {
-    await TrackPlayer.reset();
-    await TrackPlayer.add(playList);
-    handlePlay();
+    // await TrackPlayer.addEventListener('playback-track-changed', e => {
+    //   console.log(`playback-track-changed`);
+    // });
   };
 
   return {
     handleSetupPlayer,
-    handleInitSetAudio,
-    handleClickContent,
-    handleModal,
     handlePlay,
     handlePause,
+    handleModal,
+    turnOnAudio,
     handleNextEvent,
     handlePrevEvent,
-    handleContinuePlay,
-    handleSetPlayingNum,
-    lastTrackFlag,
-    firstTrackFlag,
-    handleRemoteNextEvent,
-    handleRemotePreveEvent,
     handleRepeatState,
   };
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {isIphoneX} from 'react-native-iphone-x-helper';
 import {SCREEN_WIDTH} from '@/styles/sizes';
 import Icon from '@/styles/ui/Icon';
 
-const SleepBasketHeader = () => {
+const SleepBasketHeader = ({handlePlay}) => {
   return (
     <View style={{position: 'relative'}}>
       <Image
@@ -23,33 +23,37 @@ const SleepBasketHeader = () => {
         <Text
           style={{
             color: 'white',
-            fontSize: 26,
+            fontSize: 24,
             fontWeight: '700',
             paddingLeft: 20,
-          }}>
+          }}
+          numberOfLines={1}
+          ellipsizeMode={'tail'}>
           내가 좋아하는 음악
         </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: 15,
-            borderRadius: 20,
-            paddingVertical: 10,
-            marginRight: 20,
-            backgroundColor: 'rgba(2,9,90,0.4)',
-          }}>
-          <Text
+        <TouchableOpacity onPress={handlePlay}>
+          <View
             style={{
-              color: 'white',
-              fontWeight: '700',
-              marginRight: 10,
-              fontSize: 16,
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingHorizontal: 15,
+              borderRadius: 20,
+              paddingVertical: 10,
+              marginRight: 20,
+              backgroundColor: 'rgba(2,9,90,0.4)',
             }}>
-            전체 재생
-          </Text>
-          <Icon iconName="play-btn" width={15} height={15} />
-        </View>
+            <Text
+              style={{
+                color: 'white',
+                fontWeight: '700',
+                marginRight: 10,
+                fontSize: 16,
+              }}>
+              전체 재생
+            </Text>
+            <Icon iconName="play-btn" width={15} height={15} />
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

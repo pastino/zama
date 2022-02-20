@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, SafeAreaView, Text, View} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 // libs
 import LinearGradient from 'react-native-linear-gradient';
 // commons
 import HeaderBasic from '@/commons/Header/HeaderBasic';
 import {handleGetImageData} from '@/utils/tools';
+// styles
 import {SCREEN_WIDTH} from '@/styles/sizes';
-import {ScrollView} from 'react-native-gesture-handler';
+import colors from '@/styles/colors';
 
 const NoticeDetail = ({navigation, route}) => {
   const {goBack, openDrawer} = navigation;
@@ -32,29 +34,28 @@ const NoticeDetail = ({navigation, route}) => {
   }, []);
 
   return (
-    <LinearGradient
-      colors={[
-        'rgba(194,173,236,1)',
-        'rgba(194,173,236,0.7)',
-        'rgba(194,173,236,0.5)',
-        'rgba(194,173,236,0.2)',
-      ]}
+    <SafeAreaView
       style={{
         flex: 1,
+        backgroundColor: colors.DARK_PURPLE,
       }}>
       <HeaderBasic
         previousBtn={true}
         goBack={() => {
           goBack();
         }}
-        style={{borderBottomWidth: 0}}
-        textStyle={{color: 'black'}}
-        title={notice?.title}
+        textStyle={{color: 'white'}}
+        title={'공지사항'}
       />
       <ScrollView style={{flex: 1}}>
         <View style={{marginTop: 10}}>
           <Text
-            style={{paddingHorizontal: 20, fontSize: 17, fontWeight: '700'}}>
+            style={{
+              paddingHorizontal: 20,
+              fontSize: 17,
+              fontWeight: '700',
+              color: 'white',
+            }}>
             {notice?.title}
           </Text>
           {detailImageInfo?.uri ? (
@@ -67,12 +68,12 @@ const NoticeDetail = ({navigation, route}) => {
               }}
             />
           ) : null}
-          <Text style={{paddingHorizontal: 20, marginTop: 20}}>
+          <Text style={{paddingHorizontal: 20, marginTop: 20, color: 'white'}}>
             {notice?.contents}
           </Text>
         </View>
       </ScrollView>
-    </LinearGradient>
+    </SafeAreaView>
   );
 };
 

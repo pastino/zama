@@ -79,13 +79,14 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
     voiceGender,
     file,
     division,
+    color,
     isLike,
     free,
     creator,
   } = data;
 
   const [onLoadEnd, setOnLoadEnd] = useState(false);
-  const {handleClickContent} = usePlayerHandle();
+  const {turnOnAudio} = usePlayerHandle();
   const {inBasketAudio} = useContentAPI();
 
   const [reportVisible, setReportVisible] = useState(false);
@@ -115,13 +116,14 @@ const AudioCard: FunctionComponent<Props> = ({data, isBasketBtn = true}) => {
 
   const handleClickAudio = () => {
     if (available) {
-      handleClickContent([
+      turnOnAudio([
         {
-          id: 0,
+          id,
           title,
           duration: time,
           artwork: thumbnail,
           url: file,
+          color,
           division,
           artist: 'zama',
         },

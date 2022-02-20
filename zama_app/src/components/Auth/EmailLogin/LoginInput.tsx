@@ -63,7 +63,7 @@ const LoginInput: FunctionComponent<Props> = ({
                 color: 'white',
               }}
               inputStyle={{paddingLeft: 30, color: colors.PURPLE}}
-              errorTextStyle={{marginLeft: 10}}
+              errorTextStyle={{marginLeft: 10, color: 'white'}}
             />
           )}
           name="email"
@@ -103,7 +103,7 @@ const LoginInput: FunctionComponent<Props> = ({
                   style={{padding: 5}}></TouchableOpacity>
               }
               inputStyle={{paddingLeft: 30, color: colors.PURPLE}}
-              errorTextStyle={{marginLeft: 10}}
+              errorTextStyle={{marginLeft: 10, color: 'white'}}
             />
           )}
           name="password"

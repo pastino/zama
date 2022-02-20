@@ -16,7 +16,7 @@ const SleepBasket = () => {
   const {basketAudios}: any = useSelector((state: State) => state.audioReducer);
   const {playList} = useSelector((state: State) => state.playerReducer);
 
-  const {handleClickContent} = usePlayerHandle();
+  const {turnOnAudio} = usePlayerHandle();
   const {subscriptions}: any = useSelector(
     (state: State) => state.subscriptionReducer,
   );
@@ -26,12 +26,15 @@ const SleepBasket = () => {
     if (subscriptions.length > 0) {
       for (let i = 0; i < basketAudios.length; i++) {
         if (!basketAudios[i]) return;
-        const {id, file, title, thumbnail, time, division} = basketAudios[i];
+        const {id, file, title, thumbnail, time, color, division} =
+          basketAudios[i];
+
         audioArr.push({
-          id: i,
+          id,
           url: file,
           title: title,
           artist: 'zama',
+          color,
           artwork: thumbnail,
           duration: time,
           division: division,
@@ -43,16 +46,17 @@ const SleepBasket = () => {
       const sortedFreeAudios = basketAudios.filter(audio => audio.free);
       for (let i = 0; i < sortedFreeAudios.length; i++) {
         if (!sortedFreeAudios[i]) return;
-        const {id, file, title, thumbnail, time, division} =
+        const {id, file, title, thumbnail, color, time, division} =
           sortedFreeAudios[i];
         audioArr.push({
-          id: i,
+          id,
           url: file,
           title: title,
           artist: 'zama',
+          color,
           artwork: thumbnail,
           duration: time,
-          division: division,
+          division,
         });
       }
       return audioArr;
@@ -61,20 +65,19 @@ const SleepBasket = () => {
 
   const handleBasketTotalAudio = () => {
     const audio = audibleContents();
-
-    handleClickContent(audio);
+    console.log('audio', audio);
+    turnOnAudio(audio);
   };
-
-  console.log();
 
   return (
     <View style={{flex: 1, backgroundColor: colors.DARK_PURPLE}}>
-      <SleepBasketHeader />
+      <SleepBasketHeader handlePlay={handleBasketTotalAudio} />
       <FlatList
         data={basketAudios}
         style={{backgroundColor: colors.DARK_PURPLE}}
         renderItem={({item, index}) => {
           const isRight = index % 2 === 1;
+
           return (
             <View
               key={item.id}
@@ -88,22 +91,10 @@ const SleepBasket = () => {
             </View>
           );
         }}
-        // onEndReached={handleMoreGetAudios}
-        // onEndReachedThreshold={0.9}
-        // ListFooterComponent={
-        //   <View>
-        //     <View
-        //       style={{
-        //         height: playList.length > 0 ? 70 : 20,
-        //       }}
-        //     />
-        //     {!isLastPage && <ActivityIndicator size={25} />}
-        //   </View>
-        // }
         numColumns={2}
         showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
-        contentContainerStyle={{paddingVertical: 5}}
+        contentContainerStyle={{paddingBottom: playList?.length > 0 ? 90 : 0}}
       />
     </View>
   );

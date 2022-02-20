@@ -31,7 +31,7 @@ const VoucherInput = ({goBack}) => {
   return (
     <View>
       <View style={{marginTop: 50}}>
-        <Text style={{marginBottom: 10, color: colors.MIDDLE_GRAY}}>
+        <Text style={{marginBottom: 10, color: 'white'}}>
           리워드로 받으신 쿠폰번호를 입력해주세요
         </Text>
         <Input
@@ -53,8 +53,12 @@ const VoucherInput = ({goBack}) => {
       <View>
         <Button
           onPress={handleUseVoucher}
-          style={{borderRadius: 5, marginTop: 30}}
-          textStyle={{fontWeight: '600'}}>
+          style={{
+            borderRadius: 5,
+            marginTop: 30,
+            backgroundColor: colors.PURPLE,
+          }}
+          textStyle={{fontWeight: '600', color: 'white'}}>
           사용하기
         </Button>
       </View>

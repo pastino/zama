@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Image,
   Platform,
   Text,
   TouchableOpacity,
@@ -22,9 +23,13 @@ import {State} from '@/redux/rootReducer';
 // apis
 import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
 // styles
-import {FULL_SCREEN_HEIGHT, SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
+import {
+  FULL_SCREEN_HEIGHT,
+  SCREEN_HEIGHT,
+  SCREEN_WIDTH,
+  SIDE_PADDING,
+} from '@/styles/sizes';
 import colors from '@/styles/colors';
-import Button from '../Buttons/Button';
 
 const SubscriptionModal = ({}) => {
   const dispatch = useDispatch();
@@ -117,34 +122,110 @@ const SubscriptionModal = ({}) => {
     <ModalContainer isVisible={openSubscriptionModal} close={handleModal}>
       <View
         style={{
-          backgroundColor: colors.PURPLE,
+          backgroundColor: colors.DARK_PURPLE,
           width: SCREEN_WIDTH,
           height: FULL_SCREEN_HEIGHT,
         }}>
         <HeaderBasic goBack={handleModal} previousBtn={true} />
-        <View style={{paddingHorizontal: 20, marginTop: 30}}>
-          <Text style={{fontSize: 28, lineHeight: 35, fontWeight: '700'}}>
-            프리미엄 회원{'\n'}신청하기
-          </Text>
-          <Text style={{marginTop: 20}}>이용중인 상품이 없습니다.</Text>
-          <Button
-            onPress={handlePurchase}
-            style={{borderRadius: 5, marginTop: 30}}
-            textStyle={{fontWeight: '600'}}>
-            프리미엄 회원 신청하기 (1개월)
-          </Button>
-          {!isTest && (
-            <TouchableOpacity onPress={openRewardModal}>
+        <View style={{flex: 1, paddingHorizontal: SIDE_PADDING, marginTop: 30}}>
+          <View
+            style={{
+              flex: 0.6,
+              position: 'relative',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Image
+              source={require('@/assets/images/premium-back-img-big.png')}
+              style={{width: '100%', height: '100%', borderRadius: 20}}
+            />
+            <View style={{position: 'absolute'}}>
               <Text
                 style={{
-                  marginTop: 20,
-                  textAlign: 'right',
-                  textDecorationLine: 'underline',
+                  textAlign: 'center',
+                  fontSize: 37,
+                  fontWeight: '700',
+                  color: 'white',
+                  marginBottom: SCREEN_HEIGHT * 0.1,
                 }}>
-                리워드 사용하기
+                프리미엄 신청
               </Text>
+              <View style={{}}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    lineHeight: 28,
+                    fontWeight: '600',
+                    color: 'white',
+                    textAlign: 'center',
+                  }}>
+                  더 다양한 콘텐츠를 {`\n`}
+                  자유롭게 {`\n`}
+                  아이와 함께 편안한 {`\n`}
+                  밤을 보내세요! {`\n`}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={{flex: 0.4}}>
+            <Text
+              style={{
+                marginTop: 15,
+                marginBottom: 20,
+                color: 'white',
+                textAlign: 'center',
+              }}>
+              1개월 구독료가 일시 청구됩니다.
+            </Text>
+            <TouchableOpacity activeOpacity={0.9} onPress={handlePurchase}>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'relative',
+                }}>
+                <Image
+                  source={require('@/assets/images/premium-back-img.png')}
+                  style={{
+                    width: '100%',
+                    height: 80,
+                    borderRadius: 40,
+                  }}
+                />
+                <View
+                  style={{
+                    position: 'absolute',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'row',
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontSize: 28,
+                      marginLeft: 10,
+                      fontWeight: '700',
+                    }}>
+                    1개월 구독
+                  </Text>
+                </View>
+              </View>
             </TouchableOpacity>
-          )}
+            {!isTest && (
+              <TouchableOpacity onPress={openRewardModal}>
+                <Text
+                  style={{
+                    marginTop: 20,
+                    textAlign: 'right',
+                    textDecorationLine: 'underline',
+                    color: 'white',
+                    fontWeight: '700',
+                  }}>
+                  리워드 사용하기
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
       {isLoading && (

@@ -1,32 +1,35 @@
 import React, {FunctionComponent} from 'react';
-import {Image, View} from 'react-native';
+import {View} from 'react-native';
+import {bottomTabInfo} from '@/navigation/TabNavigation';
+import FastImage from 'react-native-fast-image';
 // commons
 import {IoniconsIcons} from '@/commons/Icons/RnIcons';
 import TouchableOpacity from '@/commons/TouchableOpacity';
+// redux
+import {useSelector} from 'react-redux';
+import {State} from '@/redux/rootReducer';
 // styles
 import {BOTTOM_TAB_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
 import styled from 'styled-components/native';
 import colors from '@/styles/colors';
-import {useSelector} from 'react-redux';
-import {State} from '@/redux/rootReducer';
-import {bottomTabInfo} from '@/navigation/TabNavigation';
+import Icon from '@/styles/ui/Icon';
 
 interface Props {
-  title: string;
-  thumbnail: string;
+  handleNextEvent: () => void;
+  handlePrevEvent: () => void;
+  currentAudio: any;
   handleModal: () => void;
   playing: boolean | null;
-  artist: string | undefined;
   handlePause: () => void;
   handlePlay: () => void;
 }
 
 const BottomMiniPlayer: FunctionComponent<Props> = ({
-  title,
-  thumbnail,
+  handleNextEvent,
+  handlePrevEvent,
+  currentAudio,
   handleModal,
   playing,
-  artist,
   handlePause,
   handlePlay,
 }) => {
@@ -41,6 +44,60 @@ const BottomMiniPlayer: FunctionComponent<Props> = ({
   const BOTTOM_HEIGHT =
     isCurrentTabRoute || currentRoute === '' ? BOTTOM_TAB_HEIGHT - 5 : 0;
 
+  const ImageItem = () => {
+    if (currentAudio?.division === 'Story') {
+      return (
+        <FastImage
+          source={{uri: currentAudio?.artwork}}
+          style={{
+            width: 35,
+            height: 35,
+            borderRadius: 10,
+            backgroundColor: colors.RIGHT_PURPLE,
+          }}
+          resizeMode={'cover'}
+        />
+      );
+    }
+
+    if (currentAudio?.division === 'ASMR') {
+      return (
+        <View
+          style={{
+            width: 35,
+            height: 35,
+            borderRadius: 10,
+            backgroundColor: colors.RIGHT_PURPLE,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <FastImage
+            source={{
+              uri: 'https://zama-assets.s3.ap-northeast-2.amazonaws.com/images/1643687952587_bird.png',
+            }}
+            style={{width: 20, height: 20}}
+            resizeMode={'contain'}
+          />
+        </View>
+      );
+    }
+
+    if (currentAudio?.division === 'Song') {
+      return (
+        <View
+          style={{
+            width: 35,
+            height: 35,
+            borderRadius: 10,
+            backgroundColor: currentAudio?.color,
+          }}
+        />
+      );
+    }
+
+    return <View />;
+  };
+
   return (
     <Continer height={HEIGHT} bottom={BOTTOM_HEIGHT}>
       <TouchableOpacity style={{flex: 1}} onPress={handleModal}>
@@ -51,31 +108,33 @@ const BottomMiniPlayer: FunctionComponent<Props> = ({
             justifyContent: 'space-between',
           }}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image
-              source={{uri: thumbnail}}
-              style={{width: 50, height: 50}}
-              resizeMode={'cover'}
-            />
+            <ImageItem />
             <TitleContainer>
-              <Title>{title}</Title>
-              {artist && <Artist>{artist}</Artist>}
+              <Title>{currentAudio?.title}</Title>
             </TitleContainer>
           </View>
           <View
             style={{
               alignItems: 'center',
-              justifyContent: 'center',
-              marginRight: 20,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              width: 110,
             }}>
+            <TouchableOpacity onPress={handlePrevEvent}>
+              <Icon iconName="prev-btn" />
+            </TouchableOpacity>
             {playing ? (
               <TouchableOpacity onPress={handlePause}>
-                <IoniconsIcons name={'pause'} color={colors.WHITE} size={30} />
+                <IoniconsIcons name={'pause'} color={colors.WHITE} size={25} />
               </TouchableOpacity>
             ) : (
               <TouchableOpacity onPress={handlePlay}>
-                <IoniconsIcons name={'play'} color={colors.WHITE} size={30} />
+                <IoniconsIcons name={'play'} color={colors.WHITE} size={25} />
               </TouchableOpacity>
             )}
+            <TouchableOpacity onPress={handleNextEvent}>
+              <Icon iconName="next-btn" />
+            </TouchableOpacity>
           </View>
         </View>
       </TouchableOpacity>
@@ -98,7 +157,7 @@ const Continer = styled.View<ContainerProp>`
   bottom: ${props => props.bottom}px;
   height: ${props => props.height}px;
   width: ${SCREEN_WIDTH}px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: black;
   z-index: 1;
 `;
 
@@ -110,15 +169,8 @@ const TitleContainer = styled.View<ContainerProp>`
 const Title = styled.Text`
   color: ${colors.WHITE};
   font-weight: 600;
-  font-size: 17px;
-  margin-left: 20px;
-`;
-
-const Artist = styled.Text`
-  color: ${colors.BRIGHT_GRAY};
-  font-weight: 600;
-  font-size: 14px;
-  margin-left: 20px;
+  font-size: 15px;
+  margin-left: 12px;
 `;
 
 export default BottomMiniPlayer;

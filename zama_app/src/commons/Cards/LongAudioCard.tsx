@@ -56,9 +56,10 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
     );
   }
 
-  const {id, title, time, thumbnail, file1, file2, division, creator} = data;
+  const {id, title, time, thumbnail, file1, color, file2, division, creator} =
+    data;
   const [onLoadEnd, setOnLoadEnd] = useState(false);
-  const {handleClickContent} = usePlayerHandle();
+  const {turnOnAudio} = usePlayerHandle();
   const {inBasketAudio} = useContentAPI();
 
   const handleInBasketAudio = async () => {
@@ -71,13 +72,14 @@ const AudioCard: FunctionComponent<Props> = ({data, size}) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        handleClickContent([
+        turnOnAudio([
           {
-            id: 0,
+            id,
             title,
             duration: time,
             artwork: thumbnail,
             url: file1,
+            color,
             division,
             artist: 'test',
           },

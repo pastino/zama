@@ -16,9 +16,9 @@ const ProgressBar = ({
       onValueChange={onValueChange}
       onSlidingStart={onSlidingStart}
       onSlidingComplete={onSlidingComplete}
-      maximumTrackTintColor={colors.BRIGHT_GRAY}
-      minimumTrackTintColor={colors.WHITE}
-      thumbTintColor={'white'}
+      maximumTrackTintColor={colors.RIGHT_PURPLE}
+      minimumTrackTintColor={colors.PURPLE}
+      thumbTintColor={colors.PURPLE}
     />
   );
 };

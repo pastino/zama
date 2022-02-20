@@ -115,7 +115,6 @@ const Subscription = ({navigation: {goBack, openDrawer, navigate}, route}) => {
           textStyle={{fontWeight: '600'}}>
           프리미엄 회원 신청하기 (1개월)
         </Button>
-
         {!isTest && (
           <TouchableOpacity onPress={() => navigate('Voucher')}>
             <Text

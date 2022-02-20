@@ -5,20 +5,27 @@ import TabNavigation from './TabNavigation';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {navigate} from './RootNavigation';
 // components
+import RewardModal from '@/commons/Modals/RewardModal';
+import SubscriptionModal from '@/commons/Modals/SubscriptionModal';
 import Servey from '@/components/Servey';
 import Player from '@/components/Player';
 import AudioView from '@/components/Home/AudioView';
 import ReportSendModal from '@/commons/Modals/ReportSendModal';
+import Subscription from '@/components/Menu/Subscription';
+import Notice from '@/components/MyProfile/Notice';
+import NoticeDetail from '@/components/MyProfile/Notice/NoticeDetail';
+import Contact from '@/components/MyProfile/Contact';
+import Voucher from '@/components/Menu/Voucher';
+import MyAccount from '@/components/Menu/MyAccount';
+import Info from '@/components/Menu/Info';
 // apis
 import useContentAPI from '@/api/content/useContentAPI';
 import useSubscriptionAPI from '@/api/subscription/useSubscriptionAPI';
-
 // redux
 import {useSelector} from 'react-redux';
 import {State} from '@/redux/rootReducer';
 // styles
 import colors from '@/styles/colors';
-import {PURPLE_COLOR} from '@/components/Home/gradientColorArr';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '@/styles/sizes';
 
 const MainStack = () => {
@@ -79,9 +86,10 @@ const MainStack = () => {
 
   return (
     <View style={{flex: 1, overflow: 'hidden'}}>
-      {playList.length > 0 && <Player />}
+      <RewardModal />
+      <SubscriptionModal />
+      {playList?.length > 0 && <Player />}
       <ReportSendModal />
-
       <MainStack.Navigator
         initialRouteName="Main"
         headerMode="none"
@@ -89,7 +97,7 @@ const MainStack = () => {
         <MainStack.Screen
           name="Tab"
           component={TabNavigation}
-          options={{cardStyle: {backgroundColor: PURPLE_COLOR(1)}}}
+          options={basicOptions}
         />
         <MainStack.Screen
           name="AudioView"
@@ -101,6 +109,37 @@ const MainStack = () => {
           component={Servey}
           options={basicOptions}
         />
+        <MainStack.Screen
+          name="Subscription"
+          component={Subscription}
+          options={basicOptions}
+        />
+        <MainStack.Screen
+          name="Voucher"
+          component={Voucher}
+          options={basicOptions}
+        />
+        <MainStack.Screen
+          name="MyAccount"
+          component={MyAccount}
+          options={basicOptions}
+        />
+        <MainStack.Screen
+          name="Notice"
+          component={Notice}
+          options={basicOptions}
+        />
+        <MainStack.Screen
+          name="NoticeDetail"
+          component={NoticeDetail}
+          options={basicOptions}
+        />
+        <MainStack.Screen
+          name="Contact"
+          component={Contact}
+          options={basicOptions}
+        />
+        <MainStack.Screen name="Info" component={Info} options={basicOptions} />
       </MainStack.Navigator>
       {isLoading && (
         <View

@@ -24,13 +24,17 @@ const AudioHorizontal = ({title, data, division}) => {
     return (
       <View style={{marginLeft: index === 0 ? 20 : 0}}>
         {title === '스토리' ? (
-          <View style={{marginRight: 20}}>
+          <View style={{marginRight: 15}}>
             <AudioCardStory data={item} />
           </View>
         ) : title === 'ASMR' ? (
-          <AudioCardASMR data={item} />
+          <View style={{marginRight: 15}}>
+            <AudioCardASMR data={item} />
+          </View>
         ) : title === '음악' ? (
-          <AudioCardSong data={item} />
+          <View style={{marginRight: 15}}>
+            <AudioCardSong data={item} />
+          </View>
         ) : null}
       </View>
     );

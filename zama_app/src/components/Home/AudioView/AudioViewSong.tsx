@@ -53,7 +53,7 @@ const AudioViewSong = () => {
           <View>
             <View
               style={{
-                height: playList.length > 0 ? 70 : 20,
+                height: playList?.length > 0 ? 70 : 20,
               }}
             />
             {!isLastPage && <ActivityIndicator size={25} />}

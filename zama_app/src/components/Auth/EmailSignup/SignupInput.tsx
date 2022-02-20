@@ -16,6 +16,7 @@ import {onToastMessage} from '@/redux/interation/interactionSlice';
 // styles
 import colors from '@/styles/colors';
 import {INPUT_HEIGHT, LOGIN_BUTTON_WIDTH, SCREEN_WIDTH} from '@/styles/sizes';
+import Button from '@/commons/Buttons/Button';
 
 interface Props {
   control: any;
@@ -149,7 +150,7 @@ const SignupInput: FunctionComponent<Props> = ({
                 marginBottom: 10,
               }}
               inputStyle={{paddingLeft: 20, fontSize: 14, color: colors.PURPLE}}
-              errorTextStyle={{marginLeft: 10}}
+              errorTextStyle={{marginLeft: 10, color: 'white'}}
             />
           )}
           name="name"
@@ -190,26 +191,24 @@ const SignupInput: FunctionComponent<Props> = ({
                   fontSize: 14,
                   color: colors.PURPLE,
                 }}
-                errorTextStyle={{marginLeft: 10}}
+                errorTextStyle={{marginLeft: 10, color: 'white'}}
                 button={
-                  <ButtonCustom
+                  <Button
                     disabled={successCert}
-                    handleClick={() => sendCertNumByEmail(value)}
-                    text={
-                      !successSendCertNum || successCert
-                        ? '인증번호 발송'
-                        : '인증번호 재발송'
-                    }
-                    backgroundColor={'black'}
-                    containerStyles={{
+                    onPress={() => sendCertNumByEmail(value)}
+                    style={{
                       width: SCREEN_WIDTH / 4,
                       height: INPUT_HEIGHT,
                       backgroundColor: successCert
                         ? colors.MIDDLE_GRAY
                         : colors.PURPLE,
+                      borderRadius: 10,
                     }}
-                    textStyles={{color: 'white', fontSize: 12}}
-                  />
+                    textStyle={{color: 'white', fontSize: 12}}>
+                    {!successSendCertNum || successCert
+                      ? '인증번호 발송'
+                      : '인증번호 재발송'}
+                  </Button>
                 }
               />
             </View>
@@ -253,7 +252,7 @@ const SignupInput: FunctionComponent<Props> = ({
                       paddingRight: 70,
                       color: colors.PURPLE,
                     }}
-                    errorTextStyle={{marginLeft: 10}}
+                    errorTextStyle={{marginLeft: 10, color: 'white'}}
                     time={
                       <Text
                         style={{

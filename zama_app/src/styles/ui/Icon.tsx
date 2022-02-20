@@ -13,17 +13,19 @@ import HomeOff from '@/assets/svg/home-off.svg';
 import HomeOn from '@/assets/svg/home-on.svg';
 import MyPageOff from '@/assets/svg/my-page-off.svg';
 import MyPageOn from '@/assets/svg/my-page-on.svg';
-import PlaylistOff from '@/assets/svg/playlist-on.svg';
-import PlaylistOn from '@/assets/svg/playlist-off.svg';
-
+import PlaylistOn from '@/assets/svg/playlist-on.svg';
+import PlaylistOff from '@/assets/svg/playlist-off.svg';
 import DiamondBid from '@/assets/svg/diamond-big.svg';
 import DiamondSmall from '@/assets/svg/diamond-small.svg';
-
 import Lock from '@/assets/svg/lock.svg';
 import HeartOn from '@/assets/svg/heart-on.svg';
 import HeartOff from '@/assets/svg/heart-off.svg';
-
 import PlayBtn from '@/assets/svg/play-btn.svg';
+import HamburgerBtn from '@/assets/svg/hamburger-btn.svg';
+import PauseBtn from '@/assets/svg/pause-btn.svg';
+import PrevBtn from '@/assets/svg/prev-btn.svg';
+import NextBtn from '@/assets/svg/next-btn.svg';
+import MoonWhite from '@/assets/svg/moon-white.svg';
 
 interface Props {
   iconName: string;
@@ -84,6 +86,19 @@ export default function Icon({
 
       case 'play-btn':
         return <PlayBtn width={width} height={height} />;
+
+      case 'hamburger-btn':
+        return <HamburgerBtn width={width} height={height} />;
+
+      case 'pause-btn':
+        return <PauseBtn width={width} height={height} />;
+      case 'prev-btn':
+        return <PrevBtn width={width} height={height} />;
+      case 'next-btn':
+        return <NextBtn width={width} height={height} />;
+
+      case 'moon-white':
+        return <MoonWhite width={width} height={height} />;
 
       default:
         return null;

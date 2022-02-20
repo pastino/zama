@@ -10,7 +10,7 @@ export interface AudioState {
   thumbnail: string;
   file: string;
   voiceGender: string;
-  color?: string;
+  color: string;
   isLike: boolean;
   createAt: Date;
   updateAt: Date;

@@ -4,20 +4,21 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {useDispatch} from 'react-redux';
 
-const AudioCardContainer = ({children, audio, isAvailable, division}) => {
-  const {handleClickContent} = usePlayerHandle();
+const AudioCardContainer = ({children, audio, isAvailable}) => {
+  const {turnOnAudio} = usePlayerHandle();
   const dispatch = useDispatch();
 
   const handleClickAudio = () => {
     if (isAvailable) {
-      handleClickContent([
+      turnOnAudio([
         {
-          id: 0,
+          id: audio.id,
           title: audio.title,
           duration: audio.time,
           artwork: audio.thumbnail,
           url: audio.file,
-          division,
+          color: audio.color,
+          division: audio.division,
           artist: 'zama',
         },
       ]);

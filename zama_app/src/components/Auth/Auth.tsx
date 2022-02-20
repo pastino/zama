@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Platform, Text, View} from 'react-native';
+import {Image, ImageBackground, Platform, Text, View} from 'react-native';
 // commons
 import LoginButton from '@/commons/Buttons/LoginButton';
 import HorizontalSmallDivider from '@/commons/Divider/HorizontalSmallDivider';
@@ -20,7 +20,7 @@ import {
 import useAuthAPI from '@/api/user/useAuthAPI';
 // styles
 import colors from '@/styles/colors';
-import {SCREEN_WIDTH} from '@styles/sizes';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from '@styles/sizes';
 import styled from 'styled-components/native';
 import Button from '@/commons/Buttons/Button';
 
@@ -185,36 +185,46 @@ const Auth = ({navigation}) => {
 
   return (
     <ScreenWrapper>
-      <Logo>
-        <Image
-          source={require('@assets/images/zama_text_logo.png')}
-          resizeMode={'contain'}
-          style={{width: SCREEN_WIDTH * 0.5}}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: 100,
+        }}>
+        <View style={{flex: 0.2}}>
+          <Image
+            source={require('@/assets/images/zama-text.png')}
+            style={{width: SCREEN_WIDTH / 1.7}}
+            resizeMode={'contain'}
+          />
+        </View>
+        <View style={{flex: 0.4}}>
+          <LoginFooter>
+            {LOGIN_BUTTON.map(obj => (
+              <View key={obj.text} style={{flexDirection: 'column'}}>
+                {obj.components()}
+              </View>
+            ))}
+            <EmailLoginWrapper>
+              <TextTouchable onPress={() => navigation.navigate('EmailLogin')}>
+                <TextInput>이메일로 로그인하기</TextInput>
+              </TextTouchable>
+              <HorizontalSmallDivider color={'black'} />
+              <TextTouchable onPress={() => navigation.navigate('EmailSignup')}>
+                <TextInput>아직 회원이 아닌가요?</TextInput>
+              </TextTouchable>
+            </EmailLoginWrapper>
+          </LoginFooter>
+        </View>
+        <TermsAgree
+          visible={agreeTermModal}
+          setVisible={setAgreeTermModal}
+          handlePressBtn={handleConfirmAgreeTerms}
+          navigation={navigation}
+          handleMoveToTerm={handleMoveToTerm}
         />
-      </Logo>
-      <LoginFooter>
-        {LOGIN_BUTTON.map(obj => (
-          <View key={obj.text} style={{flexDirection: 'column'}}>
-            {obj.components()}
-          </View>
-        ))}
-        <EmailLoginWrapper>
-          <TextTouchable onPress={() => navigation.navigate('EmailLogin')}>
-            <TextInput>이메일로 로그인하기</TextInput>
-          </TextTouchable>
-          <HorizontalSmallDivider color={'black'} />
-          <TextTouchable onPress={() => navigation.navigate('EmailSignup')}>
-            <TextInput>아직 회원이 아닌가요?</TextInput>
-          </TextTouchable>
-        </EmailLoginWrapper>
-      </LoginFooter>
-      <TermsAgree
-        visible={agreeTermModal}
-        setVisible={setAgreeTermModal}
-        handlePressBtn={handleConfirmAgreeTerms}
-        navigation={navigation}
-        handleMoveToTerm={handleMoveToTerm}
-      />
+      </View>
     </ScreenWrapper>
   );
 };
@@ -227,16 +237,7 @@ const ScreenWrapper = styled.SafeAreaView`
   background-color: ${colors.PURPLE};
 `;
 
-const Logo = styled.View`
-  flex: 0.4;
-  height: auto;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 10px;
-`;
-
 const LoginFooter = styled.View`
-  flex: 0.6;
   margin-top: 80px;
 `;
 

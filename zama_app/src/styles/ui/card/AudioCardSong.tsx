@@ -26,7 +26,7 @@ const AudioCardSong = ({data, width = SCREEN_WIDTH * 0.6}) => {
       <View
         style={{
           position: 'relative',
-          marginRight: 20,
+
           backgroundColor: colors.RIGHT_PURPLE,
           width,
           paddingHorizontal: 20,

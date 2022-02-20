@@ -27,13 +27,19 @@ const RewardModal = ({}) => {
     <ModalContainer isVisible={openRewardModal} close={handleModal}>
       <View
         style={{
-          backgroundColor: colors.PURPLE,
+          backgroundColor: colors.DARK_PURPLE,
           width: SCREEN_WIDTH,
           height: FULL_SCREEN_HEIGHT,
         }}>
         <HeaderBasic goBack={handleModal} previousBtn={true} />
         <View style={{paddingHorizontal: 20, marginTop: 30}}>
-          <Text style={{fontSize: 28, lineHeight: 35, fontWeight: '700'}}>
+          <Text
+            style={{
+              fontSize: 28,
+              lineHeight: 35,
+              fontWeight: '700',
+              color: 'white',
+            }}>
             리워드{'\n'}사용하기
           </Text>
           <VoucherInput goBack={handleModal} />
